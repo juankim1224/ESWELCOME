@@ -145,7 +145,7 @@ namespace WEB.schedule
                             if (Day == schedule.SCH_DAY)
                             {
                                 var equalDayCount = scheduleList.FindAll(x => x.SCH_DAY == Day).Count;
-
+                                
                                 if (equalDayCount < 3)
                                 {
                                     switch (schedule.SCH_TYPE)

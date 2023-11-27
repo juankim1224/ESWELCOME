@@ -87,14 +87,14 @@ namespace WEB.schedule
         /// 문자 재전송
         /// </summary>
         [WebMethod]
-        public static string ResendSMS(string schId, string msgEmpHp)
+        public static string ResendSMS(string schId, string msgStaff)
         {
             var schedule = SCHFacade.GetInstance.GetSCHEDULE(Convert.ToInt32(schId)).GenericItem;
             string result = "문자 전송이 실패하였습니다.";
 
             if (schedule.SCH_ID != null)
             {
-                var msgContent = ESExtension.MakeMsgContent(schedule.SCH_TYPE, schedule.GST_CPY, schedule.GST_PST, schedule.GST_NAME, schedule.SCH_YEARMD, schedule.SCH_HOUR, schedule.SCH_MIN, schedule.MSG_CODE, msgEmpHp);
+                var msgContent = ESExtension.MakeMsgContent(schedule.SCH_TYPE, schedule.GST_CPY, schedule.GST_PST, schedule.GST_NAME, schedule.SCH_YEARMD, schedule.SCH_HOUR, schedule.SCH_MIN, schedule.MSG_CODE, msgStaff);
 
                 var param = new iMSG_iu_MESSAGE()
                 {

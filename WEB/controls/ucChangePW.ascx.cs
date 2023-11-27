@@ -27,7 +27,7 @@ namespace WEB.controls
         protected void lnkChangePwd_Click(object sender, EventArgs e)
         {
             // *임시 (하드코딩)
-            var memId = 7;
+            var memId = 9;
             var memType = 2;  // 직원구분 (슈퍼관리자: 0, 일반관리자: 1, 일반: 2)	
 
             var param = new iES_un_LOGIN_PW ()

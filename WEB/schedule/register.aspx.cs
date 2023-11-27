@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WEB.App_Code;
@@ -172,16 +173,16 @@ namespace WEB.schedule
         /// </summary>
         protected void lnkDummy_Click(object sender, EventArgs e)
         {
-            var company = ES_COMPANY.Value;
+            //var company = ES_COMPANY.Value;
 
-            var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
+            //var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
 
-            // 부서 바인딩
-            ES_DEPT.Items.Add("선택");
-            foreach (var d in dept)
-            {
-                ES_DEPT.Items.Add(d.DEPT);
-            }
+            //// 부서 바인딩
+            //ES_DEPT.Items.Add("선택");
+            //foreach (var d in dept)
+            //{
+            //    ES_DEPT.Items.Add(d.DEPT);
+            //}
         }
 
         /// <summary>
@@ -189,15 +190,15 @@ namespace WEB.schedule
         /// </summary>
         protected void ES_DEPT_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var dept = ES_DEPT.Text.Trim();
-            var team = SCHFacade.GetInstance.InquirySTAFF(null, dept, null);
+            //var dept = ES_DEPT.Text.Trim();
+            //var team = SCHFacade.GetInstance.InquirySTAFF(null, dept, null);
 
-            // 팀 바인딩
-            ES_TEAM.Items.Add("선택");
-            foreach (var t in team)
-            {
-                ES_TEAM.Items.Add(t.TEAM);
-            }
+            //// 팀 바인딩
+            //ES_TEAM.Items.Add("선택");
+            //foreach (var t in team)
+            //{
+            //    ES_TEAM.Items.Add(t.TEAM);
+            //}
 
         }
 
@@ -206,15 +207,15 @@ namespace WEB.schedule
         /// </summary>
         protected void ES_TEAM_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var team = ES_TEAM.Text.Trim();
-            var name = SCHFacade.GetInstance.InquirySTAFF(null, null, team);
+            //var team = ES_TEAM.Text.Trim();
+            //var name = SCHFacade.GetInstance.InquirySTAFF(null, null, team);
 
-            STAFF_NAME.Items.Add("선택");
-            foreach (var n in name)
-            {
-                STAFF_NAME.Items.Add(n.MEM_FULLNAME);
-                STAFF_ID.Items.Add(n.MEM_ID.ToString());
-            }
+            //STAFF_NAME.Items.Add("선택");
+            //foreach (var n in name)
+            //{
+            //    STAFF_NAME.Items.Add(n.MEM_FULLNAME);
+            //    STAFF_ID.Items.Add(n.MEM_ID.ToString());
+            //}
         }
 
         /// <summary>
@@ -411,5 +412,21 @@ namespace WEB.schedule
         {
 
         }
+
+        /// <summary>
+        /// 접견인 바인딩 1. 부서
+        /// </summary>
+        [WebMethod]
+        public static string ChangeCPY(string company)
+        {
+
+            var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null).ToString();
+
+            // dept (배열) -> 스크립트로 전달??
+            return dept;
+
+        }
+
+
     }
 }

@@ -105,33 +105,6 @@ namespace WEB.schedule
         protected global::System.Web.UI.HtmlControls.HtmlSelect SCH_TYPE;
 
         /// <summary>
-        /// ES_COMPANY 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect ES_COMPANY;
-
-        /// <summary>
-        /// ES_DEPT 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ES_DEPT;
-
-        /// <summary>
-        /// ES_TEAM 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ES_TEAM;
-
-        /// <summary>
         /// STAFF_NAME 컨트롤입니다.
         /// </summary>
         /// <remarks>

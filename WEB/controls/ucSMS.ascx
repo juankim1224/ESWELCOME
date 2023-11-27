@@ -15,7 +15,7 @@
     function fnReSend() {
 
         var schId = $('#<%= hddSCH_ID.ClientID %>').val();
-        var msgStaff = $('#<%= hddMsgStaff.ClientID %>').text();
+        var msgStaff = $('#<%= msgStaff.ClientID %>').text();
 
         PageMethods.ResendSMS(schId, msgStaff, function (result) {
             alert(result);
@@ -47,7 +47,7 @@
                                     <br />
                                     시간 : <span id="schHourMin" runat="server"></span>
                                     <br />
-                                    담당자 번호 : <span id="msgStaffHp" runat="server"></span>
+                                    담당자 번호 : <span id="msgStaff" runat="server"></span>
                                 </p>
                                 <p>
                                     도착 시 로비에서 접수 부탁드립니다.<br />
@@ -80,4 +80,4 @@
 <asp:LinkButton ID="lnkDummy" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
 
 <input type="hidden" id="hddSCH_ID" runat="server" />
-<input type="hidden" id="hddMsgStaff" runat="server" />
+<%--<input type="hidden" id="hddMsgStaff" runat="server" />--%>

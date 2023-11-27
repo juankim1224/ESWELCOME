@@ -69,14 +69,38 @@
                     $('#TND_CHECK_Y').removeClass('active');
                     $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
                 });
-
-
             }
-
         })
 
-        function fnChange() {
-            __doPostBack('<%=lnkDummy.UniqueID%>', '');
+        function fnCheckSave() {
+
+            /* 유효성 체크*/
+            var gmn1 = $('#<%=GST_MOBILE_NO1.ClientID %>').val();
+            var gmn2 = $('#<%=GST_MOBILE_NO2.ClientID %>').val();
+            var gmn3 = $('#<%=GST_MOBILE_NO3.ClientID %>').val();
+
+            // 1. 연락처는 숫자만
+            var regExpNum = /^[0-9]*$/;
+
+            if (!regExpNum.test(gmn1) || !regExpNum.test(gmn2) || !regExpNum.test(gmn3)) {
+                alert('연락처는 숫자만 기입이 가능합니다.');
+            }
+
+        }
+
+
+        function fn_CPYChange() {
+<%--            __doPostBack('<%=lnkDummy.UniqueID%>', '');--%>
+            var company = $('#ES_COMPANY').val();
+
+            var dept = [];
+            PageMethods.ChangeCPY(company, function (result) {
+                dept = result;
+
+                foreach(d in dept) {
+                    $('#ES_DEPT').append("<option value='" + d + "'>" + d + "</option>");
+                }
+            });
 
         };
 
@@ -103,6 +127,7 @@
             });
         }
     </script>
+
 </asp:Content>
 
 
@@ -210,7 +235,7 @@
                                 소속 회사 <span>*</span>
                             </p>
                             <div>
-                                <select id="ES_COMPANY" runat="server" onchange="fnChange();">
+                                <select id="ES_COMPANY" onchange="fn_CPYChange();">
                                     <option value="" selected="selected">회사명</option>
                                     <option value="1">이상네트웍스</option>
                                     <option value="2">메쎄이상</option>
@@ -223,13 +248,15 @@
                             </p>
                             <div class="vst-tel">
                                 <%-- 부서 선택 --%>
-                                <asp:DropDownList ID="ES_DEPT" runat="server" AutoPostBack="True"
+                                <select id="ES_DEPT" onchange="fn_DEPTChange();"></select>
+                                <%--                                <asp:DropDownList ID="ES_DEPT" runat="server" AutoPostBack="True"
                                     OnSelectedIndexChanged="ES_DEPT_SelectedIndexChanged">
-                                </asp:DropDownList>
+                                </asp:DropDownList>--%>
                                 <%-- 팀 선택 --%>
-                                <asp:DropDownList ID="ES_TEAM" runat="server" AutoPostBack="True"
+                                <select id="ES_TEAM" onchange="fn_TEAMChange();"></select>
+                                <%--                                <asp:DropDownList ID="ES_TEAM" runat="server" AutoPostBack="True"
                                     OnSelectedIndexChanged="ES_TEAM_SelectedIndexChanged">
-                                </asp:DropDownList>
+                                </asp:DropDownList>--%>
                             </div>
                         </div>
                         <div>
@@ -309,7 +336,7 @@
                 </div>
 
                 <div class="btns-wrap">
-                    <asp:LinkButton ID="lnkSave" runat="server" OnClick="lnkSave_Click" OnClientClick="return fnFail();" CssClass="btns primary-btn"></asp:LinkButton>
+                    <asp:LinkButton ID="lnkSave" runat="server" OnClick="lnkSave_Click" OnClientClick="fnCheckSave();" CssClass="btns primary-btn"></asp:LinkButton>
                     <a href="schList.aspx" class="btns secondary-btn ">목록</a>
                 </div>
             </div>
