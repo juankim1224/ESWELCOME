@@ -387,15 +387,6 @@ namespace WEB
         /// <summary>
         /// 문자 내용
         /// </summary>
-        /// <param name="schType"></param>
-        /// <param name="gstCpy"></param>
-        /// <param name="gstPst"></param>
-        /// <param name="gstName"></param>
-        /// <param name="schYearMd"></param>
-        /// <param name="schHour"></param>
-        /// <param name="schMin"></param>
-        /// <param name="msgCode"></param>
-        /// <param name="msgStaffName"></param>
         /// <returns></returns>
         public static string MakeMsgContent(string schType, string gstCpy, string gstPst, string gstName, string schYearMd, string schHour, string schMin, string msgCode, string msgStaff)
         {

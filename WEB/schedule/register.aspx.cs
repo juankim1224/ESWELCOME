@@ -1,4 +1,6 @@
 ﻿using ESNfx;
+using ESNfx3.Web.Page;
+using ESWELCOME.Core.Procedure;
 using ESWELCOME.DataBase.Procedure.BOL.MSG;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
 using ESWELCOME.DataBase.Procedure.Facade;
@@ -173,9 +175,20 @@ namespace WEB.schedule
         /// </summary>
         protected void lnkDummy_Click(object sender, EventArgs e)
         {
-            //var company = ES_COMPANY.Value;
+            var company = ES_COMPANY.Value;
+            //foreach (var d in dept)
+            //{
 
-            //var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
+            //    var script = string.Format("$('#<%=ES_DEPT.ClientID%>').append(\"<option value={0}>\" + {0} + \"</option>\")", d);
+
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "key1", script, true);
+            //}
+
+            var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
+            ES_DEPT.BindSelectBox<SCH_sd_STAFF>(dept, "dept", "dept");
+            ES_DEPT.Items.Insert(0, new ListItem("전체", string.Empty));
+
+
 
             //// 부서 바인딩
             //ES_DEPT.Items.Add("선택");
@@ -413,20 +426,9 @@ namespace WEB.schedule
 
         }
 
-        /// <summary>
-        /// 접견인 바인딩 1. 부서
-        /// </summary>
-        [WebMethod]
-        public static string ChangeCPY(string company)
+        protected void LinkButton1_Click(object sender, EventArgs e)
         {
 
-            var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null).ToString();
-
-            // dept (배열) -> 스크립트로 전달??
-            return dept;
-
         }
-
-
     }
 }
