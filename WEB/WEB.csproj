@@ -28,7 +28,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -176,6 +176,7 @@
     <Content Include="scripts\jquery-3.7.1.slim.js" />
     <Content Include="scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="scripts\jquery-ui-1.12.1.js" />
+    <Content Include="test.aspx" />
     <Content Include="Web.config" />
     <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.NewJUSOEntry.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -325,6 +326,13 @@
     <Compile Include="schedule\schMain.aspx.designer.cs">
       <DependentUpon>schMain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\net.e_sang.api2\esnapi.wsdl" />
@@ -370,7 +378,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49816</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44323/</IISUrl>
+          <IISUrl>http://localhost:49816/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WEB.App_Code;
+//using WEB.App_Code;
 
 namespace WEB.schedule
 {
@@ -176,19 +176,9 @@ namespace WEB.schedule
         protected void lnkDummy_Click(object sender, EventArgs e)
         {
             var company = ES_COMPANY.Value;
-            //foreach (var d in dept)
-            //{
-
-            //    var script = string.Format("$('#<%=ES_DEPT.ClientID%>').append(\"<option value={0}>\" + {0} + \"</option>\")", d);
-
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "key1", script, true);
-            //}
-
-            //var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
-            //ES_DEPT.BindSelectBox<SCH_sd_STAFF>(dept, "dept", "dept");
-            //ES_DEPT.Items.Insert(0, new ListItem("전체", string.Empty));
-
-
+            var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
+            ES_DEPT.BindSelectBox<SCH_sd_STAFF>(dept, "DEPT", "DEPT");
+            ES_DEPT.Items.Insert(0, new ListItem("선택", string.Empty));
 
             //// 부서 바인딩
             //ES_DEPT.Items.Add("선택");
@@ -366,7 +356,7 @@ namespace WEB.schedule
 
             // 메세지 내용
             msgStaff = Request.Params["msgStaff"];
-            msgContent = ESExtension.MakeMsgContent(SCH_TYPE.Value, GST_CPY.Value, GST_PST.Value, GST_NAME.Value, SCH_YEARMD.Value, SCH_HOUR.Text, SCH_MIN.Text, msgCode, msgStaff);
+            msgContent = App_Code.ESExtension.MakeMsgContent(SCH_TYPE.Value, GST_CPY.Value, GST_PST.Value, GST_NAME.Value, SCH_YEARMD.Value, SCH_HOUR.Text, SCH_MIN.Text, msgCode, msgStaff);
 
             // 메세지 추가
             iMSG_iu_MESSAGE msgParam = new iMSG_iu_MESSAGE()

@@ -32,6 +32,13 @@ namespace WEB
         }
     }
 
+    public static class Constant
+    {
+        public const string NO_DATA = "데이터가 존재하지 않습니다.";
+
+        
+    }
+
     /// <summary>
     /// 파일 관리 서비스
     /// </summary>
@@ -390,7 +397,7 @@ namespace WEB
         /// <returns></returns>
         public static string MakeMsgContent(string schType, string gstCpy, string gstPst, string gstName, string schYearMd, string schHour, string schMin, string msgCode, string msgStaff)
         {
-            string msgContent = "";
+            string msgContent = string.Empty;
 
             // 회사 및 직급 없을 시
             string gstCpy2 = gstCpy != null && gstCpy != "-" ? gstCpy + " " : "";
@@ -432,6 +439,7 @@ namespace WEB
             sbMsg.Append("\nhttps://kko.to/E47ZooGW3i");
             sbMsg.Append("\n서울 마포구 월드컵북로58길 9 ES타워");
             msgContent = sbMsg.ToString();
+
             return msgContent;
 
         }
