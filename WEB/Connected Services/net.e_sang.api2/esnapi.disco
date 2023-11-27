@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://api2.e-sang.net/esnapi.asmx?wsdl" docRef="https://api2.e-sang.net/esnapi.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://api2.e-sang.net/esnapi.asmx" xmlns:q1="http://api.e-sang.net/ESNWebService" binding="q1:EsnAPISoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://api2.e-sang.net/esnapi.asmx" xmlns:q2="http://api.e-sang.net/ESNWebService" binding="q2:EsnAPISoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

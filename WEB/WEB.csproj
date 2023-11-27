@@ -1,0 +1,390 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2DF14FA1-A59E-46BB-A533-1739E9C12AAC}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WEB</RootNamespace>
+    <AssemblyName>WEB</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44323</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ESNfx, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\ESNfx.dll</HintPath>
+    </Reference>
+    <Reference Include="ESNfx.Web, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\ESNfx.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="ESNfx.Web.Controls, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\ESNfx.Web.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="ESNfx3.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Components\ESNfx3.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin\memList.aspx" />
+    <Content Include="auth\userLogin.aspx" />
+    <Content Include="auth\userLogin.html" />
+    <Content Include="common\css\.gitkeep" />
+    <Content Include="common\fonts\Pretendard-Black.otf" />
+    <Content Include="common\fonts\Pretendard-Black.woff" />
+    <Content Include="common\fonts\Pretendard-Black.woff2" />
+    <Content Include="common\fonts\Pretendard-Bold.otf" />
+    <Content Include="common\fonts\Pretendard-Bold.woff" />
+    <Content Include="common\fonts\Pretendard-Bold.woff2" />
+    <Content Include="common\fonts\Pretendard-ExtraBold.woff2" />
+    <Content Include="common\fonts\Pretendard-ExtraLight.otf" />
+    <Content Include="common\fonts\Pretendard-ExtraLight.woff" />
+    <Content Include="common\fonts\Pretendard-ExtraLight.woff2" />
+    <Content Include="common\fonts\Pretendard-Light.otf" />
+    <Content Include="common\fonts\Pretendard-Light.woff" />
+    <Content Include="common\fonts\Pretendard-Light.woff2" />
+    <Content Include="common\fonts\Pretendard-Medium.otf" />
+    <Content Include="common\fonts\Pretendard-Medium.woff" />
+    <Content Include="common\fonts\Pretendard-Medium.woff2" />
+    <Content Include="common\fonts\Pretendard-Regular.otf" />
+    <Content Include="common\fonts\Pretendard-Regular.woff" />
+    <Content Include="common\fonts\Pretendard-Regular.woff2" />
+    <Content Include="common\fonts\Pretendard-SemiBold.otf" />
+    <Content Include="common\fonts\Pretendard-SemiBold.woff" />
+    <Content Include="common\fonts\Pretendard-SemiBold.woff2" />
+    <Content Include="common\fonts\Pretendard-Thin.otf" />
+    <Content Include="common\fonts\Pretendard-Thin.woff" />
+    <Content Include="common\fonts\Pretendard-Thin.woff2" />
+    <Content Include="common\fonts\xeicon.eot" />
+    <Content Include="common\fonts\xeicon.ttf" />
+    <Content Include="common\fonts\xeicon.woff" />
+    <Content Include="common\fonts\xeicon.woff2" />
+    <Content Include="common\images\.gitkeep" />
+    <Content Include="common\images\Thumbs.db" />
+    <None Include="Connected Services\net.e_sang.api2\esnapi.disco" />
+    <None Include="Connected Services\net.e_sang.api2\configuration91.svcinfo" />
+    <None Include="Connected Services\net.e_sang.api2\configuration.svcinfo" />
+    <None Include="Connected Services\net.e_sang.api2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="common\css\font.css" />
+    <Content Include="common\css\reset.css" />
+    <Content Include="common\css\style.css" />
+    <Content Include="common\fonts\xeicon.svg" />
+    <Content Include="common\images\board_btn_next.png" />
+    <Content Include="common\images\board_btn_nnext.png" />
+    <Content Include="common\images\board_btn_pprev.png" />
+    <Content Include="common\images\board_btn_prev.png" />
+    <Content Include="common\images\calendar_icon_next.png" />
+    <Content Include="common\images\calendar_icon_prev.png" />
+    <Content Include="common\images\header_icon_people.png" />
+    <Content Include="common\images\header_menu_icon01.png" />
+    <Content Include="common\images\header_menu_icon01_ov.png" />
+    <Content Include="common\images\header_menu_icon02.png" />
+    <Content Include="common\images\header_menu_icon02_ov.png" />
+    <Content Include="common\images\header_menu_icon03.png" />
+    <Content Include="common\images\header_menu_icon03_ov.png" />
+    <Content Include="common\images\header_mypage_icon_arrow.png" />
+    <Content Include="common\images\icon_calendar.png" />
+    <Content Include="common\images\icon_delete.png" />
+    <Content Include="common\images\icon_mail.png" />
+    <Content Include="common\images\icon_sms.png" />
+    <Content Include="common\images\login_bg.png" />
+    <Content Include="common\images\select_arrow.png" />
+    <Content Include="controls\ucChangePW.ascx" />
+    <Content Include="controls\ucFromToDate.ascx" />
+    <Content Include="controls\ucSMS.ascx" />
+    <Content Include="Global.asax" />
+    <Content Include="guest\gstCheckIn.aspx" />
+    <Content Include="guest\gstWelcome.aspx" />
+    <Content Include="schedule\register.aspx" />
+    <Content Include="schedule\schCalendar.aspx" />
+    <Content Include="schedule\schDetail.aspx" />
+    <Content Include="schedule\schList.aspx" />
+    <Content Include="schedule\schMain.aspx" />
+    <Content Include="scripts\common.js" />
+    <Content Include="scripts\es-init.js" />
+    <Content Include="scripts\es-plugin.js" />
+    <Content Include="scripts\es-prototype.js" />
+    <Content Include="scripts\es.css" />
+    <Content Include="scripts\esquery.js" />
+    <Content Include="scripts\jquery-1.8.3.min.js" />
+    <Content Include="scripts\jquery-2.2.4.js" />
+    <Content Include="scripts\jquery-2.2.4.min.js" />
+    <Content Include="master\user.master" />
+    <Content Include="master\admin.master" />
+    <None Include="scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="scripts\jquery-3.7.1.js" />
+    <Content Include="scripts\jquery-3.7.1.min.js" />
+    <Content Include="scripts\jquery-3.7.1.slim.js" />
+    <Content Include="scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Web.config" />
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.NewJUSOEntry.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.NewJUSOEntryWithPaging.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.SendBulkMessageInPHPResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.SendBulkMessageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.SendMailResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.SendMailWithAttachFilesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.SendMailWithEncodingOptionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.SendMailWithReplaceInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="admin\memList.aspx.cs">
+      <DependentUpon>memList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\memList.aspx.designer.cs">
+      <DependentUpon>memList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\BaseUC.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\Helper.cs" />
+    <Compile Include="auth\userLogin.aspx.cs">
+      <DependentUpon>userLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="auth\userLogin.aspx.designer.cs">
+      <DependentUpon>userLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\net.e_sang.api2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ucChangePW.ascx.cs">
+      <DependentUpon>ucChangePW.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ucChangePW.ascx.designer.cs">
+      <DependentUpon>ucChangePW.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ucFromToDate.ascx.cs">
+      <DependentUpon>ucFromToDate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ucFromToDate.ascx.designer.cs">
+      <DependentUpon>ucFromToDate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ucSMS.ascx.cs">
+      <DependentUpon>ucSMS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ucSMS.ascx.designer.cs">
+      <DependentUpon>ucSMS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="guest\gstCheckIn.aspx.cs">
+      <DependentUpon>gstCheckIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="guest\gstCheckIn.aspx.designer.cs">
+      <DependentUpon>gstCheckIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="guest\gstWelcome.aspx.cs">
+      <DependentUpon>gstWelcome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="guest\gstWelcome.aspx.designer.cs">
+      <DependentUpon>gstWelcome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="master\admin.master.cs">
+      <DependentUpon>admin.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="master\admin.master.designer.cs">
+      <DependentUpon>admin.master</DependentUpon>
+    </Compile>
+    <Compile Include="master\Base.Master.cs">
+      <DependentUpon>Base.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="master\Base.Master.designer.cs">
+      <DependentUpon>Base.Master</DependentUpon>
+    </Compile>
+    <Compile Include="master\user.master.cs">
+      <DependentUpon>user.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="master\user.master.designer.cs">
+      <DependentUpon>user.master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="schedule\register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="schedule\register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="schedule\schCalendar.aspx.cs">
+      <DependentUpon>schCalendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="schedule\schCalendar.aspx.designer.cs">
+      <DependentUpon>schCalendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="schedule\schDetail.aspx.cs">
+      <DependentUpon>schDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="schedule\schDetail.aspx.designer.cs">
+      <DependentUpon>schDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="schedule\schList.aspx.cs">
+      <DependentUpon>schList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="schedule\schList.aspx.designer.cs">
+      <DependentUpon>schList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="schedule\schMain.aspx.cs">
+      <DependentUpon>schMain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="schedule\schMain.aspx.designer.cs">
+      <DependentUpon>schMain.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\net.e_sang.api2\esnapi.wsdl" />
+    <Content Include="master\Base.Master" />
+    <None Include="packages.config" />
+    <Content Include="scripts\jquery-3.7.1.min.map" />
+    <Content Include="scripts\jquery-3.7.1.slim.min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ESWELCOME.Core\ESWELCOME.Core.csproj">
+      <Project>{af1d45f7-d132-4bf3-b758-1834a57daf5c}</Project>
+      <Name>ESWELCOME.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\net.e_sang.api2\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49816</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44323/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://api.e-sang.net/ESNWebService" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://api.e-sang.net/ESNWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://api.e-sang.net/ESNWebService">
+      <s:element name="SMSService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="receiveMobileNumber" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="callBack" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SMSServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SMSServiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LMSService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="receiveMobileNumber" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="callBack" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LMSServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LMSServiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fromEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fromName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="toMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bodyFormat" type="tns:BodyFormat" />
+            <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contents" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smtpServer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="BodyFormat">
+        <s:restriction base="s:string">
+          <s:enumeration value="Text" />
+          <s:enumeration value="Html" />
+          <s:enumeration value="URL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SendMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithReplaceInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fromEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fromName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="toMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bodyFormat" type="tns:BodyFormat" />
+            <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contents" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smtpServer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="keys" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="values" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithReplaceInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithEncodingOption">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fromEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fromName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="toMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bodyFormat" type="tns:BodyFormat" />
+            <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contents" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smtpServer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="encoding" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="keys" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="values" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithEncodingOptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithAttachFiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fromEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fromName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="toMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="bodyFormat" type="tns:BodyFormat" />
+            <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contents" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smtpServer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="encoding" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="keys" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="values" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachFiles" type="tns:ArrayOfESNAttachFile" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfESNAttachFile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ESNAttachFile" nillable="true" type="tns:ESNAttachFile" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ESNAttachFile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileBytes" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendMailWithAttachFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHolidayList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="year" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="month" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHolidayListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHolidayListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHoliday">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsHolidayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsHolidayResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetZipCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dong" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetZipCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetZipCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckCompanyBusinessStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bizNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckCompanyBusinessStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckCompanyBusinessStatusResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InqueryJUSO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="region" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="limit" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InqueryJUSOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InqueryJUSOResult" type="tns:ArrayOfNewJUSOEntry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNewJUSOEntry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NewJUSOEntry" nillable="true" type="tns:NewJUSOEntry" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NewJUSOEntry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ZIPCODE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ROAD_ADDRESS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="JIBUN_ADDRESS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ENG_ADDRESS" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InqueryJUSOWithPaging">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="region" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="currentPage" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="countPerPage" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InqueryJUSOWithPagingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InqueryJUSOWithPagingResult" type="tns:NewJUSOEntryWithPaging" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NewJUSOEntryWithPaging">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRowCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="JusoEntries" type="tns:ArrayOfNewJUSOEntry" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendBulkMessageInPHP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="info" type="tns:CINFO" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="tns:MessagePerson" />
+            <s:element minOccurs="0" maxOccurs="1" name="lstReceivePerson" type="tns:ArrayOfMessagePerson" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendMessage" type="tns:SendMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="CINFO">
+        <s:restriction base="s:string">
+          <s:enumeration value="ESN" />
+          <s:enumeration value="MESSE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="MessagePerson">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailDisplayName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMessagePerson">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessagePerson" nillable="true" type="tns:MessagePerson" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SendMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EncodingName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PickUpUrl" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BodyFormat" type="tns:BodyFormat" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MessageSendType" type="tns:MessageSendType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AttachFiles" type="tns:ArrayOfESNAttachFile" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MessageSendType">
+        <s:restriction base="s:string">
+          <s:enumeration value="EMAIL" />
+          <s:enumeration value="SMS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SendBulkMessageInPHPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendBulkMessageInPHPResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBulkMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="tns:MessageSender" />
+            <s:element minOccurs="0" maxOccurs="1" name="lstReceiver" type="tns:ArrayOfMessageReceiver" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendMessage" type="tns:SendMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageSender">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MessagePerson">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CINFO" type="tns:CINFO" />
+              <s:element minOccurs="0" maxOccurs="1" name="UserKey" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfMessageReceiver">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MessageReceiver" nillable="true" type="tns:MessageReceiver" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageReceiver">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MessagePerson" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SendBulkMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendBulkMessageResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SMSServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:SMSService" />
+  </wsdl:message>
+  <wsdl:message name="SMSServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:SMSServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="LMSServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:LMSService" />
+  </wsdl:message>
+  <wsdl:message name="LMSServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:LMSServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMail" />
+  </wsdl:message>
+  <wsdl:message name="SendMailSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithReplaceInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailWithReplaceInfo" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithReplaceInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailWithReplaceInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithEncodingOptionSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailWithEncodingOption" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithEncodingOptionSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailWithEncodingOptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithAttachFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailWithAttachFiles" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithAttachFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailWithAttachFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHolidayListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHolidayList" />
+  </wsdl:message>
+  <wsdl:message name="GetHolidayListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHolidayListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsHolidaySoapIn">
+    <wsdl:part name="parameters" element="tns:IsHoliday" />
+  </wsdl:message>
+  <wsdl:message name="IsHolidaySoapOut">
+    <wsdl:part name="parameters" element="tns:IsHolidayResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetZipCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetZipCode" />
+  </wsdl:message>
+  <wsdl:message name="GetZipCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetZipCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompanyBusinessStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckCompanyBusinessStatus" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompanyBusinessStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckCompanyBusinessStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="InqueryJUSOSoapIn">
+    <wsdl:part name="parameters" element="tns:InqueryJUSO" />
+  </wsdl:message>
+  <wsdl:message name="InqueryJUSOSoapOut">
+    <wsdl:part name="parameters" element="tns:InqueryJUSOResponse" />
+  </wsdl:message>
+  <wsdl:message name="InqueryJUSOWithPagingSoapIn">
+    <wsdl:part name="parameters" element="tns:InqueryJUSOWithPaging" />
+  </wsdl:message>
+  <wsdl:message name="InqueryJUSOWithPagingSoapOut">
+    <wsdl:part name="parameters" element="tns:InqueryJUSOWithPagingResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBulkMessageInPHPSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBulkMessageInPHP" />
+  </wsdl:message>
+  <wsdl:message name="SendBulkMessageInPHPSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBulkMessageInPHPResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBulkMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBulkMessage" />
+  </wsdl:message>
+  <wsdl:message name="SendBulkMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBulkMessageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="EsnAPISoap">
+    <wsdl:operation name="SMSService">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">receiveMobileNumber : message를 받는 휴대폰번호(최대길이:11), callBack : message를 보낸 후 callback시 사용(최대길이:11), sender : message를 보내는 주체, message : 보낼 message</wsdl:documentation>
+      <wsdl:input message="tns:SMSServiceSoapIn" />
+      <wsdl:output message="tns:SMSServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LMSService">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">receiveMobileNumber : message를 받는 휴대폰번호(최대길이:11), callBack : message를 보낸 후 callback시 사용(최대길이:11), sender : message를 보내는 주체, title : message 제목, message : 보낼 message</wsdl:documentation>
+      <wsdl:input message="tns:LMSServiceSoapIn" />
+      <wsdl:output message="tns:LMSServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMail">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">각 BodyFormat에 맞게 메일을 보낸다.(BodyFormat.URL : URL에 해당하는 페이지의 내용을 메일로 보낸다, BodyFormat.HTML : Html내용을 메일로 보낸다. BodyFormat.Text : 일반적인 Text문을 메일로 보낸다.)</wsdl:documentation>
+      <wsdl:input message="tns:SendMailSoapIn" />
+      <wsdl:output message="tns:SendMailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithReplaceInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">각 BodyFormat에 맞게 메일을 보낸다.(BodyFormat.URL : URL에 해당하는 페이지의 내용을 메일로 보낸다, BodyFormat.HTML : Html내용을 메일로 보낸다. BodyFormat.Text : 일반적인 Text문을 메일로 보낸다.)</wsdl:documentation>
+      <wsdl:input message="tns:SendMailWithReplaceInfoSoapIn" />
+      <wsdl:output message="tns:SendMailWithReplaceInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithEncodingOption">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">각 BodyFormat에 맞게 메일을 보낸다.(BodyFormat.URL : URL에 해당하는 페이지의 내용을 메일로 보낸다, BodyFormat.HTML : Html내용을 메일로 보낸다. BodyFormat.Text : 일반적인 Text문을 메일로 보낸다., encoding : 문서 encodingType)</wsdl:documentation>
+      <wsdl:input message="tns:SendMailWithEncodingOptionSoapIn" />
+      <wsdl:output message="tns:SendMailWithEncodingOptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithAttachFiles">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">파일을 첨부하여 각 BodyFormat에 맞게 메일을 보낸다.(BodyFormat.URL : URL에 해당하는 페이지의 내용을 메일로 보낸다, BodyFormat.HTML : Html내용을 메일로 보낸다. BodyFormat.Text : 일반적인 Text문을 메일로 보낸다., encoding : 문서 encodingType)</wsdl:documentation>
+      <wsdl:input message="tns:SendMailWithAttachFilesSoapIn" />
+      <wsdl:output message="tns:SendMailWithAttachFilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHolidayList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">parameter로 전달 받은 년도 해당 월의 공휴일을 반환한다.</wsdl:documentation>
+      <wsdl:input message="tns:GetHolidayListSoapIn" />
+      <wsdl:output message="tns:GetHolidayListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsHoliday">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">date가 공휴일인지 체크한후 공휴일인 경우 true, 공휴일이 아니면 false를 반환한다.</wsdl:documentation>
+      <wsdl:input message="tns:IsHolidaySoapIn" />
+      <wsdl:output message="tns:IsHolidaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetZipCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">동이름으로 우편번호 정보를 가져온다.</wsdl:documentation>
+      <wsdl:input message="tns:GetZipCodeSoapIn" />
+      <wsdl:output message="tns:GetZipCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompanyBusinessStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">국세청 휴폐업조회를 이용하여 사업자번호업체의 휴폐업 정보를 가져온다. 4개의 값을 가지는 1차원 배열 반환. [0]:전문, [1]:결과코드(확인안됨:-1, 휴업:01, 폐업:02, 정상:03~06, 07:고유번호가 부여된 단체, 미등록:99), [2]:결과설명문구, [3]:폐업상태 시 폐업기준일</wsdl:documentation>
+      <wsdl:input message="tns:CheckCompanyBusinessStatusSoapIn" />
+      <wsdl:output message="tns:CheckCompanyBusinessStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InqueryJUSO">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">도로명주소 안내시스템에서 도로명주소 검색(region:검색지명, limit:검색 결과 제한 수 0일경우 무제한)</wsdl:documentation>
+      <wsdl:input message="tns:InqueryJUSOSoapIn" />
+      <wsdl:output message="tns:InqueryJUSOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InqueryJUSOWithPaging">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">도로명주소 안내시스템에서 도로명주소 검색(region:검색지명, currentPage:현재페이지, countPerPage:페이징사이즈)</wsdl:documentation>
+      <wsdl:input message="tns:InqueryJUSOWithPagingSoapIn" />
+      <wsdl:output message="tns:InqueryJUSOWithPagingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkMessageInPHP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">대량문자 또는 이메일을 발송합니다.</wsdl:documentation>
+      <wsdl:input message="tns:SendBulkMessageInPHPSoapIn" />
+      <wsdl:output message="tns:SendBulkMessageInPHPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkMessage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">대량문자 또는 이메일을 발송합니다.</wsdl:documentation>
+      <wsdl:input message="tns:SendBulkMessageSoapIn" />
+      <wsdl:output message="tns:SendBulkMessageSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EsnAPISoap" type="tns:EsnAPISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SMSService">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SMSService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LMSService">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/LMSService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMail">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SendMail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithReplaceInfo">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SendMailWithReplaceInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithEncodingOption">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SendMailWithEncodingOption" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithAttachFiles">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SendMailWithAttachFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHolidayList">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/GetHolidayList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHoliday">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/IsHoliday" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZipCode">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/GetZipCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompanyBusinessStatus">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/CheckCompanyBusinessStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InqueryJUSO">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/InqueryJUSO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InqueryJUSOWithPaging">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/InqueryJUSOWithPaging" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkMessageInPHP">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SendBulkMessageInPHP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkMessage">
+      <soap:operation soapAction="http://api.e-sang.net/ESNWebService/SendBulkMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="EsnAPISoap12" type="tns:EsnAPISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SMSService">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SMSService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LMSService">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/LMSService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMail">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SendMail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithReplaceInfo">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SendMailWithReplaceInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithEncodingOption">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SendMailWithEncodingOption" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithAttachFiles">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SendMailWithAttachFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHolidayList">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/GetHolidayList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsHoliday">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/IsHoliday" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZipCode">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/GetZipCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompanyBusinessStatus">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/CheckCompanyBusinessStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InqueryJUSO">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/InqueryJUSO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InqueryJUSOWithPaging">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/InqueryJUSOWithPaging" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkMessageInPHP">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SendBulkMessageInPHP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkMessage">
+      <soap12:operation soapAction="http://api.e-sang.net/ESNWebService/SendBulkMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EsnAPI">
+    <wsdl:port name="EsnAPISoap" binding="tns:EsnAPISoap">
+      <soap:address location="https://api2.e-sang.net/esnapi.asmx" />
+    </wsdl:port>
+    <wsdl:port name="EsnAPISoap12" binding="tns:EsnAPISoap12">
+      <soap12:address location="https://api2.e-sang.net/esnapi.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
