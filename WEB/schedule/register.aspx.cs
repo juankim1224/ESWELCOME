@@ -144,7 +144,7 @@ namespace WEB.schedule
                 string[] arrName = staffNames.Split(',');
                 foreach (var a in arrName)
                 {
-                    ltrStaffList.Text += string.Format("<p><input type=\"radio\" value={0} name=\"msgStaffName\" /><label>{1}</label><a href=\"#\" class=\"del\"> X </a></p>", a, a);
+                    ltrStaffList.Text += string.Format("<p><input type=\"radio\" value={0} name=\"msgStaff\" /><label>{1}</label><a href=\"#\" class=\"del\"> X </a></p>", a, a);
                     hdd_ARR_STAFF.Value += hdd_ARR_STAFF.Value != "" ? "," + a : a;
                 }
             }
@@ -184,9 +184,9 @@ namespace WEB.schedule
             //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "key1", script, true);
             //}
 
-            var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
-            ES_DEPT.BindSelectBox<SCH_sd_STAFF>(dept, "dept", "dept");
-            ES_DEPT.Items.Insert(0, new ListItem("전체", string.Empty));
+            //var dept = SCHFacade.GetInstance.InquirySTAFF(Convert.ToInt32(company), null, null);
+            //ES_DEPT.BindSelectBox<SCH_sd_STAFF>(dept, "dept", "dept");
+            //ES_DEPT.Items.Insert(0, new ListItem("전체", string.Empty));
 
 
 

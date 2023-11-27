@@ -3,12 +3,24 @@
 
     function fnInit_<%=PopID %>(d) {
 
-        $("#<%=hddSCH_ID.ClientID%>").val(d.schId);
+        // 문자 미리보기
+        if (d.schId == 'undefined') {
+            $("span[id$='gstCpy']").val(d.gstCpy);
+<%--            $('#<%= gstCpy.ClientID %>').text(d.gstCpy);
+            $('#<%= gstPst.ClientID %>').text(d.gstPst);
+            $('#<%= gstName.ClientID %>').text(d.gstName);
+            $('#<%= schType.ClientID %>').text(d.schType);
+            $('#<%= schYearMD.ClientID %>').text(d.schYearMD);
+            $('#<%= schHourMin.ClientID %>').text(d.schHourMin);
+            $('#<%= msgStaff.ClientID %>').text(d.msgStaff);--%>
 
-        if (typeof (d) != 'undefined') {
             $('#resendMSG').hide();
+        }
+        else if (d.schId != null) {
+            $("#<%=hddSCH_ID.ClientID%>").val(d.schId);
             __doPostBack('<%=lnkDummy.UniqueID%>', '');
         }
+
     }
 
     // 문자 재발송
@@ -61,7 +73,7 @@
                                     서울 마포구 월드컵북로58길 9 ES타워
                                 </p>
                                 <div id="foot" style="display: flex; justify-content: center">
-                                    <a href="javascript:fnReSend();" class="btns primary-btn"><strong>재전송</strong></a>
+                                    <a href="javascript:fnReSend();" class="btns primary-btn" id="resendMSG"><strong>재전송</strong></a>
                                     <a href="javascript:es.pop.disposeLayer({self:$('#<%=PopID %>')});" class="btns secondary-btn  close"><strong>닫기</strong></a>
                                 </div>
                             </div>

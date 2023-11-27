@@ -5,12 +5,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>
         function fnCheckSave() {
-            debugger;
-            /* 유효성 체크*/
-            var gmn1 = $('#<%=GST_MOBILE_NO1.ClientID %>').val();
-            var gmn2 = $('#<%=GST_MOBILE_NO2.ClientID %>').val();
-            var gmn3 = $('#<%=GST_MOBILE_NO3.ClientID %>').val();
 
+            /* 유효성 체크*/
+            var gmn1 = $("input[id$='GST_MOBILE_NO1']").val();
+            var gmn2 = $("input[id$='GST_MOBILE_NO2']").val();
+            var gmn3 = $("input[id$='GST_MOBILE_NO3']").val();
+
+            alert(gmn1);
+           // alert(gmn11);
             // 1. 연락처는 숫자만
             var regExpNum = /^[0-9]*$/;
 
@@ -124,28 +126,27 @@
             __doPostBack('<%=lnkDummy.UniqueID%>', '');
         };
 
-
-        function previewSMS() {
+        function fnPreviewSMS() {
             var gstCpy = $('#<%=GST_CPY.ClientID %>').val();
             var gstPst = $('#<%=GST_PST.ClientID %>').val();
             var gstName = $('#<%=GST_NAME.ClientID %>').val();
             var schType = $('#<%=SCH_TYPE.ClientID %>').val();
             var schYearMD = $('#<%=SCH_YEARMD.ClientID %>').val();
             var schHourMin = $('#<%=SCH_HOUR.ClientID %>').val() + "시 " + $('#<%=SCH_MIN.ClientID %>').val() + "분";
-            var msgEmp = $('input[name="msgStaffName"]').val();
+            var msgStaff = "010-1234-5678";
 
+            //var msgStaff = $('input[name="msgStaff"]').val();
 
-            <%=ucSMS.OpenScript %>({
-
+            fnOpen_ucSMS({
                 gstCpy: gstCpy,
                 gstPst: gstPst,
                 gstName: gstName,
                 schType: schType,
                 schYearMD: schYearMD,
                 schHourMin: schHourMin,
-                msgEmp: msgEmp
-
+                msgEmp: msgStaff
             });
+
         }
     </script>
 
@@ -346,7 +347,7 @@
                                 </div>
                                 <div class="vst-in-item2">
                                     <div>
-                                        <a href="javascript:void(0);" onclick="return fnInit_ucSMS()" class="sms-btn">SMS 미리보기</a>
+                                        <a href="javascript:void(0);" onclick="return fnPreviewSMS()" class="sms-btn">SMS 미리보기</a>
                                     </div>
                                 </div>
 
