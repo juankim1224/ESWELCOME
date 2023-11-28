@@ -191,10 +191,13 @@ namespace WEB.schedule
         /// <summary>
         /// 접견인 바인딩  2. 팀
         /// </summary>
-        protected void ES_DEPT_SelectedIndexChanged(object sender, EventArgs e)
+        protected void lnkDummy_Click2(object sender, EventArgs e)
         {
-            //var dept = ES_DEPT.Text.Trim();
-            //var team = SCHFacade.GetInstance.InquirySTAFF(null, dept, null);
+            var dept = ES_DEPT.Value.Trim();
+            var team = SCHFacade.GetInstance.InquirySTAFF(null, dept, null);
+
+            ES_TEAM.BindSelectBox<SCH_sd_STAFF>(team, "TEAM", "TEAM");
+            ES_TEAM.Items.Insert(0, new ListItem("선택", string.Empty));
 
             //// 팀 바인딩
             //ES_TEAM.Items.Add("선택");
@@ -208,17 +211,20 @@ namespace WEB.schedule
         /// <summary>
         /// 접견인 바인딩  3. 직원
         /// </summary>
-        protected void ES_TEAM_SelectedIndexChanged(object sender, EventArgs e)
+        protected void lnkDummy_Click3(object sender, EventArgs e)
         {
-            //var team = ES_TEAM.Text.Trim();
-            //var name = SCHFacade.GetInstance.InquirySTAFF(null, null, team);
+            var team = ES_TEAM.Value.Trim();
+            var staff = SCHFacade.GetInstance.InquirySTAFF(null, null, team);
 
-            //STAFF_NAME.Items.Add("선택");
-            //foreach (var n in name)
+            //foreach (var s in staff)
             //{
-            //    STAFF_NAME.Items.Add(n.MEM_FULLNAME);
-            //    STAFF_ID.Items.Add(n.MEM_ID.ToString());
+            //    SCH_STAFF.BindSelectBox<SCH_sd_STAFF>(staff, "", "STAFF");
+            //    SCH_STAFF.Items.Insert(0, new ListItem("선택", string.Empty));
             //}
+
+            SCH_STAFF.BindSelectBox<SCH_sd_STAFF>(staff, "", "TEFAM");
+            SCH_STAFF.Items.Insert(0, new ListItem("선택", string.Empty));
+            //STAFF_NAME.Items.Add("선택");
         }
 
         /// <summary>
@@ -226,18 +232,18 @@ namespace WEB.schedule
         /// </summary>
         protected void STAFF_NAME_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var staffId = STAFF_ID.Text;
-            var staffName = STAFF_NAME.Text;
-            if (ltrStaffList.Text.Contains(staffName) != true)
-            {
-                ltrStaffList.Text += string.Format("<p><input type=\"radio\" value={0} name=\"msgStaff\" /><label>{1}</label><a href=\"fnDeleteStaff()\" class=\"del\"> X </a></p>", staffId, staffName);
-                hdd_ARR_STAFF.Value += hdd_ARR_STAFF.Value != "" ? "," + staffId : staffId;
-            }
-            else
-            {
-                ESNfx3.Web.Page.WebHelper.AjaxMessageAlert(Page, "중복된 선택입니다.", true);
-                return;
-            }
+            //    var staffId = SCH_STAFF.Text;
+            //    var staffName = STAFF_NAME.Text;
+            //if (ltrStaffList.Text.Contains(staffName) != true)
+            //{
+            //    ltrStaffList.Text += string.Format("<p><input type=\"radio\" value={0} name=\"msgStaff\" /><label>{1}</label><a href=\"fnDeleteStaff()\" class=\"del\"> X </a></p>", staffId, staffName);
+            //    hdd_ARR_STAFF.Value += hdd_ARR_STAFF.Value != "" ? "," + staffId : staffId;
+            //}
+            //else
+            //{
+            //    ESNfx3.Web.Page.WebHelper.AjaxMessageAlert(Page, "중복된 선택입니다.", true);
+            //    return;
+            //}
 
         }
 
@@ -416,9 +422,5 @@ namespace WEB.schedule
 
         }
 
-        protected void LinkButton1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

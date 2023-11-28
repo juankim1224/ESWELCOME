@@ -4,19 +4,21 @@
     function fnInit_<%=PopID %>(d) {
 
         // 문자 미리보기
-        if (d.schId == 'undefined') {
-            $("span[id$='gstCpy']").val(d.gstCpy);
-<%--            $('#<%= gstCpy.ClientID %>').text(d.gstCpy);
-            $('#<%= gstPst.ClientID %>').text(d.gstPst);
-            $('#<%= gstName.ClientID %>').text(d.gstName);
-            $('#<%= schType.ClientID %>').text(d.schType);
-            $('#<%= schYearMD.ClientID %>').text(d.schYearMD);
-            $('#<%= schHourMin.ClientID %>').text(d.schHourMin);
-            $('#<%= msgStaff.ClientID %>').text(d.msgStaff);--%>
+        if (d.schId == null) {
+            alert('여기까지 왔니?');
+
+            $("#<%=hddGstCpy.ClientID%>").val(d.gstCpy);
+            $("#<%=hddGstPst.ClientID%>").val(d.gstPst);
+            $("#<%=hddGstName.ClientID%>").val(d.gstName);
+            $("#<%=hddSchType.ClientID%>").val(d.schType);
+            $("#<%=hddSchYearMD.ClientID%>").val(d.schYearMD);
+            $("#<%=hddSchHourMin.ClientID%>").val(d.schHourMin);
+
+            __doPostBack('<%=lnkDummy2.UniqueID%>', '');
 
             $('#resendMSG').hide();
         }
-        else if (d.schId != null) {
+        else {
             $("#<%=hddSCH_ID.ClientID%>").val(d.schId);
             __doPostBack('<%=lnkDummy.UniqueID%>', '');
         }
@@ -86,10 +88,20 @@
 
     <Triggers>
         <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
+        <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
     </Triggers>
 </asp:UpdatePanel>
 
 <asp:LinkButton ID="lnkDummy" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
+<asp:LinkButton ID="lnkDummy2" runat="server" OnClick="lnkDummy2_Click"></asp:LinkButton>
 
 <input type="hidden" id="hddSCH_ID" runat="server" />
+
+<input type="hidden" id="hddGstCpy" runat="server" />
+<input type="hidden" id="hddGstPst" runat="server" />
+<input type="hidden" id="hddGstName" runat="server" />
+<input type="hidden" id="hddSchType" runat="server" />
+<input type="hidden" id="hddSchYearMD" runat="server" />
+<input type="hidden" id="hddSchHourMin" runat="server" />
+
 <%--<input type="hidden" id="hddMsgStaff" runat="server" />--%>

@@ -12,7 +12,7 @@
             var gmn3 = $("input[id$='GST_MOBILE_NO3']").val();
 
             alert(gmn1);
-           // alert(gmn11);
+            // alert(gmn11);
             // 1. 연락처는 숫자만
             var regExpNum = /^[0-9]*$/;
 
@@ -39,12 +39,9 @@
                 return false;
 
             }
-
             return true;
 
-            // 3. 문자 발송 시간은 
-
-
+            // 3. 문자 발송 시간은
         }
 
         $(function () {
@@ -119,11 +116,11 @@
         };
 
         function fn_DEPTChange() {
-            __doPostBack('<%=lnkDummy.UniqueID%>', '');
+            __doPostBack('<%=lnkDummy2.UniqueID%>', '');
         };
 
         function fn_TEAMChange() {
-            __doPostBack('<%=lnkDummy.UniqueID%>', '');
+            __doPostBack('<%=lnkDummy3.UniqueID%>', '');
         };
 
         function fnPreviewSMS() {
@@ -146,10 +143,8 @@
                 schHourMin: schHourMin,
                 msgEmp: msgStaff
             });
-
         }
     </script>
-
 </asp:Content>
 
 
@@ -248,58 +243,61 @@
                         </div>
                     </div>
 
-                    <%-- ****************************************************** --%>
+                    <%-- ************************* 접견인 ************************* --%>
 
-                    <div class="vstCheckInInner mt40">
-                        <h4 class="vst-title-h4">접견인 정보</h4>
-                        <div>
-                            <p class="vst-title">
-                                소속 회사 <span>*</span>
-                            </p>
-                            <div>
-                                <select id="ES_COMPANY" runat="server" onchange="fn_CPYChange();">
-                                    <option value="" selected="selected">회사명</option>
-                                    <option value="1">이상네트웍스</option>
-                                    <option value="2">메쎄이상</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="vst-title">
-                                부서 및 팀 <span>*</span>
-                            </p>
-                            <div class="vst-tel">
-                                <%-- 부서 선택 --%>
-                                <select id="ES_DEPT" runat="server" onchange="fn_DEPTChange();"></select>
-                                <%--                                <asp:DropDownList ID="ES_DEPT" runat="server" AutoPostBack="True"
-                                    OnSelectedIndexChanged="ES_DEPT_SelectedIndexChanged">
-                                </asp:DropDownList>--%>
-                                <%-- 팀 선택 --%>
-                                <select id="ES_TEAM" runat="server" onchange="fn_TEAMChange();"></select>
-                                <%--                                <asp:DropDownList ID="ES_TEAM" runat="server" AutoPostBack="True"
-                                    OnSelectedIndexChanged="ES_TEAM_SelectedIndexChanged">
-                                </asp:DropDownList>--%>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="vst-title">
-                                성함 <span>*</span>
-                            </p>
-                            <div class="flex-wrap">
-                                <asp:DropDownList ID="STAFF_NAME" runat="server" AutoPostBack="True"
-                                    OnSelectedIndexChanged="STAFF_NAME_SelectedIndexChanged">
-                                </asp:DropDownList>
-                                <asp:DropDownList ID="STAFF_ID" runat="server" AutoPostBack="True"
-                                    OnSelectedIndexChanged="STAFF_ID_SelectedIndexChanged" Visible="false">
-                                </asp:DropDownList>
-                                <div class="select-name-area">
-                                    <asp:Literal ID="ltrStaffList" runat="server"></asp:Literal>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+
+                            <div class="vstCheckInInner mt40">
+                                <h4 class="vst-title-h4">접견인 정보</h4>
+                                <div>
+                                    <p class="vst-title">
+                                        소속 회사 <span>*</span>
+                                    </p>
+                                    <div>
+                                        <select id="ES_COMPANY" runat="server" onchange="fn_CPYChange();">
+                                            <option value="" selected="selected">회사명</option>
+                                            <option value="1">이상네트웍스</option>
+                                            <option value="2">메쎄이상</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <p class="help-vst">※ 선택된 접견인은 대표 담당자로 지정됩니다.</p>
+                                <div>
+                                    <p class="vst-title">
+                                        부서 및 팀 <span>*</span>
+                                    </p>
+                                    <div class="vst-tel">
+                                        <%-- 부서 선택 --%>
+                                        <select id="ES_DEPT" runat="server" onchange="fn_DEPTChange();"></select>
+                                        <select id="ES_TEAM" runat="server" onchange="fn_TEAMChange();"></select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="vst-title">
+                                        성함 <span>*</span>
+                                    </p>
+                                    <div class="flex-wrap">
+                                        <select id="SCH_STAFF" runat="server" onchange="fn_STAFFChange();"></select>
+                                        <div class="select-name-area">
+                                            <asp:Literal ID="ltrStaffList" runat="server"></asp:Literal>
+                                        </div>
+                                        <p class="help-vst">※ 선택된 접견인은 대표 담당자로 지정됩니다.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <%-- ****************************************************** --%>
+                        </ContentTemplate>
+
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
+
+                        </Triggers>
+
+                    </asp:UpdatePanel>
+
+
+                    <%-- ************************* 접견인 ************************* --%>
 
                     <div class="vstCheckInInner mt40">
                         <h4 class="vst-title-h4">문자 발송</h4>
@@ -367,7 +365,9 @@
     </section>
 
     <asp:LinkButton ID="lnkDummy" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
-    <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click"></asp:LinkButton>
+    <asp:LinkButton ID="lnkDummy2" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
+    <asp:LinkButton ID="lnkDummy3" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
+
 
     <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />
     <asp:HiddenField ID="hdd_ARR_STAFF" runat="server" />

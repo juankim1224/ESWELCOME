@@ -60,6 +60,33 @@ namespace WEB.controls
         }
         #endregion
 
+        /// <summary>
+        /// 문자 미리보기
+        /// </summary>
+        protected void lnkDummy2_Click(object sender, EventArgs e)
+        {
+            gstCpy.InnerText = hddGstCpy.Value;
+            gstPst.InnerText = hddGstPst.Value;
+            gstName.InnerText = hddGstName.Value;
+            schType.InnerText = hddSchType.Value;
+
+            StringBuilder sb = new StringBuilder();
+            string ymd = hddSchYearMD.Value;
+            sb.Append(ymd.Substring(0, 4));
+            sb.Append("년 ");
+            sb.Append(ymd.Substring(5, 2));
+            sb.Append("월 ");
+            sb.Append(ymd.Substring(8, 2));
+            sb.Append("일 ");
+
+            schYearMD.InnerText = sb.ToString();
+            schHourMin.InnerText = hddSchHourMin.Value;
+
+            msgStaff.InnerText = "010-2075-2105";
+
+
+            UCPopOpenScript(upnlList, "");
+        }
     }
 
 }

@@ -105,6 +105,15 @@ namespace WEB.schedule
         protected global::System.Web.UI.HtmlControls.HtmlSelect SCH_TYPE;
 
         /// <summary>
+        /// UpdatePanel1 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+
+        /// <summary>
         /// ES_COMPANY 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -132,22 +141,13 @@ namespace WEB.schedule
         protected global::System.Web.UI.HtmlControls.HtmlSelect ES_TEAM;
 
         /// <summary>
-        /// STAFF_NAME 컨트롤입니다.
+        /// SCH_STAFF 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList STAFF_NAME;
-
-        /// <summary>
-        /// STAFF_ID 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList STAFF_ID;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect SCH_STAFF;
 
         /// <summary>
         /// ltrStaffList 컨트롤입니다.
@@ -204,13 +204,22 @@ namespace WEB.schedule
         protected global::System.Web.UI.WebControls.LinkButton lnkDummy;
 
         /// <summary>
-        /// LinkButton1 컨트롤입니다.
+        /// lnkDummy2 컨트롤입니다.
         /// </summary>
         /// <remarks>
         /// 자동 생성 필드입니다.
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy2;
+
+        /// <summary>
+        /// lnkDummy3 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy3;
 
         /// <summary>
         /// hdd_SCH_MONITER 컨트롤입니다.

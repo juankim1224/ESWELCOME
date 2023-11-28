@@ -44,7 +44,7 @@
                     </p>
                 </div>
                 <div class="mypage_view_area">
-                    <p style="border-bottom: thick;"><a href="javascript:<%=ucPW.OpenScript%>();" onclick="return fnInit_ucPwd()">비밀번호 변경</></p>
+                    <p style="border-bottom: thick;"><a href="javascript:<%=ucPW.OpenScript%>();" onclick="return fnInit_ucPwd()">비밀번호 변경</a></p>
                     <p><a href="~/userLogin.aspx">로그아웃</a></p>
                 </div>
             </div>

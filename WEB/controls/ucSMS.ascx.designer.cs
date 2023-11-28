@@ -105,6 +105,15 @@ namespace WEB.controls
         protected global::System.Web.UI.WebControls.LinkButton lnkDummy;
 
         /// <summary>
+        /// lnkDummy2 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy2;
+
+        /// <summary>
         /// hddSCH_ID 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -112,5 +121,59 @@ namespace WEB.controls
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddSCH_ID;
+
+        /// <summary>
+        /// hddGstCpy 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddGstCpy;
+
+        /// <summary>
+        /// hddGstPst 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddGstPst;
+
+        /// <summary>
+        /// hddGstName 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddGstName;
+
+        /// <summary>
+        /// hddSchType 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddSchType;
+
+        /// <summary>
+        /// hddSchYearMD 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddSchYearMD;
+
+        /// <summary>
+        /// hddSchHourMin 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hddSchHourMin;
     }
 }
