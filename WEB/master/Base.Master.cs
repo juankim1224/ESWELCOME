@@ -16,7 +16,7 @@ namespace WEB.master
 
         protected void sm_AsyncPostBackError(object sender, AsyncPostBackErrorEventArgs e)
         {
-
+            sm.AsyncPostBackErrorMessage = e.Exception.Message;
         }
     }
 }

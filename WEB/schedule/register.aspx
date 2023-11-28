@@ -147,14 +147,15 @@
     </script>
 </asp:Content>
 
-
-
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <section id="contentWrap">
         <article class="area mainWrap">
             <div class="mainTitle">
                 <h3>방문등록</h3>
             </div>
+
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
             <!-- 게시판 내용 -->
             <div class="mainBoardWrap">
                 <h4 class="vst-title-h4">방문객 정보</h4>
@@ -245,9 +246,6 @@
 
                     <%-- ************************* 접견인 ************************* --%>
 
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-
                             <div class="vstCheckInInner mt40">
                                 <h4 class="vst-title-h4">접견인 정보</h4>
                                 <div>
@@ -285,18 +283,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </ContentTemplate>
-
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
-                            <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
-                            <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
-
-                        </Triggers>
-
-                    </asp:UpdatePanel>
-
-
                     <%-- ************************* 접견인 ************************* --%>
 
                     <div class="vstCheckInInner mt40">
@@ -361,12 +347,19 @@
                 </div>
             </div>
             <!-- //게시판 내용 -->
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
+                </Triggers>
+            </asp:UpdatePanel>
         </article>
     </section>
 
     <asp:LinkButton ID="lnkDummy" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
-    <asp:LinkButton ID="lnkDummy2" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
-    <asp:LinkButton ID="lnkDummy3" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
+    <asp:LinkButton ID="lnkDummy2" runat="server" OnClick="lnkDummy2_Click"></asp:LinkButton>
+    <asp:LinkButton ID="lnkDummy3" runat="server" OnClick="lnkDummy3_Click"></asp:LinkButton>
 
 
     <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />
