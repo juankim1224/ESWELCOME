@@ -6,114 +6,42 @@
     <script>
         function fnCheckSave() {
 
-
             /* 유효성 체크*/
-            var gstName = $("input[id$='GST_NAME']").val();
-            var schType = $("input[id$='SCH_TYPE']").val();
-
-            var moniterY = $("input[id$='SCH_MONITER_Y']").val();
-            var moniterN = $("input[id$='SCH_MONITER_N']").val();
-            var esCompany = $("input[id$='ES_COMPANY']").val();
-
-            var esDept = $("input[id$='ES_DEPT']").val();
-            var esTeam = $("input[id$='ES_TEAM']").val();
-            var esStaff = $("input[id$='ES_STAFF']").val();
-
-            var gubun1 = $("input[id$='MSG_GUBUN_1']").attr('class');
-            var gubun2 = $("input[id$='MSG_GUBUN_2']").attr('class');
-            // var gubun2 = $("input[id$='MSG_GUBUN_2']").val();
-
-            var tndCkY = $("input[id$='TND_CHECK_Y']").val();
-            var tndCkN = $("input[id$='TND_CHECK_N']").val();
-
-            //임시
-            var msgYMD = $('#<%=MSG_YEARMD.ClientID %>').val();
-            var msgHH = $('#<%=MSG_HOUR.ClientID %>').val();
-            var msgMM = $('#<%=MSG_MIN .ClientID %>').val();
-
-             // 4. 공백 체크
-             alert('즉시gubun1: ' + gubun1);
-             alert('예약 gubun2: ' + gubun2);
-             alert('msgymd: ' + msgYMD);
-             alert('msgHH: ' + msgHH);
-             alert('msgmm: ' + msgMM);
-
-            if ( gubun1 !== 'active' || (gubun2 !== 'active'  || msgYMD === null  || msgHH == '선택' || msgMM == '선택') ) {
-                alert('!gubun체크 1');
-                return false;
-            }
-
-             if (  (gubun1 !== 'active' && gubun2 !== 'active')
-                    || (gubun2 !== 'active' || msgYMD === null  || msgHH == '선택' || msgMM == '선택')   ) {
-                alert('!gubun체크 2 ');
-                return false;
-            }
-
-            
-            // 1. 연락처는 숫자만
             var gmn1 = $("input[id$='GST_MOBILE_NO1']").val();
             var gmn2 = $("input[id$='GST_MOBILE_NO2']").val();
             var gmn3 = $("input[id$='GST_MOBILE_NO3']").val();
 
+            alert(gmn1);
+            // alert(gmn11);
+            // 1. 연락처는 숫자만
             var regExpNum = /^[0-9]*$/;
+
             if (!regExpNum.test(gmn1) || !regExpNum.test(gmn2) || !regExpNum.test(gmn3)) {
                 alert('연락처는 숫자만 기입이 가능합니다.');
-                $('#<%=GST_MOBILE_NO1.ClientID %>').val('');
-                $('#<%=GST_MOBILE_NO2.ClientID %>').val('');
-                $('#<%=GST_MOBILE_NO3.ClientID %>').val('');
+                $('#<%=GST_MOBILE_NO1.ClientID %>').val("");
+                $('#<%=GST_MOBILE_NO2.ClientID %>').val("");
+                $('#<%=GST_MOBILE_NO3.ClientID %>').val("");
                 return false;
+
             }
 
-            // 2. 스케줄 날짜는 2시간 이후부터
-            var todayDate = new Date();
+            // 2. 스케줄 날짜는 현재 이후에만
+            var date = new date();
+            var todayYmd = date.getfullyear() + '' + fntwodigit(date.getmonth() + 1);
+            var hour = date.getHours();
+            var min = date.getHours();
 
-            var schYMD = $('#<%=SCH_YEARMD.ClientID %>').val();
-            var schHH = $('#<%=SCH_HOUR.ClientID %>').val();
-            var schMM = $('#<%=SCH_MIN.ClientID %>').val();
+            var schYmd = $('#<%=SCH_YEARMD.ClientID %>').val();
 
-            var schYMDHM = schYMD + ' ' + schHH + ':' + schMM + ':00';
-            var schDate = new Date(schYMDHM);
-
-            var schCk = todayDate.setHours(todayDate.getHours() + 2);
-     
-            if (schDate < schCk) {
-                alert('방문 일정은 2시간 이후부터 가능합니다.');
-                $('#<%=SCH_YEARMD.ClientID %>').val('');
-                $('#<%=SCH_HOUR .ClientID %>').val('');
-                $('#<%=SCH_MIN.ClientID %>').val('');
+            if (schYmd < todayYmd) {
+                alert('스케줄 등록은 금일 이후만 가능합니다.');
+                $('#<%=SCH_YEARMD.ClientID %>').val("");
                 return false;
+
             }
-
-            // 3. 문자 발송 시간은 스케줄 2시간 전까지
-            var msgYMD = $('#<%=MSG_YEARMD.ClientID %>').val();
-            var msgHH = $('#<%=MSG_HOUR.ClientID %>').val();
-            var msgMM = $('#<%=MSG_MIN .ClientID %>').val();
-            var msgYMDHM = msgYMD + ' ' + msgHH + ':' + msgMM + ':00';
-            var msgDate = new Date(msgYMDHM);
-
-            schDate.setHours(schDate.getHours() - 2);
-
-            if (schDate < msgDate) {
-                alert('문자 예약은 방문 2시간 이전까지 가능합니다.');
-                $('#<%=MSG_YEARMD.ClientID %>').val('');
-                $('#<%=MSG_HOUR.ClientID %>').val('');
-                $('#<%=MSG_MIN .ClientID %>').val('');
-                return false;
-            }
-
-            // 4. 공백 체크
-            if (gstName == '' || gmn1 == '' || gmn2 == '' || gmn3 == ''
-                || schYMD == '' || schHH == '' || schMM == ''
-                || schType == '' || (moniterY == '' || moniterN == '')
-                || esCompany == null || esDept == null || esTeam == null || esStaff == null
-                || gubun1 == '' || (gubun2 == '' && msgYMD == '' || msgHH == '' || msgMM == '')
-                || (tndCkY == '' || tndCkN == '') ) {
-                alert('필수값을 모두 입력해 주세요.');
-                return false;
-            }
-
-            confirm('방문 등록을 하시겠습니까?');
             return true;
+
+            // 3. 문자 발송 시간은
         }
 
         $(function () {
@@ -183,18 +111,18 @@
             }
         })
 
-        // [접견인] 회사, 부서, 팀, 직원 선택
         function fn_CPYChange() {
             __doPostBack('<%=lnkDummy.UniqueID%>', '');
         };
+
         function fn_DEPTChange() {
             __doPostBack('<%=lnkDummy2.UniqueID%>', '');
         };
+
         function fn_TEAMChange() {
             __doPostBack('<%=lnkDummy3.UniqueID%>', '');
         };
 
-        // 문자 미리보기
         function fnPreviewSMS() {
             var gstCpy = $('#<%=GST_CPY.ClientID %>').val();
             var gstPst = $('#<%=GST_PST.ClientID %>').val();
@@ -203,6 +131,7 @@
             var schYearMD = $('#<%=SCH_YEARMD.ClientID %>').val();
             var schHourMin = $('#<%=SCH_HOUR.ClientID %>').val() + "시 " + $('#<%=SCH_MIN.ClientID %>').val() + "분";
             var msgStaff = "010-1234-5678";
+
             //var msgStaff = $('input[name="msgStaff"]').val();
 
             fnOpen_ucSMS({
@@ -355,6 +284,7 @@
                                 </div>
                             </div>
                             <%-- ************************* 접견인 ************************* --%>
+
                             <div class="vstCheckInInner mt40">
                                 <h4 class="vst-title-h4">문자 발송</h4>
                                 <div>
@@ -404,6 +334,7 @@
                                                 <a href="javascript:void(0);" onclick="return fnPreviewSMS()" class="sms-btn">SMS 미리보기</a>
                                             </div>
                                         </div>
+
                                     </div>
                                     <p class="help-vst">※ 일정 하루 전에 문자가 재발송됩니다.</p>
                                 </div>

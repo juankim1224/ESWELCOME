@@ -191,7 +191,7 @@ namespace WEB.schedule
         /// <summary>
         /// 접견인 바인딩  2. 팀
         /// </summary>
-        protected void lnkDummy_Click2(object sender, EventArgs e)
+        protected void lnkDummy2_Click(object sender, EventArgs e)
         {
             var dept = ES_DEPT.Value.Trim();
             var team = SCHFacade.GetInstance.InquirySTAFF(null, dept, null);
@@ -211,7 +211,7 @@ namespace WEB.schedule
         /// <summary>
         /// 접견인 바인딩  3. 직원
         /// </summary>
-        protected void lnkDummy_Click3(object sender, EventArgs e)
+        protected void lnkDummy3_Click(object sender, EventArgs e)
         {
             var team = ES_TEAM.Value.Trim();
             var staff = SCHFacade.GetInstance.InquirySTAFF(null, null, team);

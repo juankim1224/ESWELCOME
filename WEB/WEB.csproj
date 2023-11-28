@@ -159,6 +159,7 @@
     <Content Include="schedule\schDetail.aspx" />
     <Content Include="schedule\schList.aspx" />
     <Content Include="schedule\schMain.aspx" />
+    <Content Include="schedule\ㅇ.aspx" />
     <Content Include="scripts\common.js" />
     <Content Include="scripts\es-init.js" />
     <Content Include="scripts\es-plugin.js" />
@@ -176,7 +177,6 @@
     <Content Include="scripts\jquery-3.7.1.slim.js" />
     <Content Include="scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="scripts\jquery-ui-1.12.1.js" />
-    <Content Include="test.aspx" />
     <Content Include="Web.config" />
     <Content Include="Connected Services\net.e_sang.api2\WEB.net.e_sang.api2.NewJUSOEntry.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -326,12 +326,12 @@
     <Compile Include="schedule\schMain.aspx.designer.cs">
       <DependentUpon>schMain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
+    <Compile Include="schedule\ㅇ.aspx.cs">
+      <DependentUpon>ㅇ.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
+    <Compile Include="schedule\ㅇ.aspx.designer.cs">
+      <DependentUpon>ㅇ.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -355,7 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
