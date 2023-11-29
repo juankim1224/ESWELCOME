@@ -6,56 +6,50 @@
     <script>
         function fnCheckSave() {
 
-
             /* 유효성 체크*/
             var gstName = $("input[id$='GST_NAME']").val();
-            var schType = $("input[id$='SCH_TYPE']").val();
+            var schType = $('#<%=SCH_TYPE.ClientID %>').val();
 
-            var moniterY = $("input[id$='SCH_MONITER_Y']").val();
-            var moniterN = $("input[id$='SCH_MONITER_N']").val();
-            var esCompany = $("input[id$='ES_COMPANY']").val();
+            var moniterY = $("p[id$='SCH_MONITER_Y']").attr('class');
+            var moniterN = $("p[id$='SCH_MONITER_N']").attr('class');
 
-            var esDept = $("input[id$='ES_DEPT']").val();
-            var esTeam = $("input[id$='ES_TEAM']").val();
-            var esStaff = $("input[id$='ES_STAFF']").val();
+            var esCompany = $('#<%=ES_COMPANY.ClientID %>').val();
+            var esDept = $('#<%=ES_DEPT.ClientID %>').val();
+            var esTeam = $('#<%=ES_TEAM.ClientID %>').val();
+            var esStaff = $('#<%=SCH_STAFF.ClientID %>').val();
 
-            var gubun1 = $("input[id$='MSG_GUBUN_1']").attr('class');
-            var gubun2 = $("input[id$='MSG_GUBUN_2']").attr('class');
-            // var gubun2 = $("input[id$='MSG_GUBUN_2']").val();
+            var gubun1 = $("p[id$='MSG_GUBUN_1']").attr('class');
+            var gubun2 = $("p[id$='MSG_GUBUN_2']").attr('class');
 
-            var tndCkY = $("input[id$='TND_CHECK_Y']").val();
-            var tndCkN = $("input[id$='TND_CHECK_N']").val();
+            var tndCkY = $("p[id$='TND_CHECK_Y']").attr('class');
+            var tndCkN = $("p[id$='TND_CHECK_N']").attr('class');
 
-            //임시
-            var msgYMD = $('#<%=MSG_YEARMD.ClientID %>').val();
-            var msgHH = $('#<%=MSG_HOUR.ClientID %>').val();
-            var msgMM = $('#<%=MSG_MIN .ClientID %>').val();
-
-             // 4. 공백 체크
-             alert('즉시gubun1: ' + gubun1);
-             alert('예약 gubun2: ' + gubun2);
-             alert('msgymd: ' + msgYMD);
-             alert('msgHH: ' + msgHH);
-             alert('msgmm: ' + msgMM);
-
-            if ( gubun1 !== 'active' || (gubun2 !== 'active'  || msgYMD === null  || msgHH == '선택' || msgMM == '선택') ) {
-                alert('!gubun체크 1');
-                return false;
-            }
-
-             if (  (gubun1 !== 'active' && gubun2 !== 'active')
-                    || (gubun2 !== 'active' || msgYMD === null  || msgHH == '선택' || msgMM == '선택')   ) {
-                alert('!gubun체크 2 ');
-                return false;
-            }
-
-            
-            // 1. 연락처는 숫자만
             var gmn1 = $("input[id$='GST_MOBILE_NO1']").val();
             var gmn2 = $("input[id$='GST_MOBILE_NO2']").val();
             var gmn3 = $("input[id$='GST_MOBILE_NO3']").val();
 
+            var schYMD = $('#<%=SCH_YEARMD.ClientID %>').val();
+            var schHH = $('#<%=SCH_HOUR.ClientID %>').val();
+            var schMM = $('#<%=SCH_MIN.ClientID %>').val();
+
+            var msgYMD = $('#<%=MSG_YEARMD.ClientID %>').val();
+            var msgHH = $('#<%=MSG_HOUR.ClientID %>').val();
+            var msgMM = $('#<%=MSG_MIN .ClientID %>').val();
+
+            // 1. 공백 체크
+            if (gstName === '' || gmn1 === '' || gmn2 === '' || gmn3 === ''
+                || schYMD === '' || schHH === '선택' || schMM === '선택'
+                || schType === '' || (moniterY == 'select-btn' || moniterN == 'select-btn')
+                || esCompany === '' || esDept === null || esTeam === null || esStaff === null
+                || gubun1 === 'select-btn' && (gubun2 === 'select-btn' || msgYMD === '' || msgHH == '선택' || msgMM == '선택')
+                || (tndCkY === 'select-btn' || tndCkN == 'select-btn')) {
+                alert('필수값을 모두 입력해 주세요.');
+                return false;
+            }
+
+            // 2. 연락처는 숫자만 기입
             var regExpNum = /^[0-9]*$/;
+
             if (!regExpNum.test(gmn1) || !regExpNum.test(gmn2) || !regExpNum.test(gmn3)) {
                 alert('연락처는 숫자만 기입이 가능합니다.');
                 $('#<%=GST_MOBILE_NO1.ClientID %>').val('');
@@ -67,15 +61,11 @@
             // 2. 스케줄 날짜는 2시간 이후부터
             var todayDate = new Date();
 
-            var schYMD = $('#<%=SCH_YEARMD.ClientID %>').val();
-            var schHH = $('#<%=SCH_HOUR.ClientID %>').val();
-            var schMM = $('#<%=SCH_MIN.ClientID %>').val();
-
             var schYMDHM = schYMD + ' ' + schHH + ':' + schMM + ':00';
             var schDate = new Date(schYMDHM);
 
             var schCk = todayDate.setHours(todayDate.getHours() + 2);
-     
+
             if (schDate < schCk) {
                 alert('방문 일정은 2시간 이후부터 가능합니다.');
                 $('#<%=SCH_YEARMD.ClientID %>').val('');
@@ -85,12 +75,8 @@
             }
 
             // 3. 문자 발송 시간은 스케줄 2시간 전까지
-            var msgYMD = $('#<%=MSG_YEARMD.ClientID %>').val();
-            var msgHH = $('#<%=MSG_HOUR.ClientID %>').val();
-            var msgMM = $('#<%=MSG_MIN .ClientID %>').val();
             var msgYMDHM = msgYMD + ' ' + msgHH + ':' + msgMM + ':00';
             var msgDate = new Date(msgYMDHM);
-
             schDate.setHours(schDate.getHours() - 2);
 
             if (schDate < msgDate) {
@@ -101,23 +87,14 @@
                 return false;
             }
 
-            // 4. 공백 체크
-            if (gstName == '' || gmn1 == '' || gmn2 == '' || gmn3 == ''
-                || schYMD == '' || schHH == '' || schMM == ''
-                || schType == '' || (moniterY == '' || moniterN == '')
-                || esCompany == null || esDept == null || esTeam == null || esStaff == null
-                || gubun1 == '' || (gubun2 == '' && msgYMD == '' || msgHH == '' || msgMM == '')
-                || (tndCkY == '' || tndCkN == '') ) {
-                alert('필수값을 모두 입력해 주세요.');
-                return false;
-            }
-
             confirm('방문 등록을 하시겠습니까?');
             return true;
         }
 
         $(function () {
+
             var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
+
             if (schId1 != "") {
                 var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
                 if (schMoniter == 'Y') {
@@ -140,7 +117,8 @@
                 } else if (msgTndCheck == 'N') {
                     $('#TND_CHECK_N').addClass('active');
                 }
-                // 작성모드
+
+                // 등록 모드
             } else {
 
                 // 모니터 실행 선택
@@ -193,6 +171,24 @@
         function fn_TEAMChange() {
             __doPostBack('<%=lnkDummy3.UniqueID%>', '');
         };
+        function fn_STAFFChange() {
+            __doPostBack('<%=lnkDummy4.UniqueID%>', '');
+        };
+
+
+        // 접견인 삭제
+<%--        function fnDeleteStaff(o) {
+
+            var deleteRadio = 
+
+            $('#<%=ltrStaffList.ClientID %>').val(); // radio 버튼 담고 있는 부모
+
+
+            
+
+
+        }--%>
+
 
         // 문자 미리보기
         function fnPreviewSMS() {
@@ -270,7 +266,7 @@
                                 </div>
                                 <div>
                                     <p class="vst-title">
-                                        방문 일시 <span>*</span> 
+                                        방문 일시 <span>*</span>
                                     </p>
                                     <div class="vst-tel">
                                         <%-- 날짜 --%>
@@ -361,7 +357,7 @@
                                     <div class="vst-in-flex">
                                         <div class="vst-in-item2">
                                             <p class="vst-title">
-                                                발송 시간
+                                                발송 시간 <span>*</span>
                                             </p>
                                             <div class="select-btn-flex">
                                                 <p class="select-btn" id="MSG_GUBUN_1">즉시</p>
@@ -390,7 +386,7 @@
                                 </div>
                                 <div>
                                     <p class="vst-title">
-                                        2차 발송
+                                        2차 발송 <span>*</span>
                                     </p>
                                     <div class="vst-in-flex">
                                         <div class="vst-in-item2">
@@ -421,6 +417,8 @@
                     <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
                     <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
                     <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
+                    <asp:AsyncPostBackTrigger ControlID="lnkDummy4" EventName="Click" />
+
                 </Triggers>
             </asp:UpdatePanel>
         </article>
@@ -429,6 +427,7 @@
     <asp:LinkButton ID="lnkDummy" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
     <asp:LinkButton ID="lnkDummy2" runat="server" OnClick="lnkDummy2_Click"></asp:LinkButton>
     <asp:LinkButton ID="lnkDummy3" runat="server" OnClick="lnkDummy3_Click"></asp:LinkButton>
+    <asp:LinkButton ID="lnkDummy4" runat="server" OnClick="lnkDummy4_Click"></asp:LinkButton>
 
 
     <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />

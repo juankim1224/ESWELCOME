@@ -14,9 +14,8 @@
             $("#<%=hddSchYearMD.ClientID%>").val(d.schYearMD);
             $("#<%=hddSchHourMin.ClientID%>").val(d.schHourMin);
 
+            $('#resendMSG').css('visibility', 'hidden');
             __doPostBack('<%=lnkDummy2.UniqueID%>', '');
-
-            $('#resendMSG').hide();
         }
         else {
             $("#<%=hddSCH_ID.ClientID%>").val(d.schId);

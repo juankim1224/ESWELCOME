@@ -272,6 +272,8 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             this._TEAM = null;
             this._MEM_ID = null;
             this._MEM_FULLNAME = null;
+            this._ID_FULLNAME = null;
+
         }
         #endregion
 
@@ -316,6 +318,18 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             get { return _MEM_FULLNAME; }
             set { _MEM_FULLNAME = value; }
         }
+
+        private string _ID_FULLNAME;
+
+        [ESBind("ID_FULLNAME", "")]
+        [ESNfx.Attributes.ExcelBind("ID_FULLNAME")]
+        public string ID_FULLNAME
+        {
+            get { return _ID_FULLNAME; }
+            set { _ID_FULLNAME = value; }
+        }
+
+
 
         #endregion
     }
