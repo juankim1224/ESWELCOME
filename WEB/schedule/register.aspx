@@ -183,8 +183,7 @@
             var schType = $('#<%=SCH_TYPE.ClientID %>').val();
             var schYearMD = $('#<%=SCH_YEARMD.ClientID %>').val();
             var schHourMin = $('#<%=SCH_HOUR.ClientID %>').val() + "시 " + $('#<%=SCH_MIN.ClientID %>').val() + "분";
-            var msgStaff = "010-1234-5678";
-            //var msgStaff = $('input[name="msgStaff"]').val();
+            var msgStaff = $(":input:radio[name=msgStaff]:checked").val();  // [ 대표접견인 ] 체크된 접견인 id
 
             fnOpen_ucSMS({
                 gstCpy: gstCpy,
@@ -193,7 +192,7 @@
                 schType: schType,
                 schYearMD: schYearMD,
                 schHourMin: schHourMin,
-                msgEmp: msgStaff
+                msgStaff: msgStaff
             });
         }
     </script>

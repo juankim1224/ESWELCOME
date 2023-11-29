@@ -53,8 +53,8 @@ namespace WEB.controls
                 schYearMD.InnerText = sb.ToString();
                 schHourMin.InnerText = item.SCH_HOUR + "시 " + item.SCH_MIN + "분";
 
+                // 대표 접견인 번호
                 msgStaff.InnerText = MSGFacade.GetInstance.GetSTAFFHP(item.STF_ID).GenericItem.schStaffHp;
-
             }
 
         }
@@ -82,8 +82,9 @@ namespace WEB.controls
             schYearMD.InnerText = sb.ToString();
             schHourMin.InnerText = hddSchHourMin.Value;
 
-            msgStaff.InnerText = "010-2075-2105";
-
+            // 대표 접견인 번호
+            var memId = Convert.ToInt32(hddmsgStaff.Value);
+            msgStaff.InnerText = ESFacade.GetInstance.GetMEMBER(memId).GenericItem.MEM_MOBILE_NO;
 
             UCPopOpenScript(upnlList, "");
         }

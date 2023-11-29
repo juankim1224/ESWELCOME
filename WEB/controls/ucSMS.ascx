@@ -13,6 +13,7 @@
             $("#<%=hddSchType.ClientID%>").val(d.schType);
             $("#<%=hddSchYearMD.ClientID%>").val(d.schYearMD);
             $("#<%=hddSchHourMin.ClientID%>").val(d.schHourMin);
+            $("#<%=hddmsgStaff.ClientID%>").val(d.msgStaff);
 
             $('#resendMSG').css('visibility', 'hidden');
             __doPostBack('<%=lnkDummy2.UniqueID%>', '');
@@ -102,5 +103,4 @@
 <input type="hidden" id="hddSchType" runat="server" />
 <input type="hidden" id="hddSchYearMD" runat="server" />
 <input type="hidden" id="hddSchHourMin" runat="server" />
-
-<%--<input type="hidden" id="hddMsgStaff" runat="server" />--%>
+<input type="hidden" id="hddmsgStaff" runat="server" />
