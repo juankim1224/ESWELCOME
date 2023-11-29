@@ -195,42 +195,6 @@ namespace WEB.schedule
         protected global::System.Web.UI.WebControls.LinkButton lnkSave;
 
         /// <summary>
-        /// lnkDummy 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummy;
-
-        /// <summary>
-        /// lnkDummy2 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummy2;
-
-        /// <summary>
-        /// lnkDummy3 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummy3;
-
-        /// <summary>
-        /// lnkDummy4 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummy4;
-
-        /// <summary>
         /// hdd_SCH_MONITER 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -274,6 +238,42 @@ namespace WEB.schedule
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdd_SchId;
+
+        /// <summary>
+        /// lnkDummy 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy;
+
+        /// <summary>
+        /// lnkDummy2 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy2;
+
+        /// <summary>
+        /// lnkDummy3 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy3;
+
+        /// <summary>
+        /// lnkDummy4 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDummy4;
 
         /// <summary>
         /// ucSMS 컨트롤입니다.

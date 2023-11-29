@@ -70,7 +70,7 @@
                 alert('방문 일정은 2시간 이후부터 가능합니다.');
                 $('#<%=SCH_YEARMD.ClientID %>').val('');
                 $('#<%=SCH_HOUR .ClientID %>').val('');
-                $('#<%=SCH_MIN.ClientID %>').val('');
+                $('#<%=SCH_MIN.ClientID %>').val(''); 
                 return false;
             }
 
@@ -159,7 +159,7 @@
                     $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
                 });
             }
-        })
+        });
 
         // [접견인] 회사, 부서, 팀, 직원 선택
         function fn_CPYChange() {
@@ -174,21 +174,6 @@
         function fn_STAFFChange() {
             __doPostBack('<%=lnkDummy4.UniqueID%>', '');
         };
-
-
-        // 접견인 삭제
-<%--        function fnDeleteStaff(o) {
-
-            var deleteRadio = 
-
-            $('#<%=ltrStaffList.ClientID %>').val(); // radio 버튼 담고 있는 부모
-
-
-            
-
-
-        }--%>
-
 
         // 문자 미리보기
         function fnPreviewSMS() {
@@ -343,7 +328,7 @@
                                     </p>
                                     <div class="flex-wrap">
                                         <select id="SCH_STAFF" runat="server" onchange="fn_STAFFChange();"></select>
-                                        <div class="select-name-area">
+                                        <div class="select-name-area" id="staffListArea">
                                             <asp:Literal ID="ltrStaffList" runat="server"></asp:Literal>
                                         </div>
                                         <p class="help-vst">※ 선택된 접견인은 대표 담당자로 지정됩니다.</p>
@@ -411,6 +396,11 @@
                             <a href="schList.aspx" class="btns secondary-btn ">목록</a>
                         </div>
                     </div>
+                    <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />
+                    <asp:HiddenField ID="hdd_ARR_STAFF" runat="server" />
+                    <asp:HiddenField ID="hdd_MSG_GUBUN" runat="server" />
+                    <asp:HiddenField ID="hdd_TND_CHECK" runat="server" />
+                    <asp:HiddenField ID="hdd_SchId" runat="server" />
                     <!-- //게시판 내용 -->
                 </ContentTemplate>
                 <Triggers>
@@ -430,12 +420,28 @@
     <asp:LinkButton ID="lnkDummy4" runat="server" OnClick="lnkDummy4_Click"></asp:LinkButton>
 
 
-    <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />
-    <asp:HiddenField ID="hdd_ARR_STAFF" runat="server" />
-    <asp:HiddenField ID="hdd_MSG_GUBUN" runat="server" />
-    <asp:HiddenField ID="hdd_TND_CHECK" runat="server" />
-    <asp:HiddenField ID="hdd_SchId" runat="server" />
 
     <MSG:ucSMS ID="ucSMS" runat="server" PopWidth="480" />
 
+    <script>
+        function fnDeleteStaff(radioId) {
+            
+            var deleteRadio =  $('#' + radioId).val().toString();
+            
+            var hddStaffList = $("input[id$='hdd_ARR_STAFF']").val();
+            var staff = hddStaffList.split(',');
+
+
+            for(let i = 0; i <= staff.length; i++){
+               
+                if(staff[i] === deleteRadio) {
+                    var index = staff.indexOf(staff[i]);
+                    var result = staff.splice(index, 1);
+                    $("input[id$='hdd_ARR_STAFF']").val(staff);
+                }
+            }
+            $('#s'+radioId).remove();
+        }
+
+    </script>
 </asp:Content>

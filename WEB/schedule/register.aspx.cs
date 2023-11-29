@@ -52,7 +52,7 @@ namespace WEB.schedule
             string str;
 
             List<string> hour = new List<string>();
-            for (var i = 7; i <= 19; i++)
+            for (var i = 7; i <= 18; i++)
             {
                 str = i + "";
                 if (i < 10)
@@ -213,9 +213,9 @@ namespace WEB.schedule
             var staffId = SCH_STAFF.Value.Split('&')[0];
             var staffName = SCH_STAFF.Value.Split('&')[1];
 
-            if (ltrStaffList.Text.Contains(staffId) != true)
+            if (ltrStaffList.Text.Contains(staffName) != true)
             {
-                ltrStaffList.Text += string.Format("<p><input type=\"radio\" value={0} name=\"msgStaff\" /><label>{1}</label><a href=\"javascript:fnDeleteStaff({2})\" class=\"del\"> X </a></p>", staffId, staffName, staffId);
+                ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\" /><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s"+ staffId, staffId, staffName);
                 hdd_ARR_STAFF.Value += hdd_ARR_STAFF.Value != "" ? "," + staffId : staffId;
             }
             else
