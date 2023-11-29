@@ -80,7 +80,7 @@
                 alert('방문 일정은 2시간 이후부터 가능합니다.');
                 $('#<%=SCH_YEARMD.ClientID %>').val('');
                 $('#<%=SCH_HOUR .ClientID %>').val('');
-                $('#<%=SCH_MIN.ClientID %>').val('');
+                $('#<%=SCH_MIN.ClientID %>').val(''); 
                 return false;
             }
 
