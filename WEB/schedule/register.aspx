@@ -270,7 +270,7 @@
                                 </div>
                                 <div>
                                     <p class="vst-title">
-                                        방문 일시 <span>*</span>
+                                        방문 일시 <span>*</span> 
                                     </p>
                                     <div class="vst-tel">
                                         <%-- 날짜 --%>
