@@ -93,72 +93,76 @@
 
         $(function () {
 
-            var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
+            var init = function () {
+                    var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
 
-            if (schId1 != "") {
-                var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
-                if (schMoniter == 'Y') {
-                    $('#SCH_MONITER_Y').addClass('active');
-                } else if (schMoniter == 'N') {
-                    $('#SCH_MONITER_N').addClass('active');
-                }
+                    // 수정 모드
+                    if (schId1 != "") {
+                            var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
+                            if (schMoniter == 'Y') {
+                                $('#SCH_MONITER_Y').addClass('active');
+                            } else if (schMoniter == 'N') {
+                                $('#SCH_MONITER_N').addClass('active');
+                            }
 
-                var msgGubun = $("input[id$='hdd_MSG_GUBUN']").val();
-                if (msgGubun == '1') {
-                    $('#MSG_GUBUN_1').addClass('active');
-                } else if (msgGubun == '2') {
-                    $('#MSG_GUBUN_2').addClass('active');
-                }
+                            var msgGubun = $("input[id$='hdd_MSG_GUBUN']").val();
+                            if (msgGubun == '1') {
+                                $('#MSG_GUBUN_1').addClass('active');
+                            } else if (msgGubun == '2') {
+                                $('#MSG_GUBUN_2').addClass('active');
+                            }
 
-                var msgTndCheck = $("input[id$='hdd_TND_CHECK']").val();
-                if (msgTndCheck == 'Y') {
-                    $('#TND_CHECK_Y').addClass('active');
+                            var msgTndCheck = $("input[id$='hdd_TND_CHECK']").val();
+                            if (msgTndCheck == 'Y') {
+                                $('#TND_CHECK_Y').addClass('active');
 
-                } else if (msgTndCheck == 'N') {
-                    $('#TND_CHECK_N').addClass('active');
-                }
+                            } else if (msgTndCheck == 'N') {
+                                $('#TND_CHECK_N').addClass('active');
+                            }
+                
+                    } else {    // 등록 모드
 
-                // 등록 모드
-            } else {
+                            // 모니터 실행 선택
+                            $('#SCH_MONITER_Y').on('click', function () {
+                                $('#SCH_MONITER_Y').addClass('active');
+                                $('#SCH_MONITER_N').removeClass('active');
+                                $('#<%=hdd_SCH_MONITER.ClientID %>').val('Y');
+                            });
+                            $('#SCH_MONITER_N').on('click', function () {
+                                $('#SCH_MONITER_N').addClass('active');
+                                $('#SCH_MONITER_Y').removeClass('active');
+                                $('#<%=hdd_SCH_MONITER.ClientID %>').val('N');
+                            });
 
-                // 모니터 실행 선택
-                $('#SCH_MONITER_Y').on('click', function () {
-                    $('#SCH_MONITER_Y').addClass('active');
-                    $('#SCH_MONITER_N').removeClass('active');
-                    $('#<%=hdd_SCH_MONITER.ClientID %>').val('Y');
-                });
-                $('#SCH_MONITER_N').on('click', function () {
-                    $('#SCH_MONITER_N').addClass('active');
-                    $('#SCH_MONITER_Y').removeClass('active');
-                    $('#<%=hdd_SCH_MONITER.ClientID %>').val('N');
-                });
+                            // 메세지 즉시발송 선택
+                            $('#MSG_GUBUN_1').on('click', function () {
+                                $('#MSG_GUBUN_1').addClass('active');
+                                $('#MSG_GUBUN_2').removeClass('active');
+                                $('#<%=hdd_MSG_GUBUN.ClientID %>').val('1');
+                                $('#viewMsgTimeArea').css('visibility', 'hidden');
+                            });
+                            $('#MSG_GUBUN_2').on('click', function () {
+                                $('#MSG_GUBUN_2').addClass('active');
+                                $('#MSG_GUBUN_1').removeClass('active');
+                                $('#<%=hdd_MSG_GUBUN.ClientID %>').val('2');
+                                $('#viewMsgTimeArea').css('visibility', 'visible');
+                            });
 
-                // 메세지 즉시발송 선택
-                $('#MSG_GUBUN_1').on('click', function () {
-                    $('#MSG_GUBUN_1').addClass('active');
-                    $('#MSG_GUBUN_2').removeClass('active');
-                    $('#<%=hdd_MSG_GUBUN.ClientID %>').val('1');
-                    $('#viewMsgTimeArea').css('visibility', 'hidden');
-                });
-                $('#MSG_GUBUN_2').on('click', function () {
-                    $('#MSG_GUBUN_2').addClass('active');
-                    $('#MSG_GUBUN_1').removeClass('active');
-                    $('#<%=hdd_MSG_GUBUN.ClientID %>').val('2');
-                    $('#viewMsgTimeArea').css('visibility', 'visible');
-                });
-
-                // 메세지 2차발송 선택
-                $('#TND_CHECK_Y').on('click', function () {
-                    $('#TND_CHECK_Y').addClass('active');
-                    $('#TND_CHECK_N').removeClass('active');
-                    $('#<%=hdd_TND_CHECK.ClientID %>').val('Y');
-                });
-                $('#TND_CHECK_N').on('click', function () {
-                    $('#TND_CHECK_N').addClass('active');
-                    $('#TND_CHECK_Y').removeClass('active');
-                    $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
-                });
-            }
+                            // 메세지 2차발송 선택
+                            $('#TND_CHECK_Y').on('click', function () {
+                                $('#TND_CHECK_Y').addClass('active');
+                                $('#TND_CHECK_N').removeClass('active');
+                                $('#<%=hdd_TND_CHECK.ClientID %>').val('Y');
+                            });
+                            $('#TND_CHECK_N').on('click', function () {
+                                $('#TND_CHECK_N').addClass('active');
+                                $('#TND_CHECK_Y').removeClass('active');
+                                $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
+                            });
+                    }
+            };
+            init();
+            __globalFuc.add(init);
         });
 
         // [접견인] 회사, 부서, 팀, 직원 선택
@@ -206,8 +210,6 @@
                 <h3>방문등록</h3>
             </div>
 
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
                     <!-- 게시판 내용 -->
                     <div class="mainBoardWrap">
                         <h4 class="vst-title-h4">방문객 정보</h4>
@@ -298,43 +300,54 @@
 
                             <%-- ************************* 접견인 ************************* --%>
 
-                            <div class="vstCheckInInner mt40">
-                                <h4 class="vst-title-h4">접견인 정보</h4>
-                                <div>
-                                    <p class="vst-title">
-                                        소속 회사 <span>*</span>
-                                    </p>
-                                    <div>
-                                        <select id="ES_COMPANY" runat="server" onchange="fn_CPYChange();">
-                                            <option value="" selected="selected">회사명</option>
-                                            <option value="1">이상네트웍스</option>
-                                            <option value="2">메쎄이상</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="vst-title">
-                                        부서 및 팀 <span>*</span>
-                                    </p>
-                                    <div class="vst-tel">
-                                        <%-- 부서 선택 --%>
-                                        <select id="ES_DEPT" runat="server" onchange="fn_DEPTChange();"></select>
-                                        <select id="ES_TEAM" runat="server" onchange="fn_TEAMChange();"></select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="vst-title">
-                                        성함 <span>*</span>
-                                    </p>
-                                    <div class="flex-wrap">
-                                        <select id="SCH_STAFF" runat="server" onchange="fn_STAFFChange();"></select>
-                                        <div class="select-name-area" id="staffListArea">
-                                            <asp:Literal ID="ltrStaffList" runat="server"></asp:Literal>
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                    <div class="vstCheckInInner mt40">
+                                        <h4 class="vst-title-h4">접견인 정보</h4>
+                                        <div>
+                                            <p class="vst-title">
+                                                소속 회사 <span>*</span>
+                                            </p>
+                                            <div>
+                                                <select id="ES_COMPANY" runat="server" onchange="fn_CPYChange();">
+                                                    <option value="" selected="selected">회사명</option>
+                                                    <option value="1">이상네트웍스</option>
+                                                    <option value="2">메쎄이상</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <p class="help-vst">※ 선택된 접견인은 대표 담당자로 지정됩니다.</p>
+                                        <div>
+                                            <p class="vst-title">
+                                                부서 및 팀 <span>*</span>
+                                            </p>
+                                            <div class="vst-tel">
+                                                <%-- 부서 선택 --%>
+                                                <select id="ES_DEPT" runat="server" onchange="fn_DEPTChange();"></select>
+                                                <select id="ES_TEAM" runat="server" onchange="fn_TEAMChange();"></select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="vst-title">
+                                                성함 <span>*</span>
+                                            </p>
+                                            <div class="flex-wrap">
+                                                <select id="SCH_STAFF" runat="server" onchange="fn_STAFFChange();"></select>
+                                                <div class="select-name-area" id="staffListArea">
+                                                    <asp:Literal ID="ltrStaffList" runat="server"></asp:Literal>
+                                                </div>
+                                                <p class="help-vst">※ 선택된 접견인은 대표 담당자로 지정됩니다.</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
+                                <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
+                                <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
+                                <asp:AsyncPostBackTrigger ControlID="lnkDummy4" EventName="Click" />
+
+                            </Triggers>
+                        </asp:UpdatePanel>
                             <%-- ************************* 접견인 ************************* --%>
                             <div class="vstCheckInInner mt40">
                                 <h4 class="vst-title-h4">문자 발송</h4>
@@ -402,15 +415,7 @@
                     <asp:HiddenField ID="hdd_TND_CHECK" runat="server" />
                     <asp:HiddenField ID="hdd_SchId" runat="server" />
                     <!-- //게시판 내용 -->
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy4" EventName="Click" />
-
-                </Triggers>
-            </asp:UpdatePanel>
+                
         </article>
     </section>
 
