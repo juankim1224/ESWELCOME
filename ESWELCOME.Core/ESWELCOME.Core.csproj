@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MsgMaker.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="Procedure\BOL\ADM.cs" />
     <Compile Include="Procedure\BOL\ES.cs" />
     <Compile Include="Procedure\BOL\MSG.cs" />
@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />
-    <Folder Include="Utilite\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

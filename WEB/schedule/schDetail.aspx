@@ -89,12 +89,11 @@
                         </tr>
                         <asp:Repeater ID="rptList" runat="server">
                             <ItemTemplate>
-
                                 <tr>
-                                    <td class="tdClass"><%# Eval("staffCompany") %></td>
-                                    <td class="tdClass"><%# Eval("staffDept") %></td>
-                                    <td class="tdClass"><%# Eval("staffTeam") %></td>
-                                    <td class="tdClass"><%# Eval("staffFullName") %></td>
+                                    <td class="tdClass"><%# Eval("COMPANY") %></td>
+                                    <td class="tdClass"><%# Eval("DEPT") %></td>
+                                    <td class="tdClass"><%# Eval("TEAM") %></td>
+                                    <td class="tdClass"><%# Eval("MEM_FULLNAME") %></td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>

@@ -1,4 +1,5 @@
-﻿using ESWELCOME.DataBase.Procedure.BOL.MSG;
+﻿using ESWELCOME.Core;
+using ESWELCOME.DataBase.Procedure.BOL.MSG;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
 using ESWELCOME.DataBase.Procedure.Facade;
 using System;
@@ -94,7 +95,7 @@ namespace WEB.schedule
 
             if (schedule.SCH_ID != null)
             {
-                var msgContent = ESExtension.MakeMsgContent(schedule.SCH_TYPE, schedule.GST_CPY, schedule.GST_PST, schedule.GST_NAME, schedule.SCH_YEARMD, schedule.SCH_HOUR, schedule.SCH_MIN, schedule.MSG_CODE, msgStaff);
+                var msgContent = MsgMaker.MakeMsgContent(schedule.SCH_TYPE, schedule.GST_CPY, schedule.GST_PST, schedule.GST_NAME, schedule.SCH_YEARMD, schedule.SCH_HOUR, schedule.SCH_MIN, schedule.MSG_CODE, msgStaff);
 
                 var param = new iMSG_iu_MESSAGE()
                 {

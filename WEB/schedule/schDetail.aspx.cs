@@ -110,14 +110,18 @@ namespace WEB.schedule
                 }
 
                 // 접견인
-                var staffList = SCHFacade.GetInstance.InquirySCHSTAFF(sch.STAFF_ID);
-                rptList.DataSource = staffList;
-                rptList.DataBind();
+                //var staffList = SCHFacade.GetInstance.InquirySCHSTAFF(sch.STAFF_ID);
+              //  rptList.DataSource = staffList;
+             //   rptList.DataBind();
                 //foreach(var staff in staffList)
                 //{
                 //    STAFF_FULLNAME.Text += string.Format("<p>{0} / {1} / {2} / {3} </p>", staff.staffCompany, staff.staffDept, staff.staffTeam, staff.staffFullName);
                 //}
 
+                // 수정
+                var staffList = SCHFacade.GetInstance.InquiryStaffForSchId(Convert.ToInt32(schId));
+                rptList.DataSource = staffList;
+                rptList.DataBind();
             }
 
         }

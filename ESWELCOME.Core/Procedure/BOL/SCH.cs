@@ -273,9 +273,98 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
         #endregion
     }
 
-}
+    public class SCH_sd_StaffForSchId
+    {
+        #region 생성자
+        public SCH_sd_StaffForSchId()
+        {
+            this._COMPANY = null;
+            this._DEPT = null;
+            this._TEAM = null;
+            this._MEM_ID = null;
+            this._MEM_FULLNAME = null;
+            this._STAFF_GUBUN = null;
+            this._ID_FULLNAME = null;
+        }
+        #endregion
 
-public class SCH_sd_STAFF
+        #region 프로퍼티
+
+        private string _COMPANY;
+
+        [ESBind("COMPANY", "")]
+        [ESNfx.Attributes.ExcelBind("COMPANY")]
+        public string COMPANY
+        {
+            get { return _COMPANY; }
+            set { _COMPANY = value; }
+        }
+
+        private string _DEPT;
+
+        [ESBind("DEPT", "")]
+        [ESNfx.Attributes.ExcelBind("DEPT")]
+        public string DEPT
+        {
+            get { return _DEPT; }
+            set { _DEPT = value; }
+        }
+
+        private string _TEAM;
+
+        [ESBind("TEAM", "")]
+        [ESNfx.Attributes.ExcelBind("TEAM")]
+        public string TEAM
+        {
+            get { return _TEAM; }
+            set { _TEAM = value; }
+        }
+
+        private int? _MEM_ID;
+
+        [ESBind("MEM_ID", "")]
+        [ESNfx.Attributes.ExcelBind("MEM_ID")]
+        public int? MEM_ID
+        {
+            get { return _MEM_ID; }
+            set { _MEM_ID = value; }
+        }
+
+        private string _MEM_FULLNAME;
+
+        [ESBind("MEM_FULLNAME", "")]
+        [ESNfx.Attributes.ExcelBind("MEM_FULLNAME")]
+        public string MEM_FULLNAME
+        {
+            get { return _MEM_FULLNAME; }
+            set { _MEM_FULLNAME = value; }
+        }
+
+        private short? _STAFF_GUBUN;
+
+        [ESBind("STAFF_GUBUN", "")]
+        [ESNfx.Attributes.ExcelBind("STAFF_GUBUN")]
+        public short? STAFF_GUBUN
+        {
+            get { return _STAFF_GUBUN; }
+            set { _STAFF_GUBUN = value; }
+        }
+
+
+        private string _ID_FULLNAME;
+
+        [ESBind("ID_FULLNAME", "")]
+        [ESNfx.Attributes.ExcelBind("ID_FULLNAME")]
+        public string ID_FULLNAME
+        {
+            get { return _ID_FULLNAME; }
+            set { _ID_FULLNAME = value; }
+        }
+
+        #endregion
+    }
+
+    public class SCH_sd_STAFF
     {
         #region 생성자
         public SCH_sd_STAFF()
@@ -285,7 +374,6 @@ public class SCH_sd_STAFF
             this._MEM_ID = null;
             this._MEM_FULLNAME = null;
             this._ID_FULLNAME = null;
-
         }
         #endregion
 
@@ -341,7 +429,84 @@ public class SCH_sd_STAFF
             set { _ID_FULLNAME = value; }
         }
 
+        #endregion
+    }
 
+    public class SCH_sd_SCHSTAFF
+    {
+        #region 생성자
+        public SCH_sd_SCHSTAFF()
+        {
+            this._staffId = null;
+            this._staffCompany = null;
+            this._staffDept = null;
+            this._staffTeam = null;
+            this._staffFullName = null;
+            this._staffGubun = null;
+        }
+        #endregion
+
+        #region 프로퍼티
+
+        private int? _staffId;
+
+        [ESBind("staffId", "")]
+        [ESNfx.Attributes.ExcelBind("staffId")]
+        public int? staffId
+        {
+            get { return _staffId; }
+            set { _staffId = value; }
+        }
+
+        private string _staffCompany;
+
+        [ESBind("staffCompany", "")]
+        [ESNfx.Attributes.ExcelBind("staffCompany")]
+        public string staffCompany
+        {
+            get { return _staffCompany; }
+            set { _staffCompany = value; }
+        }
+
+        private string _staffDept;
+
+        [ESBind("staffDept", "")]
+        [ESNfx.Attributes.ExcelBind("staffDept")]
+        public string staffDept
+        {
+            get { return _staffDept; }
+            set { _staffDept = value; }
+        }
+
+        private string _staffTeam;
+
+        [ESBind("staffTeam", "")]
+        [ESNfx.Attributes.ExcelBind("staffTeam")]
+        public string staffTeam
+        {
+            get { return _staffTeam; }
+            set { _staffTeam = value; }
+        }
+
+        private string _staffFullName;
+
+        [ESBind("staffFullName", "")]
+        [ESNfx.Attributes.ExcelBind("staffFullName")]
+        public string staffFullName
+        {
+            get { return _staffFullName; }
+            set { _staffFullName = value; }
+        }
+
+        private short? _staffGubun;
+
+        [ESBind("staffGubun", "")]
+        [ESNfx.Attributes.ExcelBind("staffGubun")]
+        public short? staffGubun
+        {
+            get { return _staffGubun; }
+            set { _staffGubun = value; }
+        }
 
         #endregion
     }
@@ -1150,77 +1315,8 @@ public class SCH_sd_STAFF
             set { _CRE_MEMID = value; }
         }
 
-    #endregion
-
-    public class SCH_sd_SCHSTAFF
-    {
-        #region 생성자
-        public SCH_sd_SCHSTAFF()
-        {
-            this._staffId = null;
-            this._staffCompany = null;
-            this._staffDept = null;
-            this._staffTeam = null;
-            this._staffFullName = null;
-        }
-        #endregion
-
-        #region 프로퍼티
-
-        private int? _staffId;
-
-        [ESBind("staffId", "")]
-        [ESNfx.Attributes.ExcelBind("staffId")]
-        public int? staffId
-        {
-            get { return _staffId; }
-            set { _staffId = value; }
-        }
-
-        private string _staffCompany;
-
-        [ESBind("staffCompany", "")]
-        [ESNfx.Attributes.ExcelBind("staffCompany")]
-        public string staffCompany
-        {
-            get { return _staffCompany; }
-            set { _staffCompany = value; }
-        }
-
-        private string _staffDept;
-
-        [ESBind("staffDept", "")]
-        [ESNfx.Attributes.ExcelBind("staffDept")]
-        public string staffDept
-        {
-            get { return _staffDept; }
-            set { _staffDept = value; }
-        }
-
-        private string _staffTeam;
-
-        [ESBind("staffTeam", "")]
-        [ESNfx.Attributes.ExcelBind("staffTeam")]
-        public string staffTeam
-        {
-            get { return _staffTeam; }
-            set { _staffTeam = value; }
-        }
-
-        private string _staffFullName;
-
-        [ESBind("staffFullName", "")]
-        [ESNfx.Attributes.ExcelBind("staffFullName")]
-        public string staffFullName
-        {
-            get { return _staffFullName; }
-            set { _staffFullName = value; }
-        }
-
         #endregion
     }
 
+
 }
-
-
-

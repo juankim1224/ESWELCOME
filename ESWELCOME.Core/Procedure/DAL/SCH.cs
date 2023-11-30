@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
-using static iSCH_in_SCHEDULE;
 
 namespace ESWELCOME.DataBase.Procedure.DAL
 {
@@ -29,7 +28,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
 
         ///<summary>
         ///작성일 : 2023-11-24 오후 7:11:21
-        ///수정일 : 2023-11-24 오후 7:12:22
+        ///수정일 : 2023-11-27 오전 10:59:49
         ///</summary>
         public ESNfx.ReturnValue SCH_un_SCHEDULE(iSCH_un_SCHEDULE param)
         {
@@ -90,7 +89,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
 
         ///<summary>
         ///작성일 : 2023-11-23 오후 11:00:27
-        ///수정일 : 2023-11-24 오후 2:40:28
+        ///수정일 : 2023-11-30 오후 10:51:58
         ///</summary>
         public ESNfx.GenericReturn<SCH_sr_SCHEDULE> SCH_sr_SCHEDULE(int? sch_id)
         {
@@ -103,8 +102,23 @@ namespace ESWELCOME.DataBase.Procedure.DAL
         }
 
         ///<summary>
+        ///작성일 : 2023-12-01 오후 4:48:33
+        ///수정일 : 2023-12-01 오후 4:56:10
+        ///</summary>
+        public List<SCH_sd_StaffForSchId> SCH_sd_StaffForSchId(int? sch_id)
+        {
+            List<SCH_sd_StaffForSchId> list =
+                base.GetListOfType<SCH_sd_StaffForSchId>("dbo.SCH_sd_StaffForSchId"
+                //input parameter 시작
+                , CreateParameter("@SCH_ID", SqlDbType.Int, sch_id)
+
+            );
+            return list;
+        }
+
+        ///<summary>
         ///작성일 : 2023-11-22 오후 4:45:57
-        ///수정일 : 2023-11-26 오후 2:04:25
+        ///수정일 : 2023-11-29 오후 5:41:49
         ///</summary>
         public List<SCH_sd_STAFF> SCH_sd_STAFF(int? cpy_cd, string dept_nm, string team_nm)
         {
@@ -114,6 +128,22 @@ namespace ESWELCOME.DataBase.Procedure.DAL
                 , CreateParameter("@CPY_CD", SqlDbType.Int, cpy_cd)
                 , CreateParameter("@DEPT_NM", SqlDbType.VarChar, dept_nm)
                 , CreateParameter("@TEAM_NM", SqlDbType.VarChar, team_nm)
+
+            );
+            return list;
+        }
+
+        ///<summary>
+        ///작성일 : 2023-11-30 오후 1:41:35
+        ///수정일 : 2023-12-01 오후 4:38:29
+        ///</summary>
+        public List<SCH_sd_SCHSTAFF> SCH_sd_SCHSTAFF(int? sch_id, string arr_staff_id)
+        {
+            List<SCH_sd_SCHSTAFF> list =
+                base.GetListOfType<SCH_sd_SCHSTAFF>("dbo.SCH_sd_SCHSTAFF"
+                //input parameter 시작
+                , CreateParameter("@SCH_ID", SqlDbType.Int, sch_id)
+                , CreateParameter("@ARR_STAFF_ID", SqlDbType.VarChar, arr_staff_id)
 
             );
             return list;
@@ -139,7 +169,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
 
         ///<summary>
         ///작성일 : 2023-11-23 오후 3:11:38
-        ///수정일 : 2023-11-26 오후 3:38:26
+        ///수정일 : 2023-11-26 오후 3:59:38
         ///</summary>
         public List<SCH_sd_SCHEDULE_LIST> SCH_sd_SCHEDULE_LIST(iSCH_sd_SCHEDULE_LIST param)
         {
@@ -176,7 +206,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
 
         ///<summary>
         ///작성일 : 2023-11-22 오후 2:17:39
-        ///수정일 : 2023-11-23 오후 10:20:45
+        ///수정일 : 2023-11-30 오후 11:16:50
         ///</summary>
         public ESNfx.ReturnValue SCH_iu_STAFF(iSCH_iu_STAFF param)
         {
@@ -231,7 +261,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
 
         ///<summary>
         ///작성일 : 2023-11-24 오후 5:51:14
-        ///수정일 : 2023-11-25 오후 4:25:52
+        ///수정일 : 2023-11-27 오전 12:42:42
         ///</summary>
         public ESNfx.ReturnValue SCH_iu_CHECKIN(string gst_mobile_no, string msg_code)
         {
@@ -350,20 +380,6 @@ namespace ESWELCOME.DataBase.Procedure.DAL
             return ret;
         }
 
-        ///<summary>
-        ///작성일 : 2023-11-30 오후 1:41:35
-        ///수정일 : 2023-11-30 오후 10:50:22
-        ///</summary>
-        public List<SCH_sd_SCHSTAFF> SCH_sd_SCHSTAFF(string arr_staff_id)
-        {
-            List<SCH_sd_SCHSTAFF> list =
-                base.GetListOfType<SCH_sd_SCHSTAFF>("dbo.SCH_sd_SCHSTAFF"
-                //input parameter 시작
-                , CreateParameter("@ARR_STAFF_ID", SqlDbType.VarChar, arr_staff_id)
-
-            );
-            return list;
-        }
 
 
     }

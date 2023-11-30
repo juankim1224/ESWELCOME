@@ -19,6 +19,9 @@ namespace WEB.controls
 
         }
 
+        /// <summary>
+        /// 문자 조회
+        /// </summary>
         protected void lnkDummy_Click(object sender, EventArgs e)
         {
             SetDataBind();

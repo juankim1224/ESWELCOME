@@ -15,6 +15,7 @@
 
             __doPostBack('<%=lnkDummy2.UniqueID%>', '');
         }
+        // 문자 조회
         else {
             $("#<%=hddSCH_ID.ClientID%>").val(d.schId);
             __doPostBack('<%=lnkDummy.UniqueID%>', '');

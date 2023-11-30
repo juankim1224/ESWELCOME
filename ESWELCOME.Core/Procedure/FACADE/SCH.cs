@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using ESWELCOME.DataBase.Procedure.DAL;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
-using ESWELCOME.DataBase.Procedure.BOL.MSG;
 using ESWELCOME.Core;
-using static iSCH_in_SCHEDULE;
+using ESWELCOME.DataBase.Procedure.BOL.MSG;
 
 namespace ESWELCOME.DataBase.Procedure.Facade
 {
@@ -35,7 +34,7 @@ namespace ESWELCOME.DataBase.Procedure.Facade
 
         ///<summary>
         ///작성일 : 2023-11-23 오후 11:00:27
-        ///수정일 : 2023-11-24 오후 2:40:28
+        ///수정일 : 2023-11-30 오후 10:51:58
         ///</summary>
         public ESNfx.GenericReturn<SCH_sr_SCHEDULE> GetSCHEDULE(int? sch_id)
         {
@@ -47,12 +46,30 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         #region Multiple Select
 
         ///<summary>
+        ///작성일 : 2023-12-01 오후 4:48:33
+        ///수정일 : 2023-12-01 오후 4:56:10
+        ///</summary>
+        public List<SCH_sd_StaffForSchId> InquiryStaffForSchId(int? sch_id)
+        {
+            return proc.SCH_sd_StaffForSchId(sch_id);
+        }
+
+        ///<summary>
         ///작성일 : 2023-11-22 오후 4:45:57
-        ///수정일 : 2023-11-26 오후 2:04:25
+        ///수정일 : 2023-11-29 오후 5:41:49
         ///</summary>
         public List<SCH_sd_STAFF> InquirySTAFF(int? cpy_cd, string dept_nm, string team_nm)
         {
             return proc.SCH_sd_STAFF(cpy_cd, dept_nm, team_nm);
+        }
+
+        ///<summary>
+        ///작성일 : 2023-11-30 오후 1:41:35
+        ///수정일 : 2023-12-01 오후 4:38:29
+        ///</summary>
+        public List<SCH_sd_SCHSTAFF> InquirySCHSTAFF(int? sch_id, string arr_staff_id)
+        {
+            return proc.SCH_sd_SCHSTAFF(sch_id, arr_staff_id);
         }
 
         ///<summary>
@@ -66,7 +83,7 @@ namespace ESWELCOME.DataBase.Procedure.Facade
 
         ///<summary>
         ///작성일 : 2023-11-23 오후 3:11:38
-        ///수정일 : 2023-11-26 오후 3:38:26
+        ///수정일 : 2023-11-26 오후 3:59:38
         ///</summary>
         public List<SCH_sd_SCHEDULE_LIST> InquirySCHEDULE_LIST(iSCH_sd_SCHEDULE_LIST param)
         {
@@ -82,23 +99,13 @@ namespace ESWELCOME.DataBase.Procedure.Facade
             return proc.SCH_sd_CALENDAR(search_year, search_month);
         }
 
-        ///<summary>
-        ///작성일 : 2023-11-30 오후 1:41:35
-        ///수정일 : 2023-11-30 오후 10:50:22
-        ///</summary>
-        public List<SCH_sd_SCHSTAFF> InquirySCHSTAFF(string arr_staff_id)
-        {
-            return proc.SCH_sd_SCHSTAFF(arr_staff_id);
-        }
-
-
         #endregion
 
         #region Insert / Delete / Update
 
         ///<summary>
         ///작성일 : 2023-11-24 오후 7:11:21
-        ///수정일 : 2023-11-24 오후 7:12:22
+        ///수정일 : 2023-11-27 오전 10:59:49
         ///</summary>
         public ESNfx.ReturnValue UpdateSCHEDULE(iSCH_un_SCHEDULE param)
         {
@@ -137,7 +144,7 @@ namespace ESWELCOME.DataBase.Procedure.Facade
 
         ///<summary>
         ///작성일 : 2023-11-22 오후 2:17:39
-        ///수정일 : 2023-11-23 오후 10:20:45
+        ///수정일 : 2023-11-30 오후 11:16:50
         ///</summary>
         public ESNfx.ReturnValue SCH_iu_STAFF(iSCH_iu_STAFF param)
         {
@@ -243,17 +250,11 @@ namespace ESWELCOME.DataBase.Procedure.Facade
             return ret;
         }
 
-        #endregion
 
         /// <summary>
-        ///  스케줄 등록, 접견인 등록, 메세지 등록 3개 프로시저 호출
+        ///  스케줄 등록 & 접견인 등록 & 메세지 등록 3개 프로시저 호출
         /// </summary>
-        /// <param name="shedule"></param>
-        /// <param name="staff"></param>
-        /// <param name="message"></param>
-        /// <param name="schpk"></param>
-        /// <returns></returns>
-        public ESNfx.ReturnValue ManageSchedule(iSCH_in_SCHEDULE shedule, iSCH_iu_STAFF staff, iMSG_iu_MESSAGE message, string msgStaff, out string schpk)
+        public ESNfx.ReturnValue RegisterSchedule(iSCH_in_SCHEDULE shedule, List<iSCH_iu_STAFF> staff, iMSG_iu_MESSAGE message, string msgStaff, out string schpk)
         {
             schpk = string.Empty;
 
@@ -267,29 +268,28 @@ namespace ESWELCOME.DataBase.Procedure.Facade
                     try
                     {
                         var tran = new SCH(txn);
-                        //Step1. 스케줄 등록 SCH_SCHEDULE INSERT
+                        // Step1. 스케줄 등록 SCH_SCHEDULE INSERT
                         ret = tran.SCH_in_SCHEDULE(shedule);
                         if (!ret.Result)
                             throw new Exception(ret.Message);
 
                         var msgCode = ret["@msgCode"].ToString();
-                        schpk = ret["@sch_pk"].ToString();
-
                         message.SCH_ID = Convert.ToInt32(schpk);
-                        staff.SCH_ID = Convert.ToInt32(schpk);
 
                         // 메세지 내용 만들기
-
                         var content = MsgMaker.MakeMsgContent(shedule.SCH_TYPE, shedule.GST_CPY, shedule.GST_PST, shedule.GST_NAME, shedule.SCH_YEARMD, shedule.SCH_HOUR, shedule.SCH_MIN, msgCode, msgStaff);
-
                         message.MSG_CONTENT = content;
 
-                        //Step2. 접견인 등록 SCH_STAFF INSERT
-                        ret = tran.SCH_iu_STAFF(staff);
-                        if (!ret.Result)
-                            throw new Exception(ret.Message);
+                        foreach (var s in staff)
+                        {
+                            s.SCH_ID = Convert.ToInt32(schpk);
+                            // Step2. 접견인 등록 SCH_STAFF INSERT
+                            ret = tran.SCH_iu_STAFF(s);
+                            if (!ret.Result)
+                                throw new Exception(ret.Message);
+                        }
 
-                        //Step3. 메세지 등록 MSG_MESSAGE INSERT
+                        // Step3. 메세지 등록 MSG_MESSAGE INSERT
                         var tran2 = new MSG(txn);
                         ret = tran2.MSG_iu_MESSAGE(message);
                         if (!ret.Result)
@@ -316,6 +316,87 @@ namespace ESWELCOME.DataBase.Procedure.Facade
             }
             return ret;
         }
+
+
+
+
+
+
+        // <summary>
+        //  스케줄 수정 & 접견인 수정 & 메세지 수정 3개 프로시저 호출
+        // </summary>
+        public ESNfx.ReturnValue EditSchedule(iSCH_un_SCHEDULE shedule, List<iSCH_iu_STAFF> staff, iMSG_iu_MESSAGE message, string msgStaff, out string schpk)
+        {
+            schpk = string.Empty;
+
+            ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
+
+            using (SqlConnection con = new SqlConnection(proc.GetBaseConnectionString))
+            {
+                con.Open();
+                using (IDbTransaction txn = con.BeginTransaction())
+                {
+                    try
+                    {
+                        var tran = new SCH(txn);
+                        // Step1. 스케줄 수정 SCH_SCHEDULE UPDATE
+                        ret = tran.SCH_un_SCHEDULE(shedule);
+                        if (!ret.Result)
+                            throw new Exception(ret.Message);
+
+                        // 메세지 내용 만들기
+                        var msgCode  = SCHFacade.GetInstance.GetSCHEDULE(shedule.SCH_ID).GenericItem.MSG_CODE;
+                        var content = MsgMaker.MakeMsgContent(shedule.SCH_TYPE, shedule.GST_CPY, shedule.GST_PST, shedule.GST_NAME, shedule.SCH_YEARMD, shedule.SCH_HOUR, shedule.SCH_MIN, msgCode, msgStaff);
+                        message.MSG_CONTENT = content;
+
+                        foreach (var s in staff)
+                        {
+                            s.SCH_ID = Convert.ToInt32(schpk);
+                            // Step2. 접견인 등록 SCH_STAFF INSERT
+                            ret = tran.SCH_iu_STAFF(s);
+                            if (!ret.Result)
+                                throw new Exception(ret.Message);
+                        }
+
+                        // Step3. 메세지 수정 MSG_MESSAGE UPDATE
+                        var tran2 = new MSG(txn);
+                        ret = tran2.MSG_iu_MESSAGE(message);
+                        if (!ret.Result)
+                            throw new Exception(ret.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        ret.Message = ex.Message;
+                        ret.setCode(-1);
+                    }
+                    finally
+                    {
+                        if (ret.Result)
+                        {
+                            txn.Commit();
+                        }
+                        else
+                        {
+                            txn.Rollback();
+                        }
+                    }
+                }
+            }
+            return ret;
+
+        }
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
 
     }
 }

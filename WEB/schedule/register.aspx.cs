@@ -6,9 +6,6 @@ using ESWELCOME.DataBase.Procedure.BOL.SCH;
 using ESWELCOME.DataBase.Procedure.Facade;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 //using WEB.App_Code;
@@ -33,7 +30,7 @@ namespace WEB.schedule
             {
                 if (Request.Params["schId"] == null)
                 {
-                    newSch();
+                    NewSch();
                 }
                 else
                 {
@@ -97,7 +94,7 @@ namespace WEB.schedule
         /// <summary>
         /// 스케줄 등록
         /// </summary>
-        protected void newSch()
+        protected void NewSch()
         {
             lnkSave.Text = "등록";
             SchTimeBinding();
@@ -125,7 +122,7 @@ namespace WEB.schedule
             GST_NAME.Value = item.GST_NAME;
 
             string subSchYearMd = item.SCH_YEARMD;
-            string strSchYearMd = subSchYearMd.Substring(0, 4) + "-" + subSchYearMd.Substring(5, 2) + "-" + subSchYearMd.Substring(6, 2);
+            string strSchYearMd = subSchYearMd.Substring(0, 4) + "-" + subSchYearMd.Substring(4, 2) + "-" + subSchYearMd.Substring(6, 2);
             SCH_YEARMD.Text += strSchYearMd;
 
             SCH_HOUR.Text = item.SCH_HOUR;
@@ -136,16 +133,33 @@ namespace WEB.schedule
             hdd_SCH_MONITER.Value = item.SCH_MONITER;
 
             // * ********** 접견인 ********** */
-            string staffNames = item.STAFF_NAME;
 
-            if (staffNames.Contains(','))
+            var schStaffList = SCHFacade.GetInstance.InquiryStaffForSchId(Convert.ToInt32(schId));
+
+            foreach (var staff in schStaffList)
             {
-                string[] arrName = staffNames.Split(',');
-                foreach (var a in arrName)
+                var staffId = staff.MEM_ID;
+                var staffName = staff.MEM_FULLNAME;
+                if (staff.STAFF_GUBUN == 1)
                 {
-                    ltrStaffList.Text += string.Format("<p><input type=\"radio\" value={0} name=\"msgStaff\" /><label>{1}</label><a href=\"#\" class=\"del\"> X </a></p>", a, a);
-                    hdd_ARR_STAFF.Value += hdd_ARR_STAFF.Value != "" ? "," + a : a;
+                    ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\"  checked/><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s" + staffId, staffId, staffName);
                 }
+                else
+                {
+                    ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\" /><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s" + staffId, staffId, staffName);
+
+                }
+
+                if (hdd_ARR_STAFF.Value != "")
+                {
+                    hdd_ARR_STAFF.Value = "," + staffId;
+                }
+                else
+                {
+                    hdd_ARR_STAFF.Value = staffId.ToString();
+                }
+
+
             }
 
             hdd_MSG_GUBUN.Value = item.MSG_GUBUN.ToString();
@@ -158,7 +172,8 @@ namespace WEB.schedule
             }
             else
             {
-                MSG_YEARMD.Text = item.MSG_YEARMD;
+                var subMsgYearMd = item.MSG_YEARMD.ToString();
+                MSG_YEARMD.Text = subMsgYearMd.Substring(0, 4) + "-" + subMsgYearMd.Substring(4, 2) + "-" + subMsgYearMd.Substring(6, 2);
                 MSG_HOUR.Text = item.MSG_HOUR;
                 MSG_MIN.Text = item.MSG_MIN;
             }
@@ -239,7 +254,7 @@ namespace WEB.schedule
             {
                 gstMobileNo = GST_MOBILE_NO1.Value + GST_MOBILE_NO2.Value + GST_MOBILE_NO3.Value;
 
-                // 스케줄 DB 등록
+                // 스케줄
                 iSCH_in_SCHEDULE newSchedule = new iSCH_in_SCHEDULE()
                 {
                     GST_CPY = GST_CPY.Value,
@@ -254,15 +269,17 @@ namespace WEB.schedule
                     CRE_MEMID = 1,     // 하드코딩
                 };
 
-                // 접견인
+                // 접견인 (배열)
                 var staff = SchStaffRegister();
+
+                // 메세지
                 var message = MessageRegister();
 
                 string schPk = string.Empty;
                 string msgCode = string.Empty;
                 string msgStaff = Request.Params["msgStaff"];
 
-                var ret = ProcManager.Proc.SCHFacade.ManageSchedule(newSchedule, staff, message, msgStaff, out schPk);
+                var ret = ProcManager.Proc.SCHFacade.RegisterSchedule(newSchedule, staff, message, msgStaff, out schPk);
 
                 if (ret.Result && !string.IsNullOrEmpty(schPk))
                 {
@@ -278,9 +295,8 @@ namespace WEB.schedule
         /// <summary>
         /// 접견인 등록
         /// </summary>
-        protected iSCH_iu_STAFF SchStaffRegister()
+        protected List<iSCH_iu_STAFF> SchStaffRegister()
         {
-            ESNfx.ReturnValue staffResult = new ReturnValue();
             var hddArrStaff = hdd_ARR_STAFF.Value;
             string[] arrStaff = hddArrStaff.Split(',');
 
@@ -288,12 +304,13 @@ namespace WEB.schedule
             var gubun = 2;
             msgStaff = Request.Params["msgStaff"];
 
-            var staff = new iSCH_iu_STAFF();
+            var staffList = new List<iSCH_iu_STAFF>();
 
             foreach (var a in arrStaff)
             {
-                if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
-                staff = new iSCH_iu_STAFF
+                if ( a == msgStaff ) { gubun = 1; } else { gubun = 2; }
+                
+                var staff = new iSCH_iu_STAFF
                 {
                     MEM_ID = Convert.ToInt32(a),
                     SCH_ID = schId,
@@ -301,8 +318,11 @@ namespace WEB.schedule
                     IU_GUBUN = "I",
                     CRE_MEMID = 1,      // 하드코딩
                 };
+                staffList.Add(staff);
+
             }
-            return staff;
+            
+            return staffList;
         }
 
 
@@ -354,10 +374,10 @@ namespace WEB.schedule
         /// </summary>
         protected void Edit_Click()
         {
-            var param = new iSCH_un_SCHEDULE()
+            var schedule = new iSCH_un_SCHEDULE()
             {
                 SCH_ID = Convert.ToInt32(hdd_SchId.Value),
-                EDIT_MODE = "U",  // 수정모드(수정: 'U', 삭제: 'D')
+                EDIT_MODE = "U",  // 수정 모드 (수정: 'U', 삭제: 'D')
                 GST_CPY = GST_CPY.Value,
                 GST_PST = GST_PST.Value,
                 GST_NAME = GST_NAME.Value,
@@ -369,16 +389,25 @@ namespace WEB.schedule
                 SCH_MONITER = hdd_SCH_MONITER.Value,
             };
 
-            var editResult = SCHFacade.GetInstance.UpdateSCHEDULE(param);
+            // 접견인 (배열)
+            var staff = SchStaffRegister();
 
-            // 접견인 및 문자 수정
+            // 메세지
+            var message = MessageRegister();
 
-            if (editResult.Result)
+            string schPk = string.Empty;
+            string msgCode = string.Empty;
+            string msgStaff = Request.Params["msgStaff"];
+
+            var ret = ProcManager.Proc.SCHFacade.EditSchedule(schedule, staff, message, msgStaff, out schPk);
+
+            if (ret.Result && !string.IsNullOrEmpty(schPk))
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "key123", "alert('수정이 완료되었습니다.');", true);
-                ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schList.aspx", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey2", "alert('수정이 완료되었습니다.');", true);
+                ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
             }
         }
+
 
     }
 }
