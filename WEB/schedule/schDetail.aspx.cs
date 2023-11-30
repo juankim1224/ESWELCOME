@@ -73,9 +73,6 @@ namespace WEB.schedule
                     SCH_MONITER.Text = "비희망";
                 }
 
-                /* ********** 접견인 ********** */
-                STAFF_NAMES.Text = sch.STAFF_NAMES;
-
                 /* ********** 문자 ********** */
                 // 발송완료시 공백
                 if (sch.MSG_STATUS == "발송")
@@ -111,6 +108,15 @@ namespace WEB.schedule
                 {
                     TND_CHECK.Text = "비희망";
                 }
+
+                // 접견인
+                var staffList = SCHFacade.GetInstance.InquirySCHSTAFF(sch.STAFF_ID);
+                rptList.DataSource = staffList;
+                rptList.DataBind();
+                //foreach(var staff in staffList)
+                //{
+                //    STAFF_FULLNAME.Text += string.Format("<p>{0} / {1} / {2} / {3} </p>", staff.staffCompany, staff.staffDept, staff.staffTeam, staff.staffFullName);
+                //}
 
             }
 

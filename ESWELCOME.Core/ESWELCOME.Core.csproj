@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="MsgMaker.cs" />
     <Compile Include="Procedure\BOL\ADM.cs" />
     <Compile Include="Procedure\BOL\ES.cs" />
     <Compile Include="Procedure\BOL\MSG.cs" />
@@ -77,6 +77,9 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="Utilite\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

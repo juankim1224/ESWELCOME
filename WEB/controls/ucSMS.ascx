@@ -5,17 +5,14 @@
 
         // 문자 미리보기
         if (d.schId == null) {
-            alert('여기까지 왔니?');
-
-            $("#<%=hddGstCpy.ClientID%>").val(d.gstCpy);
-            $("#<%=hddGstPst.ClientID%>").val(d.gstPst);
+            $("#<%=hddGstCpy.ClientID%>").val(d.gstCpy != '' ? d.gstCpy + ' ' : '');
+            $("#<%=hddGstPst.ClientID%>").val(d.gstPst != '' ? d.gstPst + '' : '');
             $("#<%=hddGstName.ClientID%>").val(d.gstName);
             $("#<%=hddSchType.ClientID%>").val(d.schType);
             $("#<%=hddSchYearMD.ClientID%>").val(d.schYearMD);
             $("#<%=hddSchHourMin.ClientID%>").val(d.schHourMin);
             $("#<%=hddmsgStaff.ClientID%>").val(d.msgStaff);
 
-            $('#resendMSG').css('visibility', 'hidden');
             __doPostBack('<%=lnkDummy2.UniqueID%>', '');
         }
         else {
@@ -75,7 +72,7 @@
                                     서울 마포구 월드컵북로58길 9 ES타워
                                 </p>
                                 <div id="foot" style="display: flex; justify-content: center">
-                                    <a href="javascript:fnReSend();" class="btns primary-btn" id="resendMSG"><strong>재전송</strong></a>
+                                    <a href="javascript:fnReSend();" class="btns primary-btn" id="resendMSG" runat="server"><strong>재전송</strong></a>
                                     <a href="javascript:es.pop.disposeLayer({self:$('#<%=PopID %>')});" class="btns secondary-btn  close"><strong>닫기</strong></a>
                                 </div>
                             </div>

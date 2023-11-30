@@ -33,7 +33,8 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             this._MSG_STATUS = null;
             this._MSG_VALIDITY = null;
             this._STF_ID = null;
-            this._STAFF_NAMES = null;
+            this._STAFF_NAME = null;
+            this._STAFF_ID = null;
         }
         #endregion
 
@@ -159,7 +160,6 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             set { _MSG_CODE = value; }
         }
 
-
         private int? _MSG_GUBUN;
 
         [ESBind("MSG_GUBUN", "")]
@@ -250,20 +250,32 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             set { _STF_ID = value; }
         }
 
-        private string _STAFF_NAMES;
+        private string _STAFF_NAME;
 
-        [ESBind("STAFF_NAMES", "")]
-        [ESNfx.Attributes.ExcelBind("STAFF_NAMES")]
-        public string STAFF_NAMES
+        [ESBind("STAFF_NAME", "")]
+        [ESNfx.Attributes.ExcelBind("STAFF_NAME")]
+        public string STAFF_NAME
         {
-            get { return _STAFF_NAMES; }
-            set { _STAFF_NAMES = value; }
+            get { return _STAFF_NAME; }
+            set { _STAFF_NAME = value; }
+        }
+
+        private string _STAFF_ID;
+
+        [ESBind("STAFF_ID", "")]
+        [ESNfx.Attributes.ExcelBind("STAFF_ID")]
+        public string STAFF_ID
+        {
+            get { return _STAFF_ID; }
+            set { _STAFF_ID = value; }
         }
 
         #endregion
     }
 
-    public class SCH_sd_STAFF
+}
+
+public class SCH_sd_STAFF
     {
         #region 생성자
         public SCH_sd_STAFF()
@@ -1138,8 +1150,77 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             set { _CRE_MEMID = value; }
         }
 
+    #endregion
+
+    public class SCH_sd_SCHSTAFF
+    {
+        #region 생성자
+        public SCH_sd_SCHSTAFF()
+        {
+            this._staffId = null;
+            this._staffCompany = null;
+            this._staffDept = null;
+            this._staffTeam = null;
+            this._staffFullName = null;
+        }
+        #endregion
+
+        #region 프로퍼티
+
+        private int? _staffId;
+
+        [ESBind("staffId", "")]
+        [ESNfx.Attributes.ExcelBind("staffId")]
+        public int? staffId
+        {
+            get { return _staffId; }
+            set { _staffId = value; }
+        }
+
+        private string _staffCompany;
+
+        [ESBind("staffCompany", "")]
+        [ESNfx.Attributes.ExcelBind("staffCompany")]
+        public string staffCompany
+        {
+            get { return _staffCompany; }
+            set { _staffCompany = value; }
+        }
+
+        private string _staffDept;
+
+        [ESBind("staffDept", "")]
+        [ESNfx.Attributes.ExcelBind("staffDept")]
+        public string staffDept
+        {
+            get { return _staffDept; }
+            set { _staffDept = value; }
+        }
+
+        private string _staffTeam;
+
+        [ESBind("staffTeam", "")]
+        [ESNfx.Attributes.ExcelBind("staffTeam")]
+        public string staffTeam
+        {
+            get { return _staffTeam; }
+            set { _staffTeam = value; }
+        }
+
+        private string _staffFullName;
+
+        [ESBind("staffFullName", "")]
+        [ESNfx.Attributes.ExcelBind("staffFullName")]
+        public string staffFullName
+        {
+            get { return _staffFullName; }
+            set { _staffFullName = value; }
+        }
+
         #endregion
     }
 
-
 }
+
+
+

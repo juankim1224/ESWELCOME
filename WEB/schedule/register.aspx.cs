@@ -22,7 +22,6 @@ namespace WEB.schedule
         int schId;
         string gstMobileNo;
         string msgStaff;
-        string msgCode;
 
         #endregion
 
@@ -137,7 +136,7 @@ namespace WEB.schedule
             hdd_SCH_MONITER.Value = item.SCH_MONITER;
 
             // * ********** 접견인 ********** */
-            string staffNames = item.STAFF_NAMES;
+            string staffNames = item.STAFF_NAME;
 
             if (staffNames.Contains(','))
             {
@@ -215,7 +214,7 @@ namespace WEB.schedule
 
             if (ltrStaffList.Text.Contains(staffName) != true)
             {
-                ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\" /><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s"+ staffId, staffId, staffName);
+                ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\" /><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s" + staffId, staffId, staffName);
                 hdd_ARR_STAFF.Value += hdd_ARR_STAFF.Value != "" ? "," + staffId : staffId;
             }
             else
@@ -227,7 +226,7 @@ namespace WEB.schedule
         }
 
         /// <summary>
-        /// 스케줄 DB 등록수정
+        /// 스케줄 DB 등록 및 수정
         /// </summary>
         protected void lnkSave_Click(object sender, EventArgs e)
         {
@@ -255,48 +254,46 @@ namespace WEB.schedule
                     CRE_MEMID = 1,     // 하드코딩
                 };
 
-                var schResult = SCHFacade.GetInstance.InsertSCHEDULE(newSchedule);
-                schId = Convert.ToInt32(schResult["@sch_pk"]);
-                msgCode = schResult["@msgCode"].ToString();
+                // 접견인
+                var staff = SchStaffRegister();
+                var message = MessageRegister();
 
-                // 접견인 DB 등록
-                var staffResult = SchStaffRegister();
+                string schPk = string.Empty;
+                string msgCode = string.Empty;
+                string msgStaff = Request.Params["msgStaff"];
 
-                // 메세지 DB 등록
-                var msgResult = MessageRegister();
+                var ret = ProcManager.Proc.SCHFacade.ManageSchedule(newSchedule, staff, message, msgStaff, out schPk);
 
-                if (schResult.Result && staffResult.Result && msgResult.Result)
+                if (ret.Result && !string.IsNullOrEmpty(schPk))
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey1", "alert('등록이 완료되었습니다.');", true);
-                    ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "main.aspx", true);
-                }
-                else
-                {
-                    ESNfx3.Web.Page.WebHelper.AjaxMessageAlert(Page, "등록이 실패되었습니다.", true);
-                    return;
+                    ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
                 }
 
             }
 
         }
 
+
         /// <summary>
-        /// 접견인 DB 등록
+        /// 접견인 등록
         /// </summary>
-        protected ReturnValue SchStaffRegister()
+        protected iSCH_iu_STAFF SchStaffRegister()
         {
             ESNfx.ReturnValue staffResult = new ReturnValue();
-            var staff = hdd_ARR_STAFF.Value;
-            string[] arrStaff = staff.Split(',');
+            var hddArrStaff = hdd_ARR_STAFF.Value;
+            string[] arrStaff = hddArrStaff.Split(',');
 
             // 담당자 구분 (담당자: 1, 일반: 2)  *문자기입
             var gubun = 2;
             msgStaff = Request.Params["msgStaff"];
 
+            var staff = new iSCH_iu_STAFF();
+
             foreach (var a in arrStaff)
             {
                 if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
-                var param = new iSCH_iu_STAFF
+                staff = new iSCH_iu_STAFF
                 {
                     MEM_ID = Convert.ToInt32(a),
                     SCH_ID = schId,
@@ -304,25 +301,19 @@ namespace WEB.schedule
                     IU_GUBUN = "I",
                     CRE_MEMID = 1,      // 하드코딩
                 };
-                staffResult = SCHFacade.GetInstance.SCH_iu_STAFF(param);
-                if (staffResult.Result != true)
-                {
-                    break;
-                }
             }
-            return staffResult;
+            return staff;
         }
 
 
         /// <summary>
-        /// 메세지 DB 등록
+        /// 메세지 등록
         /// </summary>
-        protected ReturnValue MessageRegister()
+        protected iMSG_iu_MESSAGE MessageRegister()
         {
             string msgYearMd;
             string msgHour;
             string msgMin;
-            string msgContent;
 
             // 즉시 발송 선택
             if (hdd_MSG_GUBUN.Value == "1")
@@ -331,6 +322,7 @@ namespace WEB.schedule
                 msgHour = null;
                 msgMin = null;
             }
+
             // 예약 발송 선택
             else
             {
@@ -339,17 +331,12 @@ namespace WEB.schedule
                 msgMin = MSG_MIN.Text;
             }
 
-            // 메세지 내용
-            msgStaff = Request.Params["msgStaff"];
-            msgContent = App_Code.ESExtension.MakeMsgContent(SCH_TYPE.Value, GST_CPY.Value, GST_PST.Value, GST_NAME.Value, SCH_YEARMD.Value, SCH_HOUR.Text, SCH_MIN.Text, msgCode, msgStaff);
-
-            // 메세지 추가
-            iMSG_iu_MESSAGE msgParam = new iMSG_iu_MESSAGE()
+            iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE()
             {
-                SCH_ID = schId,
+                SCH_ID = 0,
                 MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
                 MSG_TO = gstMobileNo,
-                MSG_CONTENT = msgContent,
+                MSG_CONTENT = "",
                 MSG_YEARMD = msgYearMd,
                 MSG_HOUR = msgHour,
                 MSG_MIN = msgMin,
@@ -357,11 +344,10 @@ namespace WEB.schedule
                 CRE_MEMID = 1,  // 하드코딩
             };
 
-            var msgResult = MSGFacade.GetInstance.MSG_iu_MESSAGE(msgParam);
-
-            return msgResult;
+            return message;
 
         }
+
 
         /// <summary>
         /// 스케줄 수정

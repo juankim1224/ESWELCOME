@@ -39,10 +39,10 @@
             // 1. 공백 체크
             if (gstName === '' || gmn1 === '' || gmn2 === '' || gmn3 === ''
                 || schYMD === '' || schHH === '선택' || schMM === '선택'
-                || schType === '' || (moniterY == 'select-btn' || moniterN == 'select-btn')
+                || schType === '' || (moniterY == 'select-btn' && moniterN == 'select-btn')
                 || esCompany === '' || esDept === null || esTeam === null || esStaff === null
-                || gubun1 === 'select-btn' && (gubun2 === 'select-btn' || msgYMD === '' || msgHH == '선택' || msgMM == '선택')
-                || (tndCkY === 'select-btn' || tndCkN == 'select-btn')) {
+                || (gubun1 === 'select-btn' && (gubun2 === 'select-btn' || msgYMD === '' || msgHH == '선택' || msgMM == '선택'))
+                || (tndCkY === 'select-btn' && tndCkN == 'select-btn')) {
                 alert('필수값을 모두 입력해 주세요.');
                 return false;
             }
@@ -93,72 +93,76 @@
 
         $(function () {
 
-            var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
+            var init = function () {
+                    var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
 
-            if (schId1 != "") {
-                var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
-                if (schMoniter == 'Y') {
-                    $('#SCH_MONITER_Y').addClass('active');
-                } else if (schMoniter == 'N') {
-                    $('#SCH_MONITER_N').addClass('active');
-                }
+                    // 수정 모드
+                    if (schId1 != "") {
+                            var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
+                            if (schMoniter == 'Y') {
+                                $('#SCH_MONITER_Y').addClass('active');
+                            } else if (schMoniter == 'N') {
+                                $('#SCH_MONITER_N').addClass('active');
+                            }
 
-                var msgGubun = $("input[id$='hdd_MSG_GUBUN']").val();
-                if (msgGubun == '1') {
-                    $('#MSG_GUBUN_1').addClass('active');
-                } else if (msgGubun == '2') {
-                    $('#MSG_GUBUN_2').addClass('active');
-                }
+                            var msgGubun = $("input[id$='hdd_MSG_GUBUN']").val();
+                            if (msgGubun == '1') {
+                                $('#MSG_GUBUN_1').addClass('active');
+                            } else if (msgGubun == '2') {
+                                $('#MSG_GUBUN_2').addClass('active');
+                            }
 
-                var msgTndCheck = $("input[id$='hdd_TND_CHECK']").val();
-                if (msgTndCheck == 'Y') {
-                    $('#TND_CHECK_Y').addClass('active');
+                            var msgTndCheck = $("input[id$='hdd_TND_CHECK']").val();
+                            if (msgTndCheck == 'Y') {
+                                $('#TND_CHECK_Y').addClass('active');
 
-                } else if (msgTndCheck == 'N') {
-                    $('#TND_CHECK_N').addClass('active');
-                }
+                            } else if (msgTndCheck == 'N') {
+                                $('#TND_CHECK_N').addClass('active');
+                            }
+                
+                    } else {    // 등록 모드
 
-                // 등록 모드
-            } else {
+                            // 모니터 실행 선택
+                            $('#SCH_MONITER_Y').on('click', function () {
+                                $('#SCH_MONITER_Y').addClass('active');
+                                $('#SCH_MONITER_N').removeClass('active');
+                                $('#<%=hdd_SCH_MONITER.ClientID %>').val('Y');
+                            });
+                            $('#SCH_MONITER_N').on('click', function () {
+                                $('#SCH_MONITER_N').addClass('active');
+                                $('#SCH_MONITER_Y').removeClass('active');
+                                $('#<%=hdd_SCH_MONITER.ClientID %>').val('N');
+                            });
 
-                // 모니터 실행 선택
-                $('#SCH_MONITER_Y').on('click', function () {
-                    $('#SCH_MONITER_Y').addClass('active');
-                    $('#SCH_MONITER_N').removeClass('active');
-                    $('#<%=hdd_SCH_MONITER.ClientID %>').val('Y');
-                });
-                $('#SCH_MONITER_N').on('click', function () {
-                    $('#SCH_MONITER_N').addClass('active');
-                    $('#SCH_MONITER_Y').removeClass('active');
-                    $('#<%=hdd_SCH_MONITER.ClientID %>').val('N');
-                });
+                            // 메세지 즉시발송 선택
+                            $('#MSG_GUBUN_1').on('click', function () {
+                                $('#MSG_GUBUN_1').addClass('active');
+                                $('#MSG_GUBUN_2').removeClass('active');
+                                $('#<%=hdd_MSG_GUBUN.ClientID %>').val('1');
+                                $('#viewMsgTimeArea').css('visibility', 'hidden');
+                            });
+                            $('#MSG_GUBUN_2').on('click', function () {
+                                $('#MSG_GUBUN_2').addClass('active');
+                                $('#MSG_GUBUN_1').removeClass('active');
+                                $('#<%=hdd_MSG_GUBUN.ClientID %>').val('2');
+                                $('#viewMsgTimeArea').css('visibility', 'visible');
+                            });
 
-                // 메세지 즉시발송 선택
-                $('#MSG_GUBUN_1').on('click', function () {
-                    $('#MSG_GUBUN_1').addClass('active');
-                    $('#MSG_GUBUN_2').removeClass('active');
-                    $('#<%=hdd_MSG_GUBUN.ClientID %>').val('1');
-                    $('#viewMsgTimeArea').css('visibility', 'hidden');
-                });
-                $('#MSG_GUBUN_2').on('click', function () {
-                    $('#MSG_GUBUN_2').addClass('active');
-                    $('#MSG_GUBUN_1').removeClass('active');
-                    $('#<%=hdd_MSG_GUBUN.ClientID %>').val('2');
-                    $('#viewMsgTimeArea').css('visibility', 'visible');
-                });
-
-                // 메세지 2차발송 선택
-                $('#TND_CHECK_Y').on('click', function () {
-                    $('#TND_CHECK_Y').addClass('active');
-                    $('#TND_CHECK_N').removeClass('active');
-                    $('#<%=hdd_TND_CHECK.ClientID %>').val('Y');
-                });
-                $('#TND_CHECK_N').on('click', function () {
-                    $('#TND_CHECK_N').addClass('active');
-                    $('#TND_CHECK_Y').removeClass('active');
-                    $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
-                });
-            }
+                            // 메세지 2차발송 선택
+                            $('#TND_CHECK_Y').on('click', function () {
+                                $('#TND_CHECK_Y').addClass('active');
+                                $('#TND_CHECK_N').removeClass('active');
+                                $('#<%=hdd_TND_CHECK.ClientID %>').val('Y');
+                            });
+                            $('#TND_CHECK_N').on('click', function () {
+                                $('#TND_CHECK_N').addClass('active');
+                                $('#TND_CHECK_Y').removeClass('active');
+                                $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
+                            });
+                    }
+            };
+            init();
+            __globalFuc.add(init);
         });
 
         // [접견인] 회사, 부서, 팀, 직원 선택
@@ -205,98 +209,98 @@
                 <h3>방문등록</h3>
             </div>
 
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <!-- 게시판 내용 -->
-                    <div class="mainBoardWrap">
-                        <h4 class="vst-title-h4">방문객 정보</h4>
-                        <div class="vstCheckInWrap">
-                            <div class="vstCheckInInner">
-                                <div>
-                                    <p class="vst-title">
-                                        회사명
-                                    </p>
-                                    <div>
-                                        <input id="GST_CPY" runat="server" placeholder="회사명을 입력하세요." />
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="vst-title">
-                                        직책
-                                    </p>
-                                    <div>
-                                        <input id="GST_PST" runat="server" placeholder="직책을 입력하세요." />
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="vst-title">
-                                        성함 <span>*</span>
-                                    </p>
-                                    <div>
-                                        <input id="GST_NAME" runat="server" placeholder="이름을 입력하세요." />
-                                    </div>
-                                </div>
+            <!-- 게시판 내용 -->
+            <div class="mainBoardWrap">
+                <h4 class="vst-title-h4">방문객 정보</h4>
+                <div class="vstCheckInWrap">
+                    <div class="vstCheckInInner">
+                        <div>
+                            <p class="vst-title">
+                                회사명
+                            </p>
+                            <div>
+                                <input id="GST_CPY" runat="server" placeholder="회사명을 입력하세요." />
                             </div>
-                            <div class="vstCheckInInner">
-                                <div>
-                                    <p class="vst-title">
-                                        연락처 <span>*</span>
-                                    </p>
-                                    <div class="vst-tel">
-                                        <input id="GST_MOBILE_NO1" runat="server" />
-                                        <input id="GST_MOBILE_NO2" runat="server" />
-                                        <input id="GST_MOBILE_NO3" runat="server" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="vst-title">
-                                        방문 일시 <span>*</span>
-                                    </p>
-                                    <div class="vst-tel">
-                                        <%-- 날짜 --%>
-                                        <div class="datepicker">
-                                            <ESNfx:ESNDatePicker ID="SCH_YEARMD" runat="server" DateButtonImageUrl="~/common/images/icon_calendar.png"></ESNfx:ESNDatePicker>
-                                            <asp:DropDownList ID="SCH_HOUR" runat="server"></asp:DropDownList>시
+                        </div>
+                        <div>
+                            <p class="vst-title">
+                                직책
+                            </p>
+                            <div>
+                                <input id="GST_PST" runat="server" placeholder="직책을 입력하세요." />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="vst-title">
+                                성함 <span>*</span>
+                            </p>
+                            <div>
+                                <input id="GST_NAME" runat="server" placeholder="이름을 입력하세요." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vstCheckInInner">
+                        <div>
+                            <p class="vst-title">
+                                연락처 <span>*</span>
+                            </p>
+                            <div class="vst-tel">
+                                <input id="GST_MOBILE_NO1" runat="server" />
+                                <input id="GST_MOBILE_NO2" runat="server" />
+                                <input id="GST_MOBILE_NO3" runat="server" />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="vst-title">
+                                방문 일시 <span>*</span>
+                            </p>
+                            <div class="vst-tel">
+                                <%-- 날짜 --%>
+                                <div class="datepicker">
+                                    <ESNfx:ESNDatePicker ID="SCH_YEARMD" runat="server" DateButtonImageUrl="~/common/images/icon_calendar.png"></ESNfx:ESNDatePicker>
+                                    <asp:DropDownList ID="SCH_HOUR" runat="server"></asp:DropDownList>시
                                     <asp:DropDownList ID="SCH_MIN" runat="server"></asp:DropDownList>분
-                                        </div>
-                                        <script type="text/javascript">
+                                </div>
+                                <script type="text/javascript">
                                             $('#<%= SCH_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
                                             $('#<%= SCH_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
                                             $('#<%= SCH_YEARMD.FromClientID %>').removeAttr("onblur");
-                                        </script>
+                                </script>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="vst-in-flex">
+                                <div class="vst-in-item2">
+                                    <p class="vst-title">
+                                        방문 목적 <span>*</span>
+                                    </p>
+                                    <div>
+                                        <select id="SCH_TYPE" runat="server">
+                                            <option value="" selected="selected">선택</option>
+                                            <option value="1차면접">1차 면접</option>
+                                            <option value="2차면접">2차 면접</option>
+                                            <option value="미팅">미팅</option>
+                                            <option value="기타">기타</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="vst-in-flex">
-                                        <div class="vst-in-item2">
-                                            <p class="vst-title">
-                                                방문 목적 <span>*</span>
-                                            </p>
-                                            <div>
-                                                <select id="SCH_TYPE" runat="server">
-                                                    <option value="" selected="selected">선택</option>
-                                                    <option value="1차면접">1차 면접</option>
-                                                    <option value="2차면접">2차 면접</option>
-                                                    <option value="미팅">미팅</option>
-                                                    <option value="기타">기타</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="vst-in-item2">
-                                            <p class="vst-title">
-                                                모니터 실행 <span>*</span>
-                                            </p>
-                                            <div class="select-btn-flex">
-                                                <p class="select-btn" id="SCH_MONITER_Y">희망</p>
-                                                <p class="select-btn" id="SCH_MONITER_N">비희망</p>
-                                            </div>
-                                        </div>
+                                <div class="vst-in-item2">
+                                    <p class="vst-title">
+                                        모니터 실행 <span>*</span>
+                                    </p>
+                                    <div class="select-btn-flex">
+                                        <p class="select-btn" id="SCH_MONITER_Y">희망</p>
+                                        <p class="select-btn" id="SCH_MONITER_N">비희망</p>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <%-- ************************* 접견인 ************************* --%>
+                    <%-- ************************* 접견인 ************************* --%>
 
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
                             <div class="vstCheckInInner mt40">
                                 <h4 class="vst-title-h4">접견인 정보</h4>
                                 <div>
@@ -329,87 +333,88 @@
                                         <select id="SCH_STAFF" runat="server" onchange="fn_STAFFChange();"></select>
                                         <div class="select-name-area" id="staffListArea">
                                             <asp:Literal ID="ltrStaffList" runat="server"></asp:Literal>
+                                            <asp:HiddenField ID="hdd_ARR_STAFF" runat="server" />
                                         </div>
                                         <p class="help-vst">※ 선택된 접견인은 대표 담당자로 지정됩니다.</p>
                                     </div>
                                 </div>
                             </div>
-                            <%-- ************************* 접견인 ************************* --%>
-                            <div class="vstCheckInInner mt40">
-                                <h4 class="vst-title-h4">문자 발송</h4>
-                                <div>
-                                    <div class="vst-in-flex">
-                                        <div class="vst-in-item2">
-                                            <p class="vst-title">
-                                                발송 시간 <span>*</span>
-                                            </p>
-                                            <div class="select-btn-flex">
-                                                <p class="select-btn" id="MSG_GUBUN_1">즉시</p>
-                                                <p class="select-btn" id="MSG_GUBUN_2">예약</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkDummy4" EventName="Click" />
+
+                        </Triggers>
+                    </asp:UpdatePanel>
+                    <%-- ************************* 접견인 ************************* --%>
+                    <div class="vstCheckInInner mt40">
+                        <h4 class="vst-title-h4">문자 발송</h4>
+                        <div>
+                            <div class="vst-in-flex">
+                                <div class="vst-in-item2">
                                     <p class="vst-title">
-                                        발송 예약 일정
+                                        발송 시간 <span>*</span>
                                     </p>
-                                    <div class="vst-tel" id="viewMsgTimeArea">
-                                        <%-- 날짜 --%>
-                                        <div class="datepicker">
-                                            <ESNfx:ESNDatePicker ID="MSG_YEARMD" runat="server" DateButtonImageUrl="../common/images/icon_calendar.png"></ESNfx:ESNDatePicker>
-                                            <asp:DropDownList ID="MSG_HOUR" runat="server"></asp:DropDownList>시
-                                    <asp:DropDownList ID="MSG_MIN" runat="server"></asp:DropDownList>분
-                                        </div>
-                                        <script type="text/javascript">
-                                            $('#<%= MSG_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
-                                            $('#<%= MSG_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
-                                            $('#<%= MSG_YEARMD.FromClientID %>').removeAttr("onblur");
-                                        </script>
+                                    <div class="select-btn-flex">
+                                        <p class="select-btn" id="MSG_GUBUN_1">즉시</p>
+                                        <p class="select-btn" id="MSG_GUBUN_2">예약</p>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="vst-title">
-                                        2차 발송 <span>*</span>
-                                    </p>
-                                    <div class="vst-in-flex">
-                                        <div class="vst-in-item2">
-                                            <div class="select-btn-flex">
-                                                <p id="TND_CHECK_Y" class="select-btn">희망</p>
-                                                <p id="TND_CHECK_N" class="select-btn">비희망</p>
-                                            </div>
-                                        </div>
-                                        <div class="vst-in-item2">
-                                            <div>
-                                                <a href="javascript:void(0);" onclick="return fnPreviewSMS()" class="sms-btn">SMS 미리보기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="help-vst">※ 일정 하루 전에 문자가 재발송됩니다.</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="btns-wrap">
-                            <asp:LinkButton ID="lnkSave" runat="server" OnClick="lnkSave_Click" OnClientClick="return fnCheckSave();" CssClass="btns primary-btn"></asp:LinkButton>
-                            <a href="schList.aspx" class="btns secondary-btn ">목록</a>
+                        <div>
+                            <p class="vst-title">
+                                발송 예약 일정
+                            </p>
+                            <div class="vst-tel" id="viewMsgTimeArea">
+                                <%-- 날짜 --%>
+                                <div class="datepicker">
+                                    <ESNfx:ESNDatePicker ID="MSG_YEARMD" runat="server" DateButtonImageUrl="../common/images/icon_calendar.png"></ESNfx:ESNDatePicker>
+                                    <asp:DropDownList ID="MSG_HOUR" runat="server"></asp:DropDownList>시
+                                    <asp:DropDownList ID="MSG_MIN" runat="server"></asp:DropDownList>분
+                                </div>
+                                <script type="text/javascript">
+                                            $('#<%= MSG_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
+                                            $('#<%= MSG_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
+                                            $('#<%= MSG_YEARMD.FromClientID %>').removeAttr("onblur");
+                                </script>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="vst-title">
+                                2차 발송 <span>*</span>
+                            </p>
+                            <div class="vst-in-flex">
+                                <div class="vst-in-item2">
+                                    <div class="select-btn-flex">
+                                        <p id="TND_CHECK_Y" class="select-btn">희망</p>
+                                        <p id="TND_CHECK_N" class="select-btn">비희망</p>
+                                    </div>
+                                </div>
+                                <div class="vst-in-item2">
+                                    <div>
+                                        <a href="javascript:void(0);" onclick="return fnPreviewSMS()" class="sms-btn">SMS 미리보기</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="help-vst">※ 일정 하루 전에 문자가 재발송됩니다.</p>
                         </div>
                     </div>
-                    <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />
-                    <asp:HiddenField ID="hdd_ARR_STAFF" runat="server" />
-                    <asp:HiddenField ID="hdd_MSG_GUBUN" runat="server" />
-                    <asp:HiddenField ID="hdd_TND_CHECK" runat="server" />
-                    <asp:HiddenField ID="hdd_SchId" runat="server" />
-                    <!-- //게시판 내용 -->
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy2" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy3" EventName="Click" />
-                    <asp:AsyncPostBackTrigger ControlID="lnkDummy4" EventName="Click" />
+                </div>
 
-                </Triggers>
-            </asp:UpdatePanel>
+                <div class="btns-wrap">
+                    <asp:LinkButton ID="lnkSave" runat="server" OnClick="lnkSave_Click" OnClientClick="return fnCheckSave();" CssClass="btns primary-btn"></asp:LinkButton>
+                    <a href="schList.aspx" class="btns secondary-btn ">목록</a>
+                </div>
+            </div>
+            <asp:HiddenField ID="hdd_SCH_MONITER" runat="server" />
+            <asp:HiddenField ID="hdd_MSG_GUBUN" runat="server" />
+            <asp:HiddenField ID="hdd_TND_CHECK" runat="server" />
+            <asp:HiddenField ID="hdd_SchId" runat="server" />
+            <!-- //게시판 내용 -->
+
         </article>
     </section>
 

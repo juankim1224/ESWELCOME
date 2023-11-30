@@ -82,18 +82,22 @@
                 <table class="tableB">
                     <tbody>
                         <tr>
+                            <th>회사</th>
                             <th>부서</th>
-                            <td>-</td>
-                        </tr>
-                        <tr>
+                            <th>팀</th>
                             <th>성함</th>
-                            <td>
-                                <asp:Literal ID="STAFF_NAMES" runat="server"></asp:Literal></td>
                         </tr>
-                        <tr>
-                            <th>연락처</th>
-                            <td>-</td>
-                        </tr>
+                        <asp:Repeater ID="rptList" runat="server">
+                            <ItemTemplate>
+
+                                <tr>
+                                    <td class="tdClass"><%# Eval("staffCompany") %></td>
+                                    <td class="tdClass"><%# Eval("staffDept") %></td>
+                                    <td class="tdClass"><%# Eval("staffTeam") %></td>
+                                    <td class="tdClass"><%# Eval("staffFullName") %></td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </tbody>
                 </table>
                 <h4 class="vst-title-h4 ">문자 발송 </h4>

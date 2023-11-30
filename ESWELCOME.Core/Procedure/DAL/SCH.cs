@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
+using static iSCH_in_SCHEDULE;
 
 namespace ESWELCOME.DataBase.Procedure.DAL
 {
@@ -349,6 +350,20 @@ namespace ESWELCOME.DataBase.Procedure.DAL
             return ret;
         }
 
+        ///<summary>
+        ///작성일 : 2023-11-30 오후 1:41:35
+        ///수정일 : 2023-11-30 오후 10:50:22
+        ///</summary>
+        public List<SCH_sd_SCHSTAFF> SCH_sd_SCHSTAFF(string arr_staff_id)
+        {
+            List<SCH_sd_SCHSTAFF> list =
+                base.GetListOfType<SCH_sd_SCHSTAFF>("dbo.SCH_sd_SCHSTAFF"
+                //input parameter 시작
+                , CreateParameter("@ARR_STAFF_ID", SqlDbType.VarChar, arr_staff_id)
+
+            );
+            return list;
+        }
 
 
     }

@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using ESWELCOME.DataBase.Procedure.DAL;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
+using ESWELCOME.DataBase.Procedure.BOL.MSG;
+using ESWELCOME.Core;
+using static iSCH_in_SCHEDULE;
 
 namespace ESWELCOME.DataBase.Procedure.Facade
 {
@@ -78,6 +81,16 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         {
             return proc.SCH_sd_CALENDAR(search_year, search_month);
         }
+
+        ///<summary>
+        ///작성일 : 2023-11-30 오후 1:41:35
+        ///수정일 : 2023-11-30 오후 10:50:22
+        ///</summary>
+        public List<SCH_sd_SCHSTAFF> InquirySCHSTAFF(string arr_staff_id)
+        {
+            return proc.SCH_sd_SCHSTAFF(arr_staff_id);
+        }
+
 
         #endregion
 
@@ -231,6 +244,78 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         }
 
         #endregion
+
+        /// <summary>
+        ///  스케줄 등록, 접견인 등록, 메세지 등록 3개 프로시저 호출
+        /// </summary>
+        /// <param name="shedule"></param>
+        /// <param name="staff"></param>
+        /// <param name="message"></param>
+        /// <param name="schpk"></param>
+        /// <returns></returns>
+        public ESNfx.ReturnValue ManageSchedule(iSCH_in_SCHEDULE shedule, iSCH_iu_STAFF staff, iMSG_iu_MESSAGE message, string msgStaff, out string schpk)
+        {
+            schpk = string.Empty;
+
+            ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
+
+            using (SqlConnection con = new SqlConnection(proc.GetBaseConnectionString))
+            {
+                con.Open();
+                using (IDbTransaction txn = con.BeginTransaction())
+                {
+                    try
+                    {
+                        var tran = new SCH(txn);
+                        //Step1. 스케줄 등록 SCH_SCHEDULE INSERT
+                        ret = tran.SCH_in_SCHEDULE(shedule);
+                        if (!ret.Result)
+                            throw new Exception(ret.Message);
+
+                        var msgCode = ret["@msgCode"].ToString();
+                        schpk = ret["@sch_pk"].ToString();
+
+                        message.SCH_ID = Convert.ToInt32(schpk);
+                        staff.SCH_ID = Convert.ToInt32(schpk);
+
+                        // 메세지 내용 만들기
+
+                        var content = MsgMaker.MakeMsgContent(shedule.SCH_TYPE, shedule.GST_CPY, shedule.GST_PST, shedule.GST_NAME, shedule.SCH_YEARMD, shedule.SCH_HOUR, shedule.SCH_MIN, msgCode, msgStaff);
+
+                        message.MSG_CONTENT = content;
+
+                        //Step2. 접견인 등록 SCH_STAFF INSERT
+                        ret = tran.SCH_iu_STAFF(staff);
+                        if (!ret.Result)
+                            throw new Exception(ret.Message);
+
+                        //Step3. 메세지 등록 MSG_MESSAGE INSERT
+                        var tran2 = new MSG(txn);
+                        ret = tran2.MSG_iu_MESSAGE(message);
+                        if (!ret.Result)
+                            throw new Exception(ret.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        ret.Message = ex.Message;
+                        ret.setCode(-1);
+                        schpk = string.Empty;
+                    }
+                    finally
+                    {
+                        if (ret.Result)
+                        {
+                            txn.Commit();
+                        }
+                        else
+                        {
+                            txn.Rollback();
+                        }
+                    }
+                }
+            }
+            return ret;
+        }
 
     }
 }

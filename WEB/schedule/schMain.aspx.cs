@@ -66,7 +66,7 @@ namespace WEB.schedule
             var param = new iSCH_sd_SCHEDULE_MAIN
             {
                 SEARCH_YEAR = SEARCH_YEAR.Value,
-                SEARCH_MONTH = "12",
+                SEARCH_MONTH = SEARCH_MONTH.Value,
                 CURRENTPAGEINDEX = esnPager1.CurrentPageIndex + 1,
                 PAGINGSIZE = esnPager1.PageViewCount,
             };

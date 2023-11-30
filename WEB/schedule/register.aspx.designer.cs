@@ -15,15 +15,6 @@ namespace WEB.schedule
     {
 
         /// <summary>
-        /// UpdatePanel1 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-
-        /// <summary>
         /// GST_CPY 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -114,6 +105,15 @@ namespace WEB.schedule
         protected global::System.Web.UI.HtmlControls.HtmlSelect SCH_TYPE;
 
         /// <summary>
+        /// UpdatePanel1 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+
+        /// <summary>
         /// ES_COMPANY 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -159,6 +159,15 @@ namespace WEB.schedule
         protected global::System.Web.UI.WebControls.Literal ltrStaffList;
 
         /// <summary>
+        /// hdd_ARR_STAFF 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdd_ARR_STAFF;
+
+        /// <summary>
         /// MSG_YEARMD 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -202,15 +211,6 @@ namespace WEB.schedule
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdd_SCH_MONITER;
-
-        /// <summary>
-        /// hdd_ARR_STAFF 컨트롤입니다.
-        /// </summary>
-        /// <remarks>
-        /// 자동 생성 필드입니다.
-        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdd_ARR_STAFF;
 
         /// <summary>
         /// hdd_MSG_GUBUN 컨트롤입니다.

@@ -65,6 +65,10 @@ namespace WEB.controls
         /// </summary>
         protected void lnkDummy2_Click(object sender, EventArgs e)
         {
+            if(hddSCH_ID.Value == "")
+            {
+                resendMSG.Visible = false;
+            }
             gstCpy.InnerText = hddGstCpy.Value;
             gstPst.InnerText = hddGstPst.Value;
             gstName.InnerText = hddGstName.Value;
