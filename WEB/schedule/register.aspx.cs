@@ -5,7 +5,9 @@ using ESWELCOME.DataBase.Procedure.BOL.MSG;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
 using ESWELCOME.DataBase.Procedure.Facade;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 //using WEB.App_Code;
@@ -16,7 +18,6 @@ namespace WEB.schedule
     {
         #region property
 
-        int schId;
         string gstMobileNo;
         string msgStaff;
 
@@ -107,7 +108,7 @@ namespace WEB.schedule
         {
             lnkSave.Text = "수정";
             SchTimeBinding();
-            schId = Convert.ToInt32(hdd_SchId.Value);
+            var schId = Convert.ToInt32(hdd_SchId.Value);
 
             var item = SCHFacade.GetInstance.GetSCHEDULE(schId).GenericItem;
 
@@ -152,11 +153,11 @@ namespace WEB.schedule
 
                 if (hdd_ARR_STAFF.Value != "")
                 {
-                    hdd_ARR_STAFF.Value = "," + staffId;
+                    hdd_ARR_STAFF.Value += "," + staffId;
                 }
                 else
                 {
-                    hdd_ARR_STAFF.Value = staffId.ToString();
+                    hdd_ARR_STAFF.Value += staffId.ToString();
                 }
 
 
@@ -164,11 +165,10 @@ namespace WEB.schedule
 
             hdd_MSG_GUBUN.Value = item.MSG_GUBUN.ToString();
 
-            if (item.MSG_STATUS == "발송")
+            if (item.MSG_STATUS == "완료")
             {
-                MSG_YEARMD.Visible = false;
-                MSG_HOUR.Visible = false;
-                MSG_MIN.Visible = false;
+                ltrEditMsg.Text = "발송된 문자입니다.";
+                datepicker.Visible = false;
             }
             else
             {
@@ -306,22 +306,72 @@ namespace WEB.schedule
 
             var staffList = new List<iSCH_iu_STAFF>();
 
-            foreach (var a in arrStaff)
-            {
-                if ( a == msgStaff ) { gubun = 1; } else { gubun = 2; }
-                
-                var staff = new iSCH_iu_STAFF
-                {
-                    MEM_ID = Convert.ToInt32(a),
-                    SCH_ID = schId,
-                    STF_GUBUN = gubun,
-                    IU_GUBUN = "I",
-                    CRE_MEMID = 1,      // 하드코딩
-                };
-                staffList.Add(staff);
+            int schId = Convert.ToInt32(Request.Params["schId"]);
 
+            // 등록
+            if (Request.Params["schId"] == null)
+            {
+                foreach (var a in arrStaff)
+                {
+                    if ( a == msgStaff ) { gubun = 1; } else { gubun = 2; }
+                
+                    var staff = new iSCH_iu_STAFF
+                    {
+                        MEM_ID = Convert.ToInt32(a),
+                        SCH_ID = schId,
+                        STF_GUBUN = gubun,
+                        IU_GUBUN = "I",
+                        CRE_MEMID = 1,      // 하드코딩
+                    };
+                    staffList.Add(staff);
+
+                }
             }
-            
+            // 수정
+            else
+            {
+                // 삭제된 접견인
+                var item = SCHFacade.GetInstance.InquiryStaffForSchId(schId);
+
+                foreach(var i in item)
+                {
+                    // 수정
+                    foreach (var a in arrStaff)
+                    {
+                        if(i.MEM_ID != Convert.ToInt32(a)) {
+
+                            var staff = new iSCH_iu_STAFF
+                            {
+                                MEM_ID = Convert.ToInt32(a),
+                                SCH_ID = schId,
+                                STF_GUBUN = gubun,
+                                IU_GUBUN = "D",
+                                CRE_MEMID = 1,      // 하드코딩
+                            };
+                            
+                            staffList.Add(staff);
+
+                        } else {
+
+                            if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
+
+                            var staff = new iSCH_iu_STAFF
+                            {
+                                MEM_ID = Convert.ToInt32(a),
+                                SCH_ID = schId,
+                                STF_GUBUN = gubun,
+                                IU_GUBUN = "U",
+                                CRE_MEMID = 1,      // 하드코딩
+                            };
+
+                            staffList.Add(staff);
+
+                        }
+
+                    }
+                }
+            }
+
             return staffList;
         }
 

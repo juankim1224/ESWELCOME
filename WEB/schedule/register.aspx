@@ -13,10 +13,7 @@
             var moniterY = $("p[id$='SCH_MONITER_Y']").attr('class');
             var moniterN = $("p[id$='SCH_MONITER_N']").attr('class');
 
-            var esCompany = $('#<%=ES_COMPANY.ClientID %>').val();
-            var esDept = $('#<%=ES_DEPT.ClientID %>').val();
-            var esTeam = $('#<%=ES_TEAM.ClientID %>').val();
-            var esStaff = $('#<%=SCH_STAFF.ClientID %>').val();
+            var staff = $('#<%=hdd_ARR_STAFF.ClientID %>').val(); 
 
             var gubun1 = $("p[id$='MSG_GUBUN_1']").attr('class');
             var gubun2 = $("p[id$='MSG_GUBUN_2']").attr('class');
@@ -40,8 +37,7 @@
             if (gstName === '' || gmn1 === '' || gmn2 === '' || gmn3 === ''
                 || schYMD === '' || schHH === '선택' || schMM === '선택'
                 || schType === '' || (moniterY == 'select-btn' && moniterN == 'select-btn')
-                || esCompany === '' || esDept === null || esTeam === null || esStaff === null
-                || (gubun1 === 'select-btn' && (gubun2 === 'select-btn' || msgYMD === '' || msgHH == '선택' || msgMM == '선택'))
+                || staff === '' || (gubun1 === 'select-btn' && (gubun2 === 'select-btn' || msgYMD === '' || msgHH == '선택' || msgMM == '선택'))
                 || (tndCkY === 'select-btn' && tndCkN == 'select-btn')) {
                 alert('필수값을 모두 입력해 주세요.');
                 return false;
@@ -70,7 +66,7 @@
                 alert('방문 일정은 2시간 이후부터 가능합니다.');
                 $('#<%=SCH_YEARMD.ClientID %>').val('');
                 $('#<%=SCH_HOUR .ClientID %>').val('');
-                $('#<%=SCH_MIN.ClientID %>').val(''); 
+                $('#<%=SCH_MIN.ClientID %>').val('');
                 return false;
             }
 
@@ -94,72 +90,70 @@
         $(function () {
 
             var init = function () {
-                    var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
+                var schId1 = $('#<%=hdd_SchId.ClientID %>').val();
 
-                    // 수정 모드
-                    if (schId1 != "") {
-                            var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
-                            if (schMoniter == 'Y') {
-                                $('#SCH_MONITER_Y').addClass('active');
-                            } else if (schMoniter == 'N') {
-                                $('#SCH_MONITER_N').addClass('active');
-                            }
-
-                            var msgGubun = $("input[id$='hdd_MSG_GUBUN']").val();
-                            if (msgGubun == '1') {
-                                $('#MSG_GUBUN_1').addClass('active');
-                            } else if (msgGubun == '2') {
-                                $('#MSG_GUBUN_2').addClass('active');
-                            }
-
-                            var msgTndCheck = $("input[id$='hdd_TND_CHECK']").val();
-                            if (msgTndCheck == 'Y') {
-                                $('#TND_CHECK_Y').addClass('active');
-
-                            } else if (msgTndCheck == 'N') {
-                                $('#TND_CHECK_N').addClass('active');
-                            }
-                
-                    } else {    // 등록 모드
-
-                            // 모니터 실행 선택
-                            $('#SCH_MONITER_Y').on('click', function () {
-                                $('#SCH_MONITER_Y').addClass('active');
-                                $('#SCH_MONITER_N').removeClass('active');
-                                $('#<%=hdd_SCH_MONITER.ClientID %>').val('Y');
-                            });
-                            $('#SCH_MONITER_N').on('click', function () {
-                                $('#SCH_MONITER_N').addClass('active');
-                                $('#SCH_MONITER_Y').removeClass('active');
-                                $('#<%=hdd_SCH_MONITER.ClientID %>').val('N');
-                            });
-
-                            // 메세지 즉시발송 선택
-                            $('#MSG_GUBUN_1').on('click', function () {
-                                $('#MSG_GUBUN_1').addClass('active');
-                                $('#MSG_GUBUN_2').removeClass('active');
-                                $('#<%=hdd_MSG_GUBUN.ClientID %>').val('1');
-                                $('#viewMsgTimeArea').css('visibility', 'hidden');
-                            });
-                            $('#MSG_GUBUN_2').on('click', function () {
-                                $('#MSG_GUBUN_2').addClass('active');
-                                $('#MSG_GUBUN_1').removeClass('active');
-                                $('#<%=hdd_MSG_GUBUN.ClientID %>').val('2');
-                                $('#viewMsgTimeArea').css('visibility', 'visible');
-                            });
-
-                            // 메세지 2차발송 선택
-                            $('#TND_CHECK_Y').on('click', function () {
-                                $('#TND_CHECK_Y').addClass('active');
-                                $('#TND_CHECK_N').removeClass('active');
-                                $('#<%=hdd_TND_CHECK.ClientID %>').val('Y');
-                            });
-                            $('#TND_CHECK_N').on('click', function () {
-                                $('#TND_CHECK_N').addClass('active');
-                                $('#TND_CHECK_Y').removeClass('active');
-                                $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
-                            });
+                // 수정 모드
+                if (schId1 != "") {
+                    var schMoniter = $("input[id$='hdd_SCH_MONITER']").val();
+                    if (schMoniter == 'Y') {
+                        $('#SCH_MONITER_Y').addClass('active');
+                    } else if (schMoniter == 'N') {
+                        $('#SCH_MONITER_N').addClass('active');
                     }
+
+                    var msgGubun = $("input[id$='hdd_MSG_GUBUN']").val();
+                    if (msgGubun == '1') {
+                        $('#MSG_GUBUN_1').addClass('active');
+                    } else if (msgGubun == '2') {
+                        $('#MSG_GUBUN_2').addClass('active');
+                    }
+
+                    var msgTndCheck = $("input[id$='hdd_TND_CHECK']").val();
+                    if (msgTndCheck == 'Y') {
+                        $('#TND_CHECK_Y').addClass('active');
+
+                    } else if (msgTndCheck == 'N') {
+                        $('#TND_CHECK_N').addClass('active');
+                    }
+
+                }
+
+                $('#SCH_MONITER_Y').on('click', function () {
+                    $('#SCH_MONITER_Y').addClass('active');
+                    $('#SCH_MONITER_N').removeClass('active');
+                    $('#<%=hdd_SCH_MONITER.ClientID %>').val('Y');
+                });
+                $('#SCH_MONITER_N').on('click', function () {
+                    $('#SCH_MONITER_N').addClass('active');
+                    $('#SCH_MONITER_Y').removeClass('active');
+                    $('#<%=hdd_SCH_MONITER.ClientID %>').val('N');
+                });
+
+                // 메세지 즉시발송 선택
+                $('#MSG_GUBUN_1').on('click', function () {
+                    $('#MSG_GUBUN_1').addClass('active');
+                    $('#MSG_GUBUN_2').removeClass('active');
+                    $('#<%=hdd_MSG_GUBUN.ClientID %>').val('1');
+                    $('#viewMsgTimeArea').css('visibility', 'hidden');
+                });
+                $('#MSG_GUBUN_2').on('click', function () {
+                    $('#MSG_GUBUN_2').addClass('active');
+                    $('#MSG_GUBUN_1').removeClass('active');
+                    $('#<%=hdd_MSG_GUBUN.ClientID %>').val('2');
+                    $('#viewMsgTimeArea').css('visibility', 'visible');
+                });
+
+                // 메세지 2차발송 선택
+                $('#TND_CHECK_Y').on('click', function () {
+                    $('#TND_CHECK_Y').addClass('active');
+                    $('#TND_CHECK_N').removeClass('active');
+                    $('#<%=hdd_TND_CHECK.ClientID %>').val('Y');
+                });
+                $('#TND_CHECK_N').on('click', function () {
+                    $('#TND_CHECK_N').addClass('active');
+                    $('#TND_CHECK_Y').removeClass('active');
+                    $('#<%=hdd_TND_CHECK.ClientID %>').val('N');
+                });
             };
             init();
             __globalFuc.add(init);
@@ -262,9 +256,9 @@
                                     <asp:DropDownList ID="SCH_MIN" runat="server"></asp:DropDownList>분
                                 </div>
                                 <script type="text/javascript">
-                                            $('#<%= SCH_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
-                                            $('#<%= SCH_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
-                                            $('#<%= SCH_YEARMD.FromClientID %>').removeAttr("onblur");
+                                    $('#<%= SCH_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
+                                    $('#<%= SCH_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
+                                    $('#<%= SCH_YEARMD.FromClientID %>').removeAttr("onblur");
                                 </script>
                             </div>
                         </div>
@@ -348,7 +342,7 @@
 
                         </Triggers>
                     </asp:UpdatePanel>
-                    <%-- ************************* / 접견인 ************************* --%>
+                    <%-- ************************* 접견인 ************************* --%>
                     <div class="vstCheckInInner mt40">
                         <h4 class="vst-title-h4">문자 발송</h4>
                         <div>
@@ -369,16 +363,17 @@
                                 발송 예약 일정
                             </p>
                             <div class="vst-tel" id="viewMsgTimeArea">
+                                <asp:Literal ID="ltrEditMsg" runat="server"></asp:Literal>
                                 <%-- 날짜 --%>
-                                <div class="datepicker">
+                                <div class="datepicker" id="datepicker" runat="server">
                                     <ESNfx:ESNDatePicker ID="MSG_YEARMD" runat="server" DateButtonImageUrl="../common/images/icon_calendar.png"></ESNfx:ESNDatePicker>
-                                    <asp:DropDownList ID="MSG_HOUR" runat="server"></asp:DropDownList>시
-                                    <asp:DropDownList ID="MSG_MIN" runat="server"></asp:DropDownList>분
+                                    <asp:DropDownList ID="MSG_HOUR" runat="server"></asp:DropDownList><span id="siTxt" runat="server">시</span>
+                                    <asp:DropDownList ID="MSG_MIN" runat="server"></asp:DropDownList><span id="bunTxt" runat="server">분</span>
                                 </div>
                                 <script type="text/javascript">
-                                            $('#<%= MSG_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
-                                            $('#<%= MSG_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
-                                            $('#<%= MSG_YEARMD.FromClientID %>').removeAttr("onblur");
+                                    $('#<%= MSG_YEARMD.FromClientID %>').attr("style", "ime-mode:disabled;");
+                                    $('#<%= MSG_YEARMD.FromClientID %>').attr("placeholder", "YYYY-DD-MM");
+                                    $('#<%= MSG_YEARMD.FromClientID %>').removeAttr("onblur");
                                 </script>
                             </div>
                         </div>
@@ -429,22 +424,22 @@
 
     <script>
         function fnDeleteStaff(radioId) {
-            
-            var deleteRadio =  $('#' + radioId).val().toString();
-            
+
+            var deleteRadio = $('#' + radioId).val().toString();
+
             var hddStaffList = $("input[id$='hdd_ARR_STAFF']").val();
             var staff = hddStaffList.split(',');
 
 
-            for(let i = 0; i <= staff.length; i++){
-               
-                if(staff[i] === deleteRadio) {
+            for (let i = 0; i <= staff.length; i++) {
+
+                if (staff[i] === deleteRadio) {
                     var index = staff.indexOf(staff[i]);
                     var result = staff.splice(index, 1);
                     $("input[id$='hdd_ARR_STAFF']").val(staff);
                 }
             }
-            $('#s'+radioId).remove();
+            $('#s' + radioId).remove();
         }
 
     </script>

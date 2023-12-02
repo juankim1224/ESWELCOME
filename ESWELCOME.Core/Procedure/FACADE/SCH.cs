@@ -64,13 +64,14 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         }
 
         ///<summary>
-        ///작성일 : 2023-11-30 오후 1:41:35
-        ///수정일 : 2023-12-01 오후 4:38:29
+        ///작성일 : 2023-12-03 오후 7:10:52
+        ///수정일 : 2023-12-03 오후 7:10:52
         ///</summary>
-        public List<SCH_sd_SCHSTAFF> InquirySCHSTAFF(int? sch_id, string arr_staff_id)
+        public List<SCH_sd_SelectStaff> InquirySelectStaff(int? sch_id, string arr_staff_id)
         {
-            return proc.SCH_sd_SCHSTAFF(sch_id, arr_staff_id);
+            return proc.SCH_sd_SelectStaff(sch_id, arr_staff_id);
         }
+
 
         ///<summary>
         ///작성일 : 2023-11-23 오전 11:56:07

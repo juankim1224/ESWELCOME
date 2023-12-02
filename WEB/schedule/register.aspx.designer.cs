@@ -168,6 +168,24 @@ namespace WEB.schedule
         protected global::System.Web.UI.WebControls.HiddenField hdd_ARR_STAFF;
 
         /// <summary>
+        /// ltrEditMsg 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltrEditMsg;
+
+        /// <summary>
+        /// datepicker 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl datepicker;
+
+        /// <summary>
         /// MSG_YEARMD 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -186,6 +204,15 @@ namespace WEB.schedule
         protected global::System.Web.UI.WebControls.DropDownList MSG_HOUR;
 
         /// <summary>
+        /// siTxt 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl siTxt;
+
+        /// <summary>
         /// MSG_MIN 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -193,6 +220,15 @@ namespace WEB.schedule
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList MSG_MIN;
+
+        /// <summary>
+        /// bunTxt 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bunTxt;
 
         /// <summary>
         /// lnkSave 컨트롤입니다.

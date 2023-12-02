@@ -134,13 +134,13 @@ namespace ESWELCOME.DataBase.Procedure.DAL
         }
 
         ///<summary>
-        ///작성일 : 2023-11-30 오후 1:41:35
-        ///수정일 : 2023-12-01 오후 4:38:29
+        ///작성일 : 2023-12-03 오후 7:10:52
+        ///수정일 : 2023-12-03 오후 7:10:52
         ///</summary>
-        public List<SCH_sd_SCHSTAFF> SCH_sd_SCHSTAFF(int? sch_id, string arr_staff_id)
+        public List<SCH_sd_SelectStaff> SCH_sd_SelectStaff(int? sch_id, string arr_staff_id)
         {
-            List<SCH_sd_SCHSTAFF> list =
-                base.GetListOfType<SCH_sd_SCHSTAFF>("dbo.SCH_sd_SCHSTAFF"
+            List<SCH_sd_SelectStaff> list =
+                base.GetListOfType<SCH_sd_SelectStaff>("dbo.SCH_sd_SelectStaff"
                 //input parameter 시작
                 , CreateParameter("@SCH_ID", SqlDbType.Int, sch_id)
                 , CreateParameter("@ARR_STAFF_ID", SqlDbType.VarChar, arr_staff_id)
@@ -148,6 +148,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
             );
             return list;
         }
+
 
         ///<summary>
         ///작성일 : 2023-11-23 오전 11:56:07

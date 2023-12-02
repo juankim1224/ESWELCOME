@@ -432,10 +432,10 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
         #endregion
     }
 
-    public class SCH_sd_SCHSTAFF
+    public class SCH_sd_SelectStaff
     {
         #region 생성자
-        public SCH_sd_SCHSTAFF()
+        public SCH_sd_SelectStaff()
         {
             this._staffId = null;
             this._staffCompany = null;
@@ -510,6 +510,8 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
 
         #endregion
     }
+
+
 
     public class SCH_sd_SCHEDULE_MAIN
     {
