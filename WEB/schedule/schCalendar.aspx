@@ -34,24 +34,34 @@
         .threeUp {
             margin-top: 30px;
         }
-        .threeUp:hover{
-            cursor: pointer;
-        }
-        .threeUp + ul {
-            visibility: hidden;
-        }
+
+            .threeUp:hover {
+                cursor: pointer;
+            }
+
+            .threeUp + ul {
+                background-color: white;
+            }
     </style>
 
     <script>
 
         $(function () {
+            
             $('.threeUp').hover(function () {
                 var ul = $(this).siblings('ul');
                 ul.css('visibility', 'visible');
-            }, function () {
-                ul = $(this).siblings('ul');
-                ul.css('visibility', 'hidden');
-            })
+
+                var ulParents = $(this).parents();
+
+                ulParents.on('click', function () {
+                    var ul = $(this).find('ul');
+                    ul.css('visibility', 'hidden');
+                })
+
+            });
+
+
         });
 
         function fnschDetail(schId) {
