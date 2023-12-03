@@ -58,6 +58,12 @@ namespace WEB.controls
 
                 // 대표 접견인 번호
                 msgStaff.InnerText = MSGFacade.GetInstance.GetSTAFFHP(item.STF_ID).GenericItem.schStaffHp;
+
+                if (item.SCH_STATUS == "완료")
+                {
+                    resendMSG.Visible = false;
+                }
+
             }
 
         }

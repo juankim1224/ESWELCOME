@@ -30,9 +30,30 @@
         .pclass:hover {
             cursor: pointer;
         }
+
+        .threeUp {
+            margin-top: 30px;
+        }
+        .threeUp:hover{
+            cursor: pointer;
+        }
+        .threeUp + ul {
+            visibility: hidden;
+        }
     </style>
 
     <script>
+
+        $(function () {
+            $('.threeUp').hover(function () {
+                var ul = $(this).siblings('ul');
+                ul.css('visibility', 'visible');
+            }, function () {
+                ul = $(this).siblings('ul');
+                ul.css('visibility', 'hidden');
+            })
+        });
+
         function fnschDetail(schId) {
             window.location.href = 'schDetail.aspx?schId=' + schId;
         }

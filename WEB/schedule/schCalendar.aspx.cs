@@ -164,14 +164,42 @@ namespace WEB.schedule
                                 }
                                 else
                                 {
-                                    sCellText.AppendFormat($"{scheduleList.Count}건");
+                                    sCellText.AppendFormat("<span class=\"threeUp\">총 {0}건</span><ul>", scheduleList.Count);
+                                    break;
                                 }
 
 
                             }
                         }
 
-                        cell.Text = sCellText.AppendLine("</div>").ToString();
+                        foreach(var sch in scheduleList)
+                        {
+                            if(Day == sch.SCH_DAY)
+                            {
+                                var equalDayCount = scheduleList.FindAll(x => x.SCH_DAY == Day).Count;
+                                if(equalDayCount >= 3)
+                                {
+                                    switch (sch.SCH_TYPE)
+                                    {
+                                        case "1차면접":
+                                        case "2차면접":
+                                            sCellText.AppendFormat("<li><a href=\"javascript:fnschDetail('{0}');\"><p class=\"pclass\"><strong class=\"interview\">면접</strong>{1}:{2} {3}님</p></a><li>", sch.SCH_ID, sch.SCH_HOUR, sch.SCH_MIN, sch.GST_NAME);
+                                            break;
+                                        case "미팅":
+                                            sCellText.AppendFormat("<li><a href=\"javascript:fnschDetail('{0}');\"><p class=\"pclass\"><strong class=\"meeting\">미팅</strong>{1}:{2} {3}님</p></a><li>", sch.SCH_ID, sch.SCH_HOUR, sch.SCH_MIN, sch.GST_NAME);
+                                            break;
+                                        case "기타":
+                                            sCellText.AppendFormat("<li><a href=\"javascript:fnschDetail('{0}');\"><p class=\"pclass\"><strong class=\"etc\">기타</strong>{1}:{2} {3}님</p></a><li>", sch.SCH_ID, sch.SCH_HOUR, sch.SCH_MIN, sch.GST_NAME);
+                                            break;
+                                    }
+                                }
+                            }
+
+                        }
+
+
+
+                        cell.Text = sCellText.AppendLine("</ul></div>").ToString();
 
                         d++;
                         row.Cells.Add(cell);
