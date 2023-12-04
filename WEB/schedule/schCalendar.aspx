@@ -35,20 +35,33 @@
             margin-top: 30px;
         }
 
-            .threeUp:hover {
-                cursor: pointer;
-            }
+        .threeUp:hover {
+            cursor: pointer;
+        }
 
-            .threeUp + ul {
-                padding: 12px;
-                background-color: white;
-            }
+        .threeUp + ul {
+            padding: 12px;
+            background-color: white;
+        }
+
+        .trtr {
+            height: 40px;
+        }
+
+        .sunday {
+            color: red;
+        }
+        .sunday span {
+            color: red;
+        }
+
+
     </style>
 
     <script>
 
         $(function () {
-            
+
             $('.threeUp').hover(function () {
                 var ul = $(this).siblings('ul');
                 ul.css('visibility', 'visible');

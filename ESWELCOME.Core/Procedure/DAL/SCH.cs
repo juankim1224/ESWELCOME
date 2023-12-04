@@ -91,7 +91,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
 
         ///<summary>
         ///작성일 : 2023-11-23 오후 11:00:27
-        ///수정일 : 2023-11-30 오후 10:51:58
+        ///수정일 : 2023-12-05 오후 1:28:10
         ///</summary>
         public ESNfx.GenericReturn<SCH_sr_SCHEDULE> SCH_sr_SCHEDULE(int? sch_id)
         {
@@ -102,6 +102,7 @@ namespace ESWELCOME.DataBase.Procedure.DAL
             );
             return ESNfx.Generic.GetTopOne<SCH_sr_SCHEDULE>(list);
         }
+
 
         ///<summary>
         ///작성일 : 2023-12-01 오후 4:48:33
@@ -382,6 +383,60 @@ namespace ESWELCOME.DataBase.Procedure.DAL
             }
             return ret;
         }
+
+
+        ///<summary>
+        /// 수정대상 없는 접견인 삭제
+        ///</summary>
+        public ESNfx.ReturnValue SCH_un_SCHSTAFF(string update_staff_id, int? sch_id, int? cre_memid)
+        {
+            ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
+
+            try
+            {
+                SqlCommand cmd;
+
+                base.ExecuteNonQuery(out cmd, "dbo.SCH_un_SCHSTAFF"
+                    //input parameter 시작
+                    , CreateParameter("@UPDATE_STAFF_ID", SqlDbType.VarChar, update_staff_id)
+                    , CreateParameter("@SCH_ID", SqlDbType.Int, sch_id)
+                    , CreateParameter("@CRE_MEMID", SqlDbType.Int, cre_memid)
+
+                    //output parameter 시작
+                    , CreateParameter("@ERR_CD", SqlDbType.SmallInt, DBNull.Value, ParameterDirection.Output)
+                    , CreateParameter("@ERR_MSG", SqlDbType.VarChar, DBNull.Value, 50, ParameterDirection.Output)
+
+                );
+
+                if (cmd.Parameters["@ERR_CD"].Value != DBNull.Value)
+                    ret["@ERR_CD"] = Convert.ToInt16(cmd.Parameters["@ERR_CD"].Value);
+                if (cmd.Parameters["@ERR_MSG"].Value != DBNull.Value)
+                    ret["@ERR_MSG"] = Convert.ToString(cmd.Parameters["@ERR_MSG"].Value);
+
+                cmd.Dispose();
+
+                // 프로시저 자체에서 반환하는 오류에 대한 처리 추가
+                if (ret.IsContainsKey("@ERR_CD") && Convert.ToInt32(ret["@ERR_CD"]) != 1)
+                {
+                    ret.setCode(-1);
+                    if (ret.IsContainsKey("@ERR_MSG"))
+                        ret.Message = ret["@ERR_MSG"].ToString();
+                }
+                else
+                    ret.setCode(1);
+            }
+            catch (Exception ex)
+            {
+                ret.Message = ex.Message;
+                ret.setCode(-1);
+            }
+            finally
+            {
+                ret["@SQLLOG"] = base.ErrorSQL.ToString();
+            }
+            return ret;
+        }
+
 
 
 

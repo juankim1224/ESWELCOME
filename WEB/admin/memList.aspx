@@ -1,6 +1,63 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/master/admin.master" AutoEventWireup="true" CodeBehind="memList.aspx.cs" Inherits="WEB.admin.memList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function fnDeleteMem() {
+
+            var checkBoxes = $('.check');
+
+            var lists = '';
+
+            for (var i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked) {
+                    lists += checkBoxes[i].value + ",";
+                }
+            }
+
+            if ($("input[class='check']:checked").length == 0) {
+                alert("삭제할 직원을 선택해 주세요.");
+                return false;
+            }
+
+            if (lists != '') {
+
+                if (confirm("선택할 직원을 삭제하시겠습니까?")) {
+
+                    PageMethods.DeleteMem(lists, function (d) {
+                        if (d == 'Y') {
+                            alert("삭제가 완료되었습니다.");
+                            __doPostBack('<%=lnkDummy.UniqueID %>', '');
+                        }
+                    });
+                }
+            }
+
+
+        }
+
+        function fnResetPwd(memId) {
+
+            if (confirm("비밀번호 초기화를 하시겠습니까? (초기 비밀번호: 0000)")) {
+
+                PageMethods.ResetPwd(memId, function (d) {
+                    if (d == 'Y') {
+                        alert("초기화가 완료되었습니다.");
+                        __doPostBack('<%=lnkDummy.UniqueID %>', '');
+                                        }
+                                    });
+
+
+            }
+
+
+
+
+
+        }
+
+    </script>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <section id="contentWrap">
@@ -26,7 +83,7 @@
             </div>
             <!-- 게시판 내용 -->
             <div class="mainBoardWrap">
-                <a href="#" class="etc-btn">선택 삭제</a>
+                <a href="javascript:fnDeleteMem();" class="etc-btn">선택 삭제</a>
                 <table class="tableA">
                     <colgroup>
                         <col style="width: 80px" />
@@ -57,18 +114,18 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" /></td>
-                                            <td id="empId" style="display: none;"><%# Eval("MEM_ID") %></td>
+                                                <input type="checkbox" value="<%# Eval("MEM_ID") %>" class="check" /></td>
                                             <td><%# Eval("NO") %></td>
                                             <td><%# Eval("MEM_NAME") %></td>
                                             <td><%# Eval("CPY_NAME") %></td>
                                             <td><%# Eval("DEPT_NAME") %></td>
                                             <td><%# Eval("TEAM_NAME") %></td>
                                             <td><%# Eval("MEM_LOGIN_ID") %></td>
-                                            <td><a class="btn-reset" href="#">초기화</a></td>
+                                            <td><a class="btn-reset" href="javascript:fnResetPwd(<%# Eval("MEM_ID") %>)">초기화</a></td>
                                         </tr>
                                     </ItemTemplate>
                                 </asp:Repeater>
+                                <asp:LinkButton ID="lnkDummy" runat="server" OnClick="lnkDummy_Click"></asp:LinkButton>
 
                             </ContentTemplate>
                         </asp:UpdatePanel>

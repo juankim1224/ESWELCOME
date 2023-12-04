@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <section id="login-contentWrap">
         <article class="area">
-            <h1><strong>ES</strong> Welcome</h1>
+            <h1><strong>ES</strong>WELCOME</h1>
             <h2>ES그룹 방문예약 서비스</h2>
             <div class="loginBox">
                 <h3>ES그룹 방문을 환영합니다.</h3>

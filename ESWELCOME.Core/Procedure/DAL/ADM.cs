@@ -45,6 +45,58 @@ namespace ESWELCOME.DataBase.Procedure.DAL
             return list;
         }
 
+        ///<summary>
+        ///작성일 : 2023-12-04 오후 9:45:15
+        ///수정일 : 2023-12-04 오후 9:59:20
+        ///</summary>
+        public ESNfx.ReturnValue ADM_un_DeleteMEM(int? mem_id)
+        {
+            ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
+
+            try
+            {
+                SqlCommand cmd;
+
+                base.ExecuteNonQuery(out cmd, "dbo.ADM_un_DeleteMEM"
+                    //input parameter 시작
+                    , CreateParameter("@MEM_ID", SqlDbType.Int, mem_id)
+
+                    //output parameter 시작
+                    , CreateParameter("@ERR_CD", SqlDbType.SmallInt, DBNull.Value, ParameterDirection.Output)
+                    , CreateParameter("@ERR_MSG", SqlDbType.VarChar, DBNull.Value, 50, ParameterDirection.Output)
+
+                );
+
+                if (cmd.Parameters["@ERR_CD"].Value != DBNull.Value)
+                    ret["@ERR_CD"] = Convert.ToInt16(cmd.Parameters["@ERR_CD"].Value);
+                if (cmd.Parameters["@ERR_MSG"].Value != DBNull.Value)
+                    ret["@ERR_MSG"] = Convert.ToString(cmd.Parameters["@ERR_MSG"].Value);
+
+                cmd.Dispose();
+
+                // 프로시저 자체에서 반환하는 오류에 대한 처리 추가
+                if (ret.IsContainsKey("@ERR_CD") && Convert.ToInt32(ret["@ERR_CD"]) != 1)
+                {
+                    ret.setCode(-1);
+                    if (ret.IsContainsKey("@ERR_MSG"))
+                        ret.Message = ret["@ERR_MSG"].ToString();
+                }
+                else
+                    ret.setCode(1);
+            }
+            catch (Exception ex)
+            {
+                ret.Message = ex.Message;
+                ret.setCode(-1);
+            }
+            finally
+            {
+                ret["@SQLLOG"] = base.ErrorSQL.ToString();
+            }
+            return ret;
+        }
+
+
 
 
     }

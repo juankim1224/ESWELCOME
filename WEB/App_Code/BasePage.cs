@@ -1,13 +1,7 @@
 ﻿using ESNfx3.Web.Page;
-using ESNfx3.Web.User;
+using ESWELCOME.Core.Procedure;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.OleDb;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 
@@ -20,18 +14,11 @@ namespace WEB.App_Code
     {
         public BasePage()
         {
-            //EnableViewState = false;
+
         }
 
         #region variable
         protected int _totalCount = 0;
-        protected int _totalCount2 = 0;
-        protected int _totalCount3 = 0;
-        protected int _totalCount4 = 0;
-        protected long _totalAmt = 0;
-        protected long _totalAmt2 = 0;
-        protected bool _isExcel = false;
-        protected string _esListHtml = string.Empty;
         private Dictionary<int, string> _esLists
         {
             get
@@ -52,25 +39,6 @@ namespace WEB.App_Code
             var temp = _esLists;
             temp[index] = result;
             ViewState["ESLISTS"] = temp;
-        }
-
-        /// <summary>
-        /// 휴대폰번호 형식 반환
-        /// </summary>
-        /// <param name="mobileNo"></param>
-        /// <returns></returns>
-        protected string GetFormatMobileNo(string mobileNo)
-        {
-            if (mobileNo.Length == 11)
-            {
-                mobileNo = mobileNo.Substring(0, 3) + "-" + mobileNo.Substring(3, 4) + "-" + mobileNo.Substring(7, 4);
-            }
-            else if (mobileNo.Length == 10)
-            {
-                mobileNo = mobileNo.Substring(0, 3) + "-" + mobileNo.Substring(3, 3) + "-" + mobileNo.Substring(6, 4);
-            }
-
-            return mobileNo;
         }
 
         #endregion
@@ -110,22 +78,13 @@ namespace WEB.App_Code
         ///// <summary>
         ///// DB 프로시저 호출을 관장한다.
         ///// </summary>
-        //public ProcManager Procedure
-        //{
-        //    get
-        //    {
-        //        return ProcManager.Proc;
-        //    }
-        //}
-
-        //public LoginUser PrevLoginUser
-        //{
-        //    get
-        //    {
-        //        LoginUser user = LoginService.GetAdminLoginUser(new LoginTicket()) as LoginUser;
-        //        return user;
-        //    }
-        //}
+        public ProcManager Procedure
+        {
+            get
+            {
+                return ProcManager.Proc;
+            }
+        }
 
         //public LoginUser LoginUser
         //{

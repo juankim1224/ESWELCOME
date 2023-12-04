@@ -13,7 +13,7 @@
 
             alert(gmn1);
             // alert(gmn11);
-            // 1. 연락처는 숫자만
+            // 1. 연락처는 숫자만 
             var regExpNum = /^[0-9]*$/;
 
             if (!regExpNum.test(gmn1) || !regExpNum.test(gmn2) || !regExpNum.test(gmn3)) {

@@ -321,16 +321,14 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         }
 
 
-
-
-
-
         // <summary>
         //  스케줄 수정 & 접견인 수정 & 메세지 수정 3개 프로시저 호출
+        // schId로 sr SCH 돌렸을 때 오류남 -> msgCode 별도 가져옴
         // </summary>
-        public ESNfx.ReturnValue EditSchedule(iSCH_un_SCHEDULE shedule, List<iSCH_iu_STAFF> staff, iMSG_iu_MESSAGE message, string msgStaff, out string schpk)
+        public ESNfx.ReturnValue EditSchedule(iSCH_un_SCHEDULE shedule, List<iSCH_iu_STAFF> staff, iMSG_iu_MESSAGE message, string msgStaff, string msgCode, int schId)
         {
-            schpk = string.Empty;
+
+            int schpk = Convert.ToInt32(shedule.SCH_ID);
 
             ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
 
@@ -344,24 +342,39 @@ namespace ESWELCOME.DataBase.Procedure.Facade
                         var tran = new SCH(txn);
                         // Step1. 스케줄 수정 SCH_SCHEDULE UPDATE
                         ret = tran.SCH_un_SCHEDULE(shedule);
+
                         if (!ret.Result)
                             throw new Exception(ret.Message);
 
-                        // 메세지 내용 만들기
-                        var msgCode  = SCHFacade.GetInstance.GetSCHEDULE(shedule.SCH_ID).GenericItem.MSG_CODE;
-                        var content = MsgMaker.MakeMsgContent(shedule.SCH_TYPE, shedule.GST_CPY, shedule.GST_PST, shedule.GST_NAME, shedule.SCH_YEARMD, shedule.SCH_HOUR, shedule.SCH_MIN, msgCode, msgStaff);
-                        message.MSG_CONTENT = content;
+                        // Step2-1. 접견인 등록 SCH_STAFF INSERT
+                        string arrStfId = null;
 
                         foreach (var s in staff)
                         {
-                            s.SCH_ID = Convert.ToInt32(schpk);
-                            // Step2. 접견인 등록 SCH_STAFF INSERT
+                            s.SCH_ID = schpk;
+                            arrStfId += s.MEM_ID + ",";
+
                             ret = tran.SCH_iu_STAFF(s);
                             if (!ret.Result)
                                 throw new Exception(ret.Message);
                         }
 
+                        // Step2-2. 수정 대상 없는 접견인 삭제
+
+                        // 여기에서 자꾸 시간 초과됨
+                        ret = SCHFacade.GetInstance.UpdateSCHSTAFF(arrStfId, schpk, shedule.CRE_MEMID);
+                        if (!ret.Result)
+                            throw new Exception(ret.Message);
+
+
                         // Step3. 메세지 수정 MSG_MESSAGE UPDATE
+
+                        // 메세지 내용 만들기
+                        message.SCH_ID = schpk;
+
+                        var content = MsgMaker.MakeMsgContent(shedule.SCH_TYPE, shedule.GST_CPY, shedule.GST_PST, shedule.GST_NAME, shedule.SCH_YEARMD, shedule.SCH_HOUR, shedule.SCH_MIN, msgCode, msgStaff);
+                        message.MSG_CONTENT = content;
+
                         var tran2 = new MSG(txn);
                         ret = tran2.MSG_iu_MESSAGE(message);
                         if (!ret.Result)
@@ -389,17 +402,47 @@ namespace ESWELCOME.DataBase.Procedure.Facade
 
         }
 
+        ///<summary>
+        ///작성일 : 2023-12-05 오후 4:22:04
+        ///수정일 : 2023-12-05 오후 5:41:08
+        ///</summary>
+        public ESNfx.ReturnValue UpdateSCHSTAFF(string update_staff_id, int? sch_id, int? cre_memid)
+        {
+            ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
+
+            using (SqlConnection con = new SqlConnection(proc.GetBaseConnectionString))
+            {
+                con.Open();
+                using (IDbTransaction txn = con.BeginTransaction())
+                {
+                    try
+                    {
+                        var tran = new SCH(txn);
+                        ret = tran.SCH_un_SCHSTAFF(update_staff_id, sch_id, cre_memid);
+                    }
+                    catch (Exception ex)
+                    {
+                        ret.Message = ex.Message;
+                        ret.setCode(-1);
+                    }
+                    finally
+                    {
+                        if (ret.Result)
+                        {
+                            txn.Commit();
+                        }
+                        else
+                        {
+                            txn.Rollback();
+                        }
+                    }
+                }
+            }
+            return ret;
+        }
+
 
         #endregion
-
-
-
-
-
-
-
-
-
 
     }
 }

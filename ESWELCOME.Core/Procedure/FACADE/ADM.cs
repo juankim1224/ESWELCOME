@@ -47,6 +47,51 @@ namespace ESWELCOME.DataBase.Procedure.Facade
 
         #region Insert / Delete / Update
 
+
+        ///<summary>
+        ///작성일 : 2023-12-04 오후 9:45:15
+        ///수정일 : 2023-12-04 오후 9:59:20
+        ///</summary>
+        public ESNfx.ReturnValue UpdateDeleteMEM(int? mem_id)
+        {
+            ESNfx.ReturnValue ret = new ESNfx.ReturnValue();
+
+            using (SqlConnection con = new SqlConnection(proc.GetBaseConnectionString))
+            {
+                con.Open();
+                using (IDbTransaction txn = con.BeginTransaction())
+                {
+                    try
+                    {
+                        var tran = new ADM(txn);
+                        ret = tran.ADM_un_DeleteMEM(mem_id);
+                    }
+                    catch (Exception ex)
+                    {
+                        ret.Message = ex.Message;
+                        ret.setCode(-1);
+                    }
+                    finally
+                    {
+                        if (ret.Result)
+                        {
+                            txn.Commit();
+                        }
+                        else
+                        {
+                            txn.Rollback();
+                        }
+                    }
+                }
+            }
+            return ret;
+        }
+
+
+
+
+
+
         #endregion
 
     }

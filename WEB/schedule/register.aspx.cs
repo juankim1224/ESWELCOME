@@ -1,5 +1,6 @@
 ﻿using ESNfx;
 using ESNfx3.Web.Page;
+using ESWELCOME.Core;
 using ESWELCOME.Core.Procedure;
 using ESWELCOME.DataBase.Procedure.BOL.MSG;
 using ESWELCOME.DataBase.Procedure.BOL.SCH;
@@ -287,6 +288,8 @@ namespace WEB.schedule
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey1", "alert('등록이 완료되었습니다.');", true);
                     ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
+
+
                 }
 
             }
@@ -414,7 +417,10 @@ namespace WEB.schedule
                 SCH_MIN = SCH_MIN.Text,
                 SCH_TYPE = SCH_TYPE.Value,
                 SCH_MONITER = hdd_SCH_MONITER.Value,
+                CRE_MEMID = 1  // 하드코딩
             };
+
+            int schId = Convert.ToInt32(hdd_SchId.Value);
 
             // 접견인 (배열)
             var staff = SchStaffRegister();
@@ -422,17 +428,75 @@ namespace WEB.schedule
             // 메세지
             var message = MessageRegister();
 
-            string schPk = string.Empty;
-            string msgCode = string.Empty;
+
+            string msgCode = SCHFacade.GetInstance.GetSCHEDULE(schId).GenericItem.MSG_CODE;
+
             string msgStaff = Request.Params["msgStaff"];
 
-            var ret = ProcManager.Proc.SCHFacade.EditSchedule(schedule, staff, message, msgStaff, out schPk);
 
-            if (ret.Result && !string.IsNullOrEmpty(schPk))
+            //var ret = ProcManager.Proc.SCHFacade.EditSchedule(schedule, staff, message, msgStaff, msgCode, schId);
+
+            //if (ret.Result)
+            //{
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey2", "alert('수정이 완료되었습니다.');", true);
+            //    ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
+            //}
+
+
+            // Step1. 스케줄 수정 SCH_SCHEDULE UPDATE
+            var ret = SCHFacade.GetInstance.UpdateSCHEDULE(schedule);
+            if (ret.Result)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey2", "alert('수정이 완료되었습니다.');", true);
-                ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
+                string arrStfId = null;
+
+                // Step2-1. 접견인 등록 SCH_STAFF INSERT
+                var ret2 = new ReturnValue();
+                foreach (var s in staff)
+                {
+                    s.SCH_ID = schId;
+                    arrStfId += s.MEM_ID + ",";
+
+                    ret2 = SCHFacade.GetInstance.SCH_iu_STAFF(s);
+                }
+
+                // Step2-2. 수정 대상 없는 접견인 삭제
+                var ret3 = new ReturnValue();
+                if (ret2.Result)
+                {
+                    ret3 = SCHFacade.GetInstance.UpdateSCHSTAFF(arrStfId, schId, schedule.CRE_MEMID);
+
+
+                    // Step3. 메세지 수정 MSG_MESSAGE UPDATE
+                    var ret4 = new ReturnValue();
+                    if (ret3.Result)
+                    {
+                        // 메세지 내용 만들기
+                        message.SCH_ID = schId;
+
+                        var content = MsgMaker.MakeMsgContent(schedule.SCH_TYPE, schedule.GST_CPY, schedule.GST_PST, schedule.GST_NAME, schedule.SCH_YEARMD, schedule.SCH_HOUR, schedule.SCH_MIN, msgCode, msgStaff);
+
+                        message.MSG_CONTENT = content;
+
+                        ret4 = MSGFacade.GetInstance.MSG_iu_MESSAGE(message);
+
+                        if (ret4.Result)
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey2", "alert('수정이 완료되었습니다.');", true);
+                            ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
+
+                        }
+
+
+                    }
+
+                }
+
+
             }
+
+
+
+
         }
 
 

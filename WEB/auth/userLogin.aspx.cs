@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WEB.App_Code;
 
 namespace WEB.auth
 {
-    public partial class userLogin : System.Web.UI.Page
+    public partial class userLogin : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

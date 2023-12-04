@@ -105,6 +105,7 @@ namespace WEB.schedule
             }
             // asp:table에 적용된 th 추가
             this.tblCalendar.Rows.Add(hrow);
+            hrow.CssClass = "trtr";
 
 
             for (int i = 0, d = 1, p = 0, n = 0; i < 6; i++)
@@ -231,7 +232,7 @@ namespace WEB.schedule
 
         protected void lnkNextBtn_Click(object sender, EventArgs e)
         {
-            hddYear.Value = "2023";
+            hddYear.Value = "2024";
             hddMonth.Value = (Convert.ToInt32(hddMonth.Value) + 1).ToString();
 
             MakeCalendar();

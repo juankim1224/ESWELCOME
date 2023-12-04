@@ -83,7 +83,14 @@
                 return false;
             }
 
-            confirm('방문 등록을 하시겠습니까?');
+            // 등록 or 수정 알림
+            var saveBtnCk = $('#<%=lnkSave.ClientID %>').val();
+            if (saveBtnCk === '등록') {
+                confirm('방문 등록을 하시겠습니까?');
+            } else {
+                confirm('방문 수정을 하시겠습니까?');
+            }
+
             return true;
         }
 
@@ -416,8 +423,6 @@
     <asp:LinkButton ID="lnkDummy2" runat="server" OnClick="lnkDummy2_Click"></asp:LinkButton>
     <asp:LinkButton ID="lnkDummy3" runat="server" OnClick="lnkDummy3_Click"></asp:LinkButton>
     <asp:LinkButton ID="lnkDummy4" runat="server" OnClick="lnkDummy4_Click"></asp:LinkButton>
-
-
 
     <MSG:ucSMS ID="ucSMS" runat="server" PopWidth="480" />
 
