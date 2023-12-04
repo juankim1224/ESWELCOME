@@ -154,6 +154,7 @@
     <Content Include="Global.asax" />
     <Content Include="guest\gstCheckIn.aspx" />
     <Content Include="guest\gstWelcome.aspx" />
+    <Content Include="loading_bar.gif" />
     <Content Include="schedule\register.aspx" />
     <Content Include="schedule\schCalendar.aspx" />
     <Content Include="schedule\schDetail.aspx" />

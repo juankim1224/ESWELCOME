@@ -18,6 +18,8 @@ namespace WEB.schedule
     {
         #region property
 
+        //int SchId { get; set; }
+
         string gstMobileNo;
         string msgStaff;
 
@@ -36,6 +38,7 @@ namespace WEB.schedule
                 else
                 {
                     hdd_SchId.Value = Request.Params["schId"];
+                    SchId = Convert.ToInt32(Request.Params["schId"]);
                     EditSch();
                 }
             }
@@ -313,8 +316,8 @@ namespace WEB.schedule
             {
                 foreach (var a in arrStaff)
                 {
-                    if ( a == msgStaff ) { gubun = 1; } else { gubun = 2; }
-                
+                    if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
+
                     var staff = new iSCH_iu_STAFF
                     {
                         MEM_ID = Convert.ToInt32(a),
@@ -330,48 +333,23 @@ namespace WEB.schedule
             // 수정
             else
             {
-                // 삭제된 접견인
-                var item = SCHFacade.GetInstance.InquiryStaffForSchId(schId);
-
-                foreach(var i in item)
+                foreach (var a in arrStaff)
                 {
-                    // 수정
-                    foreach (var a in arrStaff)
+                    if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
+
+                    var staff = new iSCH_iu_STAFF
                     {
-                        if(i.MEM_ID != Convert.ToInt32(a)) {
+                        MEM_ID = Convert.ToInt32(a),
+                        SCH_ID = schId,
+                        STF_GUBUN = gubun,
+                        IU_GUBUN = "U",
+                        CRE_MEMID = 1,      // 하드코딩
+                    };
+                    staffList.Add(staff);
 
-                            var staff = new iSCH_iu_STAFF
-                            {
-                                MEM_ID = Convert.ToInt32(a),
-                                SCH_ID = schId,
-                                STF_GUBUN = gubun,
-                                IU_GUBUN = "D",
-                                CRE_MEMID = 1,      // 하드코딩
-                            };
-                            
-                            staffList.Add(staff);
-
-                        } else {
-
-                            if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
-
-                            var staff = new iSCH_iu_STAFF
-                            {
-                                MEM_ID = Convert.ToInt32(a),
-                                SCH_ID = schId,
-                                STF_GUBUN = gubun,
-                                IU_GUBUN = "U",
-                                CRE_MEMID = 1,      // 하드코딩
-                            };
-
-                            staffList.Add(staff);
-
-                        }
-
-                    }
                 }
-            }
 
+            }
             return staffList;
         }
 
@@ -401,18 +379,28 @@ namespace WEB.schedule
                 msgMin = MSG_MIN.Text;
             }
 
-            iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE()
+
+            int schId = Convert.ToInt32(Request.Params["schId"]);
+
+            // 등록
+            if (Request.Params["schId"] == null)
             {
-                SCH_ID = 0,
-                MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
-                MSG_TO = gstMobileNo,
-                MSG_CONTENT = "",
-                MSG_YEARMD = msgYearMd,
-                MSG_HOUR = msgHour,
-                MSG_MIN = msgMin,
-                TND_CHECK = hdd_TND_CHECK.Value,
-                CRE_MEMID = 1,  // 하드코딩
-            };
+                iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE()
+                {
+                    SCH_ID = 0,
+                    MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
+                    MSG_TO = gstMobileNo,
+                    MSG_CONTENT = "",
+                    MSG_YEARMD = msgYearMd,
+                    MSG_HOUR = msgHour,
+                    MSG_MIN = msgMin,
+                    TND_CHECK = hdd_TND_CHECK.Value,
+                    CRE_MEMID = 1,  // 하드코딩
+                };
+
+
+            }
+
 
             return message;
 
