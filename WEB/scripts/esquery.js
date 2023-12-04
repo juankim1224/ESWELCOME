@@ -19,11 +19,11 @@ function fnGlobal() {
 
     __globalFuc.run();
 
-    $("input[placeholder],textarea[placeholder]").css({
-        'padding': '2px',
-        'color': '#ccc',
-        'width' : '90%'
-    });
+    //$("input[placeholder],textarea[placeholder]").css({
+    //    'padding': '2px',
+    //    'color': '#ccc',
+    //    'width' : '90%'
+    //});
 
     //공통 작업처리
     $('input.v-number').keypress(es.event.onlyNumber).css({
