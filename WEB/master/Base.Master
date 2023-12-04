@@ -86,8 +86,7 @@
 
         prm.add_initializeRequest(function (sender, args) {
 
-            //-- 현재 페이징 인덱스에 있는 박스클래스 제거
-            //$('div.paging').children('ol').children('li').children('label').removeClass('page_select');
+           
 
             es.pop.start();
 
@@ -96,10 +95,7 @@
             fnGlobal();
 
             es.pop.end();
-            //-- 페이징 이미지를 li태그로 감쌈
-            //$('div.paging').children('ol').children('a').wrap("<li></li>");
-            //-- 현재 페이징 인덱스에 박스클래스 추가
-            //$('div.paging').children('ol').children('li').children('label').addClass('page_select');
+            
 
             if (args.get_error() != undefined) {
                 var message = '작업중 오류가 발생하였습니다.\n-';

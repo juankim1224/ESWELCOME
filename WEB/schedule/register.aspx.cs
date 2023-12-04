@@ -38,7 +38,6 @@ namespace WEB.schedule
                 else
                 {
                     hdd_SchId.Value = Request.Params["schId"];
-                    SchId = Convert.ToInt32(Request.Params["schId"]);
                     EditSch();
                 }
             }
