@@ -943,6 +943,7 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             this._SCH_MIN = null;
             this._SCH_TYPE = null;
             this._SCH_MONITER = null;
+            this._CRE_MEMID = null;
         }
         #endregion
 
@@ -1034,6 +1035,17 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             get { return _SCH_MONITER; }
             set { _SCH_MONITER = value; }
         }
+
+
+        private int? _CRE_MEMID;
+
+        public int? CRE_MEMID
+        {
+            get { return _CRE_MEMID; }
+            set { _CRE_MEMID = value; }
+        }
+
+
 
         #endregion
     }

@@ -13,7 +13,7 @@
             var moniterY = $("p[id$='SCH_MONITER_Y']").attr('class');
             var moniterN = $("p[id$='SCH_MONITER_N']").attr('class');
 
-            var staff = $('#<%=hdd_ARR_STAFF.ClientID %>').val(); 
+            var staff = $('#<%=hdd_ARR_STAFF.ClientID %>').val();
 
             var gubun1 = $("p[id$='MSG_GUBUN_1']").attr('class');
             var gubun2 = $("p[id$='MSG_GUBUN_2']").attr('class');
@@ -213,7 +213,7 @@
                                 회사명
                             </p>
                             <div>
-                                <input id="GST_CPY" runat="server" placeholder="회사명을 입력하세요." />
+                                <input id="GST_CPY" runat="server" placeholder="회사명을 입력하세요." class="hihi" />
                             </div>
                         </div>
                         <div>
@@ -221,7 +221,7 @@
                                 직책
                             </p>
                             <div>
-                                <input id="GST_PST" runat="server" placeholder="직책을 입력하세요." />
+                                <input id="GST_PST" runat="server" placeholder="직책을 입력하세요." class="hihi" />
                             </div>
                         </div>
                         <div>
@@ -229,7 +229,7 @@
                                 성함 <span>*</span>
                             </p>
                             <div>
-                                <input id="GST_NAME" runat="server" placeholder="이름을 입력하세요." />
+                                <input id="GST_NAME" runat="server" placeholder="이름을 입력하세요." class="hihi" />
                             </div>
                         </div>
                     </div>

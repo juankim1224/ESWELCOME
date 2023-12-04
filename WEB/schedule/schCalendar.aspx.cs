@@ -164,7 +164,7 @@ namespace WEB.schedule
                                 }
                                 else
                                 {
-                                    sCellText.AppendFormat("<span class=\"threeUp\">총 {0}건</span><ul style=\"visibility: hidden;  width: 180px; height: 200px; overflow-y: scroll; position: absolute; left: 30px; background-color: white; border: 1px solid gray; z-index: 1;\">", scheduleList.Count);
+                                    sCellText.AppendFormat("<span class=\"threeUp\">총 {0}건</span><ul style=\"visibility: hidden;  width: 185px; height: 200px; overflow-y: scroll; position: absolute; left: 30px; background-color: white; border: 1px solid gray; z-index: 1;\">", scheduleList.Count);
                                     break;
                                 }
 

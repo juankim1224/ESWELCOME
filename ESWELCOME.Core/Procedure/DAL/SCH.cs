@@ -51,6 +51,8 @@ namespace ESWELCOME.DataBase.Procedure.DAL
                     , CreateParameter("@SCH_MIN", SqlDbType.VarChar, param.SCH_MIN)
                     , CreateParameter("@SCH_TYPE", SqlDbType.VarChar, param.SCH_TYPE)
                     , CreateParameter("@SCH_MONITER", SqlDbType.VarChar, param.SCH_MONITER)
+                    , CreateParameter("@CRE_MEMID", SqlDbType.Int, param.CRE_MEMID)
+
 
                     //output parameter 시작
                     , CreateParameter("@ERR_CD", SqlDbType.SmallInt, DBNull.Value, ParameterDirection.Output)

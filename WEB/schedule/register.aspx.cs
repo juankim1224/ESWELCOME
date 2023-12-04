@@ -378,13 +378,15 @@ namespace WEB.schedule
                 msgMin = MSG_MIN.Text;
             }
 
+            iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE();
+
 
             int schId = Convert.ToInt32(Request.Params["schId"]);
 
-            //// 등록
-            //if (Request.Params["schId"] == null)
-            //{
-                iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE()
+            // 등록
+            if (Request.Params["schId"] == null)
+            {
+                message = new iMSG_iu_MESSAGE()
                 {
                     SCH_ID = 0,
                     MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
@@ -396,10 +398,25 @@ namespace WEB.schedule
                     TND_CHECK = hdd_TND_CHECK.Value,
                     CRE_MEMID = 1,  // 하드코딩
                 };
+            }
+            
+            // 수정 (수정하지 않았을 때는 음 ..;;)
+            else
+            {
+                message = new iMSG_iu_MESSAGE()
+                {
+                    SCH_ID = schId,
+                    MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
+                    MSG_TO = gstMobileNo,
+                    MSG_CONTENT = "",
+                    MSG_YEARMD = msgYearMd,
+                    MSG_HOUR = msgHour,
+                    MSG_MIN = msgMin,
+                    TND_CHECK = hdd_TND_CHECK.Value,
+                    CRE_MEMID = 1,  // 하드코딩
+                };
 
-
-            //}
-
+            }
 
             return message;
 
@@ -424,6 +441,7 @@ namespace WEB.schedule
                 SCH_MIN = SCH_MIN.Text,
                 SCH_TYPE = SCH_TYPE.Value,
                 SCH_MONITER = hdd_SCH_MONITER.Value,
+                CRE_MEMID = 1   // 하드코딩
             };
 
             // 접견인 (배열)

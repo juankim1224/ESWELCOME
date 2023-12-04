@@ -40,6 +40,7 @@
             }
 
             .threeUp + ul {
+                padding: 12px;
                 background-color: white;
             }
     </style>
