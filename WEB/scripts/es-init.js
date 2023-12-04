@@ -966,7 +966,7 @@ es.script = es.script || {
         cssLink.setAttribute("rel", "Stylesheet");
         cssLink.setAttribute("type", "text/css");
         cssLink.setAttribute("href", es.script.scriptpath() + "es.css");
-        //top.document.getElementsByTagName("head")[0].appendChild(cssLink);
+        top.document.getElementsByTagName("head")[0].appendChild(cssLink);
 
         function addScript(src) {
             var regex = /(http:\/\/)/i;

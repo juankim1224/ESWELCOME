@@ -38,7 +38,29 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css" media="screen">
+        div#printArea {
+            display: none;
+        }
 
+        .movableScrollPop {
+            width: 100%;
+            overflow-y: scroll;
+            height: 600px;
+        }
+    </style>
+    <style type="text/css">
+            .dateClear {
+                background-position-y: 5px !important;
+                background: #fff !important;
+            }
+
+            .dateClear::-ms-clear {
+                width: 15px;
+                height: 15px;
+                display: block;
+            }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -59,8 +81,36 @@
             <!-- //footer -->
         </div>
     </form>
+    <script type="text/javascript">
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
 
+        prm.add_initializeRequest(function (sender, args) {
 
+            //-- 현재 페이징 인덱스에 있는 박스클래스 제거
+            //$('div.paging').children('ol').children('li').children('label').removeClass('page_select');
+
+            es.pop.start();
+
+        });
+        prm.add_endRequest(function (sender, args) {
+            fnGlobal();
+
+            es.pop.end();
+            //-- 페이징 이미지를 li태그로 감쌈
+            //$('div.paging').children('ol').children('a').wrap("<li></li>");
+            //-- 현재 페이징 인덱스에 박스클래스 추가
+            //$('div.paging').children('ol').children('li').children('label').addClass('page_select');
+
+            if (args.get_error() != undefined) {
+                var message = '작업중 오류가 발생하였습니다.\n-';
+                var errorMsg = args.get_error().description.replace(/^[^:]+:/gi, '');
+
+                message += errorMsg;
+                alert(message);
+                args.set_errorHandled(true);
+            }
+        });
+    </script>
 </body>
 
 
