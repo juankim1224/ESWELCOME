@@ -275,6 +275,8 @@ namespace ESWELCOME.DataBase.Procedure.Facade
                             throw new Exception(ret.Message);
 
                         var msgCode = ret["@msgCode"].ToString();
+                        schpk = ret["@sch_pk"].ToString();
+
                         message.SCH_ID = Convert.ToInt32(schpk);
 
                         // 메세지 내용 만들기

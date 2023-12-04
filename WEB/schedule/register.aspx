@@ -115,7 +115,6 @@
                     } else if (msgTndCheck == 'N') {
                         $('#TND_CHECK_N').addClass('active');
                     }
-
                 }
 
                 $('#SCH_MONITER_Y').on('click', function () {
