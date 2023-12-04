@@ -382,9 +382,9 @@ namespace WEB.schedule
 
             int schId = Convert.ToInt32(Request.Params["schId"]);
 
-            // 등록
-            if (Request.Params["schId"] == null)
-            {
+            //// 등록
+            //if (Request.Params["schId"] == null)
+            //{
                 iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE()
                 {
                     SCH_ID = 0,
@@ -399,7 +399,7 @@ namespace WEB.schedule
                 };
 
 
-            }
+            //}
 
 
             return message;
