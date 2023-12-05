@@ -433,16 +433,6 @@ namespace WEB.schedule
 
             string msgStaff = Request.Params["msgStaff"];
 
-
-            //var ret = ProcManager.Proc.SCHFacade.EditSchedule(schedule, staff, message, msgStaff, msgCode, schId);
-
-            //if (ret.Result)
-            //{
-            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RegisterKey2", "alert('수정이 완료되었습니다.');", true);
-            //    ESNfx3.Web.Page.WebHelper.AjaxMoveLocation(Page, "schMain.aspx", true);
-            //}
-
-
             // Step1. 스케줄 수정 SCH_SCHEDULE UPDATE
             var ret = SCHFacade.GetInstance.UpdateSCHEDULE(schedule);
             if (ret.Result)
@@ -459,14 +449,14 @@ namespace WEB.schedule
                     ret2 = SCHFacade.GetInstance.SCH_iu_STAFF(s);
                 }
 
-                // Step2-2. 수정 대상 없는 접견인 삭제
+                // Step3. 수정 대상 없는 접견인 삭제
                 var ret3 = new ReturnValue();
                 if (ret2.Result)
                 {
                     ret3 = SCHFacade.GetInstance.UpdateSCHSTAFF(arrStfId, schId, schedule.CRE_MEMID);
 
 
-                    // Step3. 메세지 수정 MSG_MESSAGE UPDATE
+                    // Step4. 메세지 수정 MSG_MESSAGE UPDATE
                     var ret4 = new ReturnValue();
                     if (ret3.Result)
                     {
@@ -486,16 +476,12 @@ namespace WEB.schedule
 
                         }
 
-
                     }
 
                 }
 
 
             }
-
-
-
 
         }
 
