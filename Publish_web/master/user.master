@@ -1,0 +1,62 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/master/Base.Master" AutoEventWireup="true" CodeBehind="user.master.cs" Inherits="WEB.master.user" %>
+
+<%@ Register Src="~/controls/ucChangePW.ascx" TagName="ucPW" TagPrefix="uc" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+
+        <script>
+            function fnInit_ucPwd() {
+                // 세션으로 EMP_ID 가져오기 ->PageMethod?
+
+            }
+        </script>
+
+
+    </asp:ContentPlaceHolder>
+
+
+</asp:Content>
+
+
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+
+    <!-- header -->
+    <header id="header">
+        <div class="headerInnerWrap">
+            <a href="/schedule/schMain.aspx">
+                <h1><strong>ES</strong> WELCOME</h1>
+            </a>
+            <!-- nav -->
+            <nav>
+                <p class="active"><a href="/schedule/register.aspx">방문 등록</a></p>
+                <p><a href="/schedule/schList.aspx">일정 조회</a></p>
+            </nav>
+            <!-- nav -->
+            <!-- myinfo -->
+            <div class="headerMyinfo">
+                <div class="herderMyinfo_in">
+                    <p><strong>이상네트웍스</strong>홍길동님</p>
+                    <p class="photo">
+                        <img src="../common/images/header_icon_people.png" alt="홍길동님" />
+                    </p>
+                </div>
+                <div class="mypage_view_area">
+                    <p style="border-bottom: thick;"><a href="javascript:<%=ucPW.OpenScript%>();" onclick="return fnInit_ucPwd()">비밀번호 변경</a></p>
+                    <p><a href="~/userLogin.aspx">로그아웃</a></p>
+                </div>
+            </div>
+            <!-- //myinfo-->
+        </div>
+
+    </header>
+    <!-- //header -->
+
+    <asp:ContentPlaceHolder ID="body" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <uc:ucPW ID="ucPW" runat="server" PopWidth="480" />
+
+</asp:Content>

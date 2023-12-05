@@ -1,0 +1,113 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Base.master.cs" Inherits="WEB.master.Base" %>
+
+<!DOCTYPE html>
+
+<html lang="ko">
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%--<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>--%>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no" />
+    <title>ES WELCOME</title>
+    <meta name="Title" content="ES WELCOME">
+    <meta name="Subject" content="ES WELCOME">
+    <meta name="Author" content="ES WELCOME">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="Robots" content="INDEX,FOLLOW">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ES WELCOME">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+    <meta name="twitter:domain" content="">
+    <link rel="stylesheet" href="/common/css/reset.css">
+    <link rel="stylesheet" href="/common/css/style.css">
+    <script src="/Scripts/es-init.js?v=20200922" type="text/javascript"></script>
+    <script type="text/javascript" src="/scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        var $jq = jQuery.noConflict(); //-- jquery 버전 충돌방지-jQuery의 alias적용 ( $ 대신 $jq 사용 )
+    </script>
+    <!-- 아이콘폰트 -->
+    <script src="https://kit.fontawesome.com/ec2e98dbdf.js" crossorigin="anonymous"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css" media="screen">
+        div#printArea {
+            display: none;
+        }
+
+        .movableScrollPop {
+            width: 100%;
+            overflow-y: scroll;
+            height: 600px;
+        }
+    </style>
+    <style type="text/css">
+            .dateClear {
+                background-position-y: 5px !important;
+                background: #fff !important;
+            }
+
+            .dateClear::-ms-clear {
+                width: 15px;
+                height: 15px;
+                display: block;
+            }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- accessibility -->
+        <div class="cm-accessibility"><a href="#Wrap">본문바로가기</a> </div>
+        <!-- //accessibility -->
+        <asp:ScriptManager ID="sm" runat="server" EnablePageMethods="true" EnablePartialRendering="true" OnAsyncPostBackError="sm_AsyncPostBackError">
+        </asp:ScriptManager>
+        <div id="wrap">
+            <asp:ContentPlaceHolder ID="body" runat="server">
+            </asp:ContentPlaceHolder>
+
+            <!-- footer -->
+            <footer id="footer">
+                Copyright © 2023 E-sang networks All Rights Reserved.
+                <%--        <uc:ucFooter runat="server" ID="ucFooter1" class="mb-1" />--%>
+            </footer>
+            <!-- //footer -->
+        </div>
+    </form>
+    <script type="text/javascript">
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        prm.add_initializeRequest(function (sender, args) {
+
+           
+
+            es.pop.start();
+
+        });
+        prm.add_endRequest(function (sender, args) {
+            fnGlobal();
+
+            es.pop.end();
+            
+
+            if (args.get_error() != undefined) {
+                var message = '작업중 오류가 발생하였습니다.\n-';
+                var errorMsg = args.get_error().description.replace(/^[^:]+:/gi, '');
+
+                message += errorMsg;
+                alert(message);
+                args.set_errorHandled(true);
+            }
+        });
+    </script>
+</body>
+
+
+</html>

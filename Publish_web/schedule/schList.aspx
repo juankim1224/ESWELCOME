@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/master/user.master" AutoEventWireup="true" CodeBehind="schMain.aspx.cs" Inherits="WEB.schedule.schMain" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/master/user.master" AutoEventWireup="true" CodeBehind="schList.aspx.cs" Inherits="WEB.schedule.schList" %>
 
 <%@ Register Src="~/controls/ucSMS.ascx" TagName="ucSMS" TagPrefix="MSG" %>
+<%@ Register Src="~/controls/ucFromToDate.ascx" TagName="FromToDate" TagPrefix="uc" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -15,20 +16,15 @@
 
     <script>
         $(function () {
-            var init = function () {
-                $('.tdClass').on('click', function () {
-                    var schId = $(this).siblings('#schId').text();
-                    window.location.href = '/schedule/schDetail.aspx?schId=' + schId;
-                });
-            };
-            init();
-            __globalFuc.add(init);
-
+            $('.tdClass').on('click', function () {
+                var schId = $(this).siblings('#schId').text();
+                window.location.href = 'schDetail.aspx?schId=' + schId;
+            });
         });
 
         function previewSMS(schId) {
 
-            $('#<%=hdschId.ClientID %>').val(schId);
+            $('#<%=hddSchId.ClientID %>').val(schId);
 
             fnOpen_ucSMS({ schId: schId });
         }
@@ -37,27 +33,30 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <section id="contentWrap">
-        <div class="hederSubmenu">
-            <!-- nav -->
-            <nav>
-                <p><a href="schList.aspx" class="active">리스트</a></p>
-                <p><a href="schCalendar.aspx">캘린더</a></p>
-            </nav>
-            <!-- nav -->
-        </div>
         <article class="area mainWrap">
             <div class="mainTitle">
-                <h3>리스트</h3>
-                <div>
-                    <select id="SEARCH_YEAR" runat="server" align="center">
-                        <option align="center">2023</option>
-                        <option align="center">2024</option>
+                <h3>일정 조회</h3>
+                <div class="mainTitle-flex">
+                    <select id="SCH_TYPE" runat="server">
+                        <option value="" align="center">방문사유</option>
+                        <option value="면접" align="center">면접</option>
+                        <option value="미팅" align="center">미팅</option>
+                        <option value="기타" align="center">기타</option>
                     </select>
-                    <select id="SEARCH_MONTH" runat="server" align="center">
+                    <%-- 날짜 --%>
+                    <div class="datepicker_1">
+                        <uc:FromToDate ID="esFromToDate" runat="server" />
+                    </div>
+                    <select id="SEARCH_TYPE" runat="server">
+                        <option value="A" align="center">전체</option>
+                        <option value="C" align="center">회사명</option>
+                        <option value="N" align="center">방문객명</option>
                     </select>
+                    <input id="SEARCH_TXT" runat="server" />
                     <asp:LinkButton runat="server" ID="searchSCH" OnClick="searchSCH_Click">조회</asp:LinkButton>
                 </div>
             </div>
+
             <!-- 게시판 내용 -->
             <asp:UpdatePanel ID="upnlCommand" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -100,8 +99,7 @@
                                             <td><%# Eval("SCH_TYPE") %></td>
                                             <td><%# Eval("STAFF_NAME") %></td>
                                             <td>
-                                                <%--<a href="javascript:void(0);" onclick="return previewSMS('<%# Eval("SCH_ID") %>')">--%>
-                                                <a href="javascript:void(0);" onclick="return fnInit_ucsms({schId: '<%# Eval("SCH_ID") %>'});">
+                                                <a href="javascript:void(0);" onclick="return fnInit_ucSMS({schId: '<%# Eval("SCH_ID") %>'});">
                                                     <img src="../common/images/icon_mail.png" alt="문자발송" /></a></td>
                                             <td><%# Eval("SCH_STATUS").Equals("완료")? "<span class='state_txt end'>완료</span>" : "<span class='state_txt expected'>예정</span>" %></td>
                                         </tr>
@@ -111,21 +109,31 @@
                         </table>
                         <!--paging -->
                         <div class="paging">
-                            <ESNfx:ESNDataPager ID="esnPager1" CssClass="paging" runat="server" FirstButtonImageUrl="../common/images/board_btn_pprev.png"
+                            <ESNfx:ESNDataPager ID="esnPager" CssClass="paging" runat="server" FirstButtonImageUrl="../common/images/board_btn_pprev.png"
                                 LastButtonImageUrl="../common/images/board_btn_nnext.png" NextButtonImageUrl="../common/images/board_btn_next.png"
                                 PrevButtonImageUrl="../common/images/board_btn_prev.png" alt="이전" OnCommand="esnPager1_Command" />
                         </div>
                         <!-- //paging-->
                     </div>
-
-
                 </ContentTemplate>
             </asp:UpdatePanel>
             <!-- //게시판 내용 -->
         </article>
     </section>
 
-    <asp:HiddenField ID="hdschId" runat="server" />
-    <MSG:ucSMS ID="ucsms" runat="server" PopWidth="480" />
+    <asp:HiddenField ID="hddSchId" runat="server" />
+    <MSG:ucSMS ID="ucSMS" runat="server" PopWidth="480" />
+
+    <script type="text/javascript">
+        // 달력 Css 수정
+        $('#<%= esFromToDate.FromDateClientID %>').attr("style", "ime-mode:disabled;");
+        $('#<%= esFromToDate.ToDateClientID %>').attr("style", "ime-mode:disabled;");
+        $('#<%= esFromToDate.FromDateClientID %>').attr("placeholder", "YYYY-DD-MM");
+        $('#<%= esFromToDate.ToDateClientID %>').attr("placeholder", "YYYY-DD-MM");
+        $('#<%= esFromToDate.FromDateClientID %>').removeAttr("onblur");
+        $('#<%= esFromToDate.ToDateClientID %>').removeAttr("onblur");
+        $('#<%= esFromToDate.FromDateClientID %>').next().andSelf().wrapAll('<p></p>');
+        $('#<%= esFromToDate.ToDateClientID %>').next().andSelf().wrapAll('<p></p>');
+    </script>
 
 </asp:Content>

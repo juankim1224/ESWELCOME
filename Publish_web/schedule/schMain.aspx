@@ -18,7 +18,7 @@
             var init = function () {
                 $('.tdClass').on('click', function () {
                     var schId = $(this).siblings('#schId').text();
-                    window.location.href = '/schedule/schDetail.aspx?schId=' + schId;
+                    window.location.href = 'schDetail.aspx?schId=' + schId;
                 });
             };
             init();
