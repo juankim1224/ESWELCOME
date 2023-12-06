@@ -31,26 +31,13 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         #region Single Select
 
         ///<summary>
-        ///작성일 : 2023-11-24 오후 7:13:06
-        ///수정일 : 2023-11-24 오후 7:13:06
-        ///</summary>
-        public ESNfx.GenericReturn<MSG_sr_SCHSTAFF> GetSCHSTAFF(int? stf_id)
-        {
-            return proc.MSG_sr_SCHSTAFF(stf_id);
-        }
-
-        ///<summary>
         ///작성일 : 2023-11-25 오후 4:01:06
-        ///수정일 : 2023-11-25 오후 4:01:06
+        ///수정일 : 2023-12-06 오후 2:01:00
         ///</summary>
-        public ESNfx.GenericReturn<MSG_sr_STAFFHP> GetSTAFFHP(int? stf_id)
+        public ESNfx.GenericReturn<MSG_sr_STAFFHP> GetSTAFFHP(int? sch_id)
         {
-            return proc.MSG_sr_STAFFHP(stf_id);
+            return proc.MSG_sr_STAFFHP(sch_id);
         }
-
-        #endregion
-
-        #region Multiple Select
 
         #endregion
 
@@ -58,7 +45,7 @@ namespace ESWELCOME.DataBase.Procedure.Facade
 
         ///<summary>
         ///작성일 : 2023-11-23 오후 10:13:55
-        ///수정일 : 2023-11-24 오후 7:17:10
+        ///수정일 : 2023-12-05 오후 10:02:24
         ///</summary>
         public ESNfx.ReturnValue MSG_iu_MESSAGE(iMSG_iu_MESSAGE param)
         {

@@ -381,18 +381,43 @@ namespace WEB.schedule
                 msgMin = MSG_MIN.Text;
             }
 
-            iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE()
+
+            var schId = hdd_SchId.Value;
+            iMSG_iu_MESSAGE message = new iMSG_iu_MESSAGE();
+
+            // 등록 모드
+            if (schId == null)
             {
-                SCH_ID = 0,
-                MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
-                MSG_TO = gstMobileNo,
-                MSG_CONTENT = "",
-                MSG_YEARMD = msgYearMd,
-                MSG_HOUR = msgHour,
-                MSG_MIN = msgMin,
-                TND_CHECK = hdd_TND_CHECK.Value,
-                CRE_MEMID = 1,  // 하드코딩
-            };
+                message = new iMSG_iu_MESSAGE()
+                {
+                    SCH_ID = 0,
+                    MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
+                    MSG_TO = gstMobileNo,
+                    MSG_CONTENT = "",
+                    MSG_YEARMD = msgYearMd,
+                    MSG_HOUR = msgHour,
+                    MSG_MIN = msgMin,
+                    TND_CHECK = hdd_TND_CHECK.Value,
+                    CRE_MEMID = 1,  // 하드코딩
+                };
+
+            }
+            else
+            {   // 예약 모드
+                message = new iMSG_iu_MESSAGE()
+                {
+                    SCH_ID = Convert.ToInt32(schId),
+                    MSG_GUBUN = Convert.ToInt32(hdd_MSG_GUBUN.Value),
+                    MSG_TO = gstMobileNo,
+                    MSG_CONTENT = "",
+                    MSG_YEARMD = msgYearMd,
+                    MSG_HOUR = msgHour,
+                    MSG_MIN = msgMin,
+                    TND_CHECK = hdd_TND_CHECK.Value,
+                    CRE_MEMID = 1,  // 하드코딩
+                };
+            }
+
 
             return message;
 
@@ -428,8 +453,12 @@ namespace WEB.schedule
             // 메세지
             var message = MessageRegister();
 
+            var item = SCHFacade.GetInstance.GetSCHEDULE(schId).GenericItem;
 
-            string msgCode = SCHFacade.GetInstance.GetSCHEDULE(schId).GenericItem.MSG_CODE;
+            message.SCH_ID = schId;
+            message.MSG_ID = item.MSG_ID;
+
+            string msgCode = item.MSG_CODE.ToString();
 
             string msgStaff = Request.Params["msgStaff"];
 
@@ -455,14 +484,11 @@ namespace WEB.schedule
                 {
                     ret3 = SCHFacade.GetInstance.UpdateSCHSTAFF(arrStfId, schId, schedule.CRE_MEMID);
 
-
                     // Step4. 메세지 수정 MSG_MESSAGE UPDATE
                     var ret4 = new ReturnValue();
                     if (ret3.Result)
                     {
                         // 메세지 내용 만들기
-                        message.SCH_ID = schId;
-
                         var content = MsgMaker.MakeMsgContent(schedule.SCH_TYPE, schedule.GST_CPY, schedule.GST_PST, schedule.GST_NAME, schedule.SCH_YEARMD, schedule.SCH_HOUR, schedule.SCH_MIN, msgCode, msgStaff);
 
                         message.MSG_CONTENT = content;

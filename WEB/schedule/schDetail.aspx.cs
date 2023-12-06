@@ -74,6 +74,10 @@ namespace WEB.schedule
                 }
 
                 /* ********** 문자 ********** */
+
+                // 담당자 번호
+                msgStaffHp.Text = MSGFacade.GetInstance.GetSTAFFHP(nSchId).GenericItem.schStaffHp;
+
                 // 발송완료시 공백
                 if (sch.MSG_STATUS == "발송")
                 {

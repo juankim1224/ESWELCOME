@@ -104,7 +104,7 @@
                     <tbody>
                         <tr>
                             <th>담당자 번호</th>
-                            <td>010-1234-5678</td>
+                            <td><asp:Literal ID="msgStaffHp" runat="server"></asp:Literal></td>
                         </tr>
                         <tr>
                             <th>발송 예정일</th>

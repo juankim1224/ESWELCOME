@@ -84,8 +84,8 @@
             }
 
             // 등록 or 수정 알림
-            var saveBtnCk = $('#<%=lnkSave.ClientID %>').val();
-            if (saveBtnCk === '등록') {
+            var hddSchId = $('#<%=hdd_SchId.ClientID %>').val();
+            if (hddSchId == "") {
                 confirm('방문 등록을 하시겠습니까?');
             } else {
                 confirm('방문 수정을 하시겠습니까?');

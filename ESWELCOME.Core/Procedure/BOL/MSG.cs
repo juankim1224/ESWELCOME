@@ -7,30 +7,6 @@ using ESNfx.DataBase;
 
 namespace ESWELCOME.DataBase.Procedure.BOL.MSG
 {
-    public class MSG_sr_SCHSTAFF
-    {
-        #region 생성자
-        public MSG_sr_SCHSTAFF()
-        {
-            this._schStaffHp = null;
-        }
-        #endregion
-
-        #region 프로퍼티
-
-        private string _schStaffHp;
-
-        [ESBind("schStaffHp", "")]
-        [ESNfx.Attributes.ExcelBind("schStaffHp")]
-        public string schStaffHp
-        {
-            get { return _schStaffHp; }
-            set { _schStaffHp = value; }
-        }
-
-        #endregion
-    }
-
     public class MSG_sr_STAFFHP
     {
         #region 생성자
@@ -54,6 +30,30 @@ namespace ESWELCOME.DataBase.Procedure.BOL.MSG
 
         #endregion
     }
+
+    //public class MSG_sr_SCHSTAFF
+    //{
+    //    #region 생성자
+    //    public MSG_sr_SCHSTAFF()
+    //    {
+    //        this._schStaffHp = null;
+    //    }
+    //    #endregion
+
+    //    #region 프로퍼티
+
+    //    private string _schStaffHp;
+
+    //    [ESBind("schStaffHp", "")]
+    //    [ESNfx.Attributes.ExcelBind("schStaffHp")]
+    //    public string schStaffHp
+    //    {
+    //        get { return _schStaffHp; }
+    //        set { _schStaffHp = value; }
+    //    }
+
+    //    #endregion
+    //}
 
 
     public class iMSG_iu_MESSAGE

@@ -32,6 +32,7 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
             this._MSG_CONTENT = null;
             this._MSG_STATUS = null;
             this._MSG_VALIDITY = null;
+            this._MSG_ID = null;
             this._STF_ID = null;
             this._STAFF_NAME = null;
             this._STAFF_ID = null;
@@ -238,6 +239,16 @@ namespace ESWELCOME.DataBase.Procedure.BOL.SCH
         {
             get { return _MSG_VALIDITY; }
             set { _MSG_VALIDITY = value; }
+        }
+
+        private int? _MSG_ID;
+
+        [ESBind("MSG_ID", "")]
+        [ESNfx.Attributes.ExcelBind("MSG_ID")]
+        public int? MSG_ID
+        {
+            get { return _MSG_ID; }
+            set { _MSG_ID = value; }
         }
 
         private int? _STF_ID;

@@ -27,8 +27,48 @@ namespace ESWELCOME.DataBase.Procedure.DAL
         }
 
         ///<summary>
+        ///작성일 : 2023-11-25 오후 4:01:06
+        ///수정일 : 2023-12-06 오후 2:01:00
+        ///</summary>
+        public ESNfx.GenericReturn<MSG_sr_STAFFHP> MSG_sr_STAFFHP(int? sch_id)
+        {
+            SqlCommand cmd;
+
+            List<BOL.MSG.MSG_sr_STAFFHP> list =
+                base.GetListOfType<MSG_sr_STAFFHP>(out cmd, "dbo.MSG_sr_STAFFHP"
+                //input parameter 시작
+                    , CreateParameter("@SCH_ID", SqlDbType.Int, sch_id)
+
+                    //output parameter 시작
+                    , CreateParameter("@memMobileNo", SqlDbType.VarChar, DBNull.Value, 30, ParameterDirection.Output)
+
+            );
+            return ESNfx.Generic.GetTopOne<MSG_sr_STAFFHP>(list);
+        }
+
+        /////<summary>
+        /////작성일 : 2023-11-24 오후 7:13:06
+        /////수정일 : 2023-11-24 오후 7:13:06
+        /////</summary>
+        //public ESNfx.GenericReturn<MSG_sr_SCHSTAFF> MSG_sr_SCHSTAFF(int? stf_id)
+        //{
+        //    SqlCommand cmd;
+
+        //    List<BOL.MSG.MSG_sr_SCHSTAFF> list =
+        //        base.GetListOfType<MSG_sr_SCHSTAFF>(out cmd, "dbo.MSG_sr_SCHSTAFF"
+        //        //input parameter 시작
+        //            , CreateParameter("@STF_ID", SqlDbType.Int, stf_id)
+
+        //            //output parameter 시작
+        //            , CreateParameter("@memMobileNo", SqlDbType.VarChar, DBNull.Value, 30, ParameterDirection.Output)
+
+        //    );
+        //    return ESNfx.Generic.GetTopOne<MSG_sr_SCHSTAFF>(list);
+        //}
+
+        ///<summary>
         ///작성일 : 2023-11-23 오후 10:13:55
-        ///수정일 : 2023-11-24 오후 7:17:10
+        ///수정일 : 2023-12-05 오후 10:02:24
         ///</summary>
         public ESNfx.ReturnValue MSG_iu_MESSAGE(iMSG_iu_MESSAGE param)
         {
@@ -85,46 +125,6 @@ namespace ESWELCOME.DataBase.Procedure.DAL
                 ret["@SQLLOG"] = base.ErrorSQL.ToString();
             }
             return ret;
-        }
-
-        ///<summary>
-        ///작성일 : 2023-11-24 오후 7:13:06
-        ///수정일 : 2023-11-24 오후 7:13:06
-        ///</summary>
-        public ESNfx.GenericReturn<MSG_sr_SCHSTAFF> MSG_sr_SCHSTAFF(int? stf_id)
-        {
-            SqlCommand cmd;
-
-            List<BOL.MSG.MSG_sr_SCHSTAFF> list =
-                base.GetListOfType<MSG_sr_SCHSTAFF>(out cmd, "dbo.MSG_sr_SCHSTAFF"
-                //input parameter 시작
-                    , CreateParameter("@STF_ID", SqlDbType.Int, stf_id)
-
-                    //output parameter 시작
-                    , CreateParameter("@memMobileNo", SqlDbType.VarChar, DBNull.Value, 30, ParameterDirection.Output)
-
-            );
-            return ESNfx.Generic.GetTopOne<MSG_sr_SCHSTAFF>(list);
-        }
-
-        ///<summary>
-        ///작성일 : 2023-11-25 오후 4:01:06
-        ///수정일 : 2023-11-25 오후 4:01:06
-        ///</summary>
-        public ESNfx.GenericReturn<MSG_sr_STAFFHP> MSG_sr_STAFFHP(int? stf_id)
-        {
-            SqlCommand cmd;
-
-            List<BOL.MSG.MSG_sr_STAFFHP> list =
-                base.GetListOfType<MSG_sr_STAFFHP>(out cmd, "dbo.MSG_sr_STAFFHP"
-                //input parameter 시작
-                    , CreateParameter("@STF_ID", SqlDbType.Int, stf_id)
-
-                    //output parameter 시작
-                    , CreateParameter("@memMobileNo", SqlDbType.VarChar, DBNull.Value, 30, ParameterDirection.Output)
-
-            );
-            return ESNfx.Generic.GetTopOne<MSG_sr_STAFFHP>(list);
         }
 
 
