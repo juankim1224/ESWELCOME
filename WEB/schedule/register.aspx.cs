@@ -337,17 +337,20 @@ namespace WEB.schedule
             {
                 foreach (var a in arrStaff)
                 {
-                    if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
-
-                    var staff = new iSCH_iu_STAFF
+                    if (a != "")
                     {
-                        MEM_ID = Convert.ToInt32(a),
-                        SCH_ID = schId,
-                        STF_GUBUN = gubun,
-                        IU_GUBUN = "U",
-                        CRE_MEMID = 1,      // 하드코딩
-                    };
-                    staffList.Add(staff);
+                        if (a == msgStaff) { gubun = 1; } else { gubun = 2; }
+
+                        var staff = new iSCH_iu_STAFF
+                        {
+                            MEM_ID = Convert.ToInt32(a),
+                            SCH_ID = schId,
+                            STF_GUBUN = gubun,
+                            IU_GUBUN = "U",
+                            CRE_MEMID = 1,      // 하드코딩
+                        };
+                        staffList.Add(staff);
+                    }
 
                 }
 
@@ -505,12 +508,56 @@ namespace WEB.schedule
                     }
 
                 }
-
-
             }
 
         }
 
+        /// <summary>
+        /// 접견인 삭제
+        /// </summary>
+        protected void lnkDeleteStaff_Click(object sender, EventArgs e)
+        {
+            var deleteStaff = hdd_X_STAFF.Value; // 삭제 대상 STAFF_ID
 
+
+            var hddStaffList = hdd_ARR_STAFF.Value;  // 현재 STAFF_ID  {1,2,3,4,5}
+            String[] arrStaff = hddStaffList.Split(',');
+
+            ltrStaffList.Text = "";
+            hdd_ARR_STAFF.Value = "";
+
+            foreach (var a in arrStaff)
+            {
+                // 체크된 접견인 가져오기 
+                var msgStaff = Request.Params["msgStaff"];
+
+                //
+                if (a != deleteStaff)
+                {
+                    hdd_ARR_STAFF.Value += a + ',';
+
+                    var item = ESFacade.GetInstance.GetMEMBER(Convert.ToInt32(a)).GenericItem;
+                    var staffName = item.MEM_NAME + item.MEM_PST;
+
+
+                    // 대표접견인
+                    if (a == msgStaff)
+                    {
+                        ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\" checked /><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s" + a, a, staffName);
+                    }
+                    else
+                    {
+                        ltrStaffList.Text += string.Format("<p id={0}><input type=\"radio\" id={1} value={1} name=\"msgStaff\" /><label>{2}</label><a href=\"javascript:fnDeleteStaff({1})\" class=\"del\"> X </a></p>", "s" + a, a, staffName);
+                    }
+                }
+
+            }
+
+
+
+
+
+
+        }
     }
 }

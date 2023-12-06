@@ -276,6 +276,15 @@ namespace WEB.schedule
         protected global::System.Web.UI.WebControls.HiddenField hdd_SchId;
 
         /// <summary>
+        /// hdd_X_STAFF 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdd_X_STAFF;
+
+        /// <summary>
         /// lnkDummy 컨트롤입니다.
         /// </summary>
         /// <remarks>
@@ -310,6 +319,15 @@ namespace WEB.schedule
         /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkDummy4;
+
+        /// <summary>
+        /// lnkDeleteStaff 컨트롤입니다.
+        /// </summary>
+        /// <remarks>
+        /// 자동 생성 필드입니다.
+        /// 수정하려면 디자이너 파일에서 코드 숨김 파일로 필드 선언을 이동하세요.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDeleteStaff;
 
         /// <summary>
         /// ucSMS 컨트롤입니다.

@@ -57,7 +57,7 @@ namespace WEB.controls
                 schHourMin.InnerText = item.SCH_HOUR + "시 " + item.SCH_MIN + "분";
 
                 // 대표 접견인 번호
-                msgStaff.InnerText = MSGFacade.GetInstance.GetSTAFFHP(item.STF_ID).GenericItem.schStaffHp;
+                msgStaff.InnerText = MSGFacade.GetInstance.GetSTAFFHP(item.SCH_ID).GenericItem.schStaffHp;
 
                 if (item.SCH_STATUS == "완료")
                 {
@@ -74,7 +74,7 @@ namespace WEB.controls
         /// </summary>
         protected void lnkDummy2_Click(object sender, EventArgs e)
         {
-            if(hddSCH_ID.Value == "")
+            if (hddSCH_ID.Value == "")
             {
                 resendMSG.Visible = false;
             }

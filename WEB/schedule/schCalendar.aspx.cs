@@ -84,10 +84,11 @@ namespace WEB.schedule
             // 스케줄 목록
             var scheduleList = SCHFacade.GetInstance.InquiryCALENDAR(pCurYear, pCurMonth);
 
-            DateTime curDay = new DateTime(int.Parse(pCurYear), int.Parse(pCurMonth), 1);   // 20231101
-            int iWeekDay = Convert.ToInt32(curDay.DayOfWeek);   // 월-1, 화-2, 수-3 ...
+            DateTime curDay = new DateTime(int.Parse(pCurYear), int.Parse(pCurMonth), 1);   // 당월 1일
+            int iWeekDay = Convert.ToInt32(curDay.DayOfWeek);   // 당월 1일의 요일
 
-            DateTime useDay = new DateTime(int.Parse(pCurYear), int.Parse(pCurMonth), 1).AddMonths(1).AddDays(-1);  // 20231031
+
+            DateTime useDay = new DateTime(int.Parse(pCurYear), int.Parse(pCurMonth), 1).AddMonths(1).AddDays(-1);  // 전월 마지막 일
             int iLastDay = useDay.Day;
 
             // th 선언
@@ -101,12 +102,15 @@ namespace WEB.schedule
                 TableHeaderCell tcell = new TableHeaderCell();
                 tcell.Text = pWeekDay[i];
                 if (pWeekDay[i] == "일") tcell.CssClass = "sunday";
+                if (pWeekDay[i] == "토") tcell.CssClass = "saturday";
                 hrow.Cells.Add(tcell);
             }
             // asp:table에 적용된 th 추가
             this.tblCalendar.Rows.Add(hrow);
             hrow.CssClass = "trtr";
 
+            // 전달 Day 담을 변수
+            var preDay = 0;
 
             for (int i = 0, d = 1, p = 0, n = 0; i < 6; i++)
             {
@@ -115,6 +119,7 @@ namespace WEB.schedule
 
                 for (int j = 0; j < 7; j++)
                 {
+                    // 전달 해당되는 cell
                     TableCell cell = new TableCell();
 
                     // 전 달의 끝 날짜들  // 10/29, 10/30, 10/31
@@ -122,31 +127,41 @@ namespace WEB.schedule
                     {
                         int previousMonthLastDay = curDay.AddDays(-1).Day;
                         int previousMonthDay = previousMonthLastDay - (iWeekDay - 1);
-                        cell.CssClass = "calendar-in before-date";
+
+                        preDay = previousMonthDay;
+
+                        StringBuilder sCellText = new StringBuilder(string.Format("<div class=\"calendar-in before-date\"><span>{0}</span>", preDay));
+
+                        preDay += 1;
+
                         row.Cells.Add(cell);
                         p++;
                     }
-                    // 해당 달의 날짜를 벗어난 빈 셀들 1부터 채워 넣기  // 12/1, 12/2
+                    // 해당 달의 날짜를 벗어난 빈 셀들 1부터 채워 넣기  // 1일 ~ 해당 월 말일
                     else if (iLastDay < d)
                     {
                         n++;
-                        cell.CssClass = "calendar-in before-date";
-                        row.Cells.Add(cell);
+
                     }
                     // 해당 달의 일자 채워넣기
                     else
                     {
                         DateTime curDate = new DateTime(int.Parse(pCurYear), int.Parse(pCurMonth), d);
+        
                         if (Convert.ToInt32(curDate.DayOfWeek) == 0) cell.CssClass = "sunday";
+                        if (Convert.ToInt32(curDate.DayOfWeek) == 6) cell.CssClass = "saturday";
                         StringBuilder sCellText = new StringBuilder(string.Format("<div class='calendar-in' style=\"position: relative;\"><span>{0}</span>", d.ToString()));
                         string Day = d.ToString().Length == 1 ? "0" + d.ToString() : d.ToString();
 
+                        // 확인용 
+                        var Day2 = Day;
+                        
                         foreach (var schedule in scheduleList)
                         {
                             if (Day == schedule.SCH_DAY)
                             {
                                 var equalDayCount = scheduleList.FindAll(x => x.SCH_DAY == Day).Count;
-                                
+
                                 if (equalDayCount < 3)
                                 {
                                     switch (schedule.SCH_TYPE)
@@ -173,12 +188,12 @@ namespace WEB.schedule
                             }
                         }
 
-                        foreach(var sch in scheduleList)
+                        foreach (var sch in scheduleList)
                         {
-                            if(Day == sch.SCH_DAY)
+                            if (Day == sch.SCH_DAY)
                             {
                                 var equalDayCount = scheduleList.FindAll(x => x.SCH_DAY == Day).Count;
-                                if(equalDayCount >= 3)
+                                if (equalDayCount >= 3)
                                 {
                                     switch (sch.SCH_TYPE)
                                     {
@@ -224,16 +239,29 @@ namespace WEB.schedule
 
         protected void lnkPrevBtn_Click(object sender, EventArgs e)
         {
-            hddYear.Value = "2023"; // 임시
             hddMonth.Value = (Convert.ToInt32(hddMonth.Value) - 1).ToString();
+
+            // 1월일 시 -> 12월 & 년도 - 1
+            if (hddMonth.Value == "0")
+            {
+                hddMonth.Value = "12";
+                hddYear.Value = (Convert.ToInt32(hddYear.Value) - 1).ToString();
+            }
 
             MakeCalendar();
         }
 
         protected void lnkNextBtn_Click(object sender, EventArgs e)
         {
-            hddYear.Value = "2024";
+
             hddMonth.Value = (Convert.ToInt32(hddMonth.Value) + 1).ToString();
+
+            // 12월일 시 -> 1월 & 년도 + 1
+            if (hddMonth.Value == "13")
+            {
+                hddMonth.Value = "1";
+                hddYear.Value = (Convert.ToInt32(hddYear.Value) + 1).ToString();
+            }
 
             MakeCalendar();
         }

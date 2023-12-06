@@ -35,14 +35,14 @@
             margin-top: 30px;
         }
 
-        .threeUp:hover {
-            cursor: pointer;
-        }
+            .threeUp:hover {
+                cursor: pointer;
+            }
 
-        .threeUp + ul {
-            padding: 12px;
-            background-color: white;
-        }
+            .threeUp + ul {
+                padding: 12px;
+                background-color: white;
+            }
 
         .trtr {
             height: 40px;
@@ -51,11 +51,18 @@
         .sunday {
             color: red;
         }
-        .sunday span {
-            color: red;
+
+            .sunday span {
+                color: red;
+            }
+
+        .saturday {
+            color: dodgerblue;
         }
 
-
+            .saturday span {
+                color: dodgerblue;
+            }
     </style>
 
     <script>

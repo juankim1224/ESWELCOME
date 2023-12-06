@@ -414,6 +414,8 @@
             <asp:HiddenField ID="hdd_MSG_GUBUN" runat="server" />
             <asp:HiddenField ID="hdd_TND_CHECK" runat="server" />
             <asp:HiddenField ID="hdd_SchId" runat="server" />
+            <asp:HiddenField ID="hdd_X_STAFF" runat="server" />
+
             <!-- //게시판 내용 -->
 
         </article>
@@ -424,26 +426,33 @@
     <asp:LinkButton ID="lnkDummy3" runat="server" OnClick="lnkDummy3_Click"></asp:LinkButton>
     <asp:LinkButton ID="lnkDummy4" runat="server" OnClick="lnkDummy4_Click"></asp:LinkButton>
 
+    <asp:LinkButton ID="lnkDeleteStaff" runat="server" OnClick="lnkDeleteStaff_Click"></asp:LinkButton>
+
     <MSG:ucSMS ID="ucSMS" runat="server" PopWidth="480" />
 
     <script>
         function fnDeleteStaff(radioId) {
 
-            var deleteRadio = $('#' + radioId).val().toString();
+            alert('선택된 접견인을 삭제하시겠습니까?');
+            $('#<%=hdd_X_STAFF.ClientID %>').val(radioId);
+            __doPostBack('<%=lnkDeleteStaff.UniqueID%>', '');
+            
 
-            var hddStaffList = $("input[id$='hdd_ARR_STAFF']").val();
-            var staff = hddStaffList.split(',');
+        //    var deleteRadio = $('#' + radioId).val().toString();
+            
+        //    var hddStaffList = $("input[id$='hdd_ARR_STAFF']").val();
+        //    var staff = hddStaffList.split(',');
 
 
-            for (let i = 0; i <= staff.length; i++) {
+        //    for (let i = 0; i <= staff.length; i++) {
 
-                if (staff[i] === deleteRadio) {
-                    var index = staff.indexOf(staff[i]);
-                    var result = staff.splice(index, 1);
-                    $("input[id$='hdd_ARR_STAFF']").val(staff);
-                }
-            }
-            $('#s' + radioId).remove();
+        //        if (staff[i] === deleteRadio) {
+        //            var index = staff.indexOf(staff[i]);
+        //            var result = staff.splice(index, 1);
+        //            $("input[id$='hdd_ARR_STAFF']").val(staff);
+        //        }
+        //    }
+        //    $('#s' + radioId).remove();
         }
 
     </script>
