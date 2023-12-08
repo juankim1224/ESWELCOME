@@ -217,15 +217,15 @@ namespace WEB
             return Regex.Replace(tb.Value, "[,]", "", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         }
 
-        public static void BindSelectBox<T>(this HtmlSelect ctl, IEnumerable<T> dataSource, string textField, string valueField, params char[] separator)
-        {
-            BindListItem(ctl, dataSource, textField, valueField, separator);
-        }
+        //public static void BindSelectBox<T>(this HtmlSelect ctl, IEnumerable<T> dataSource, string textField, string valueField, params char[] separator)
+        //{
+        //    BindListItem(ctl, dataSource, textField, valueField, separator);
+        //}
 
-        public static void BindDropDownList<T>(this DropDownList ctl, IEnumerable<T> dataSource, string textField, string valueField, params char[] separator)
-        {
-            BindListItem(ctl, dataSource, textField, valueField, separator);
-        }
+        //public static void BindDropDownList<T>(this DropDownList ctl, IEnumerable<T> dataSource, string textField, string valueField, params char[] separator)
+        //{
+        //    BindListItem(ctl, dataSource, textField, valueField, separator);
+        //}
 
         public static List<T> OrderBy2<T>(this IEnumerable<T> list, string sortExpression)
         {

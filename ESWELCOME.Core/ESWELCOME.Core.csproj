@@ -58,7 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="LoginService.cs" />
+    <Compile Include="LoginTicket.cs" />
+    <Compile Include="SiteMemType.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Procedure\BOL\ADM.cs" />
     <Compile Include="Procedure\BOL\ES.cs" />

@@ -39,35 +39,35 @@ namespace ESWELCOME.Core
         /// <summary>
         /// 로그인 활성화 여부 체크
         /// </summary>
-        /// <returns></returns>
         public static SiteUser GetAdminLoginUser(ISBILoginTicket ticket)
         {
             var user = HttpContext.Current.Session[SES_ADMIN] as SiteUser;
 
-            //if (user == null)
-            //{
-            //    HttpCookie ck = HttpContext.Current.Request.Cookies[CK_KEY];
+            if (user == null)
+            {
+                HttpCookie ck = HttpContext.Current.Request.Cookies[CK_KEY];
 
-            //    if (ck != null && ck[CK_KEY_INFO] != null && !string.IsNullOrEmpty(ck[CK_KEY_INFO]))
-            //    {
-            //        string[] cookieInfo = Utilities.DecryptString(ck[CK_KEY_INFO], ENC_PASSWORD).Split('@');
-            //        if (cookieInfo != null && cookieInfo.Length == 2)
-            //        {
-            //            ticket.LoginID = cookieInfo[0];
-            //            ticket.LoginPWD = cookieInfo[1];
-            //            ticket.SHAPWD = true;
+                if (ck != null && ck[CK_KEY_INFO] != null && !string.IsNullOrEmpty(ck[CK_KEY_INFO]))
+                {
+                    string[] cookieInfo = Utilities.DecryptString(ck[CK_KEY_INFO], ENC_PASSWORD).Split('@');
+                    if (cookieInfo != null && cookieInfo.Length == 2)
+                    {
+                        ticket.LoginID = cookieInfo[0];
+                        ticket.LoginPWD = cookieInfo[1];
+                        ticket.SHAPWD = true;
 
-            //            user = SiteUser.LogIn(ticket);
-            //            SaveSession(user);
-            //        }
-            //    }
-            //}
+                        user = SiteUser.LogIn(ticket);
+                        SaveSession(user);
+                    }
+                }
+            }
             return user;
         }
 
+
         public static void UpdateUserInfo(SiteUser loginUser)
         {
-            SaveAdminSession(loginUser);
+            SaveSession(loginUser);
         }
 
         public static void UpdateUserInfo(SiteUser loginUser, string loginId, string encryptPassword)
@@ -76,11 +76,11 @@ namespace ESWELCOME.Core
             SaveAdminCookie(loginId, encryptPassword);
         }
 
+
         /// <summary>
         /// 로그인정보 저장(세션)
         /// </summary>
-        /// <param name="loginUser"></param>
-        private static void SaveAdminSession(SiteUser loginUser)
+        private static void SaveSession(SiteUser loginUser)
         {
             HttpContext.Current.Session[SES_ADMIN] = loginUser;
         }
@@ -89,7 +89,7 @@ namespace ESWELCOME.Core
         /// <summary>
         /// 이전 사용자 정보 세션 저장
         /// </summary>
-        public static void SavePrevSessionInfo()
+        public static void SavePreSessionInfo()
         {
             if (HttpContext.Current.Session[SES_ADMIN] != null)
             {
@@ -100,6 +100,7 @@ namespace ESWELCOME.Core
 
         }
 
+
         public static void AbandonSession()
         {
             if (HttpContext.Current.Session[PRE_SES_ADMIN] != null)
@@ -109,13 +110,14 @@ namespace ESWELCOME.Core
 
                 var preLoginInfo = HttpContext.Current.Session[SES_ADMIN] as SiteUser;
 
-                SaveAdminSession(preLoginInfo);
+                SaveSession(preLoginInfo);
             }
             else
             {
                 HttpContext.Current.Session[SES_ADMIN] = null;
             }
         }
+
 
         /// <summary>
         /// 로그인정보 저장(쿠키)
@@ -127,9 +129,9 @@ namespace ESWELCOME.Core
 
             string encodeUserInfo = loginID + "@" + loginPassword;
 
-            //hc.Values.Add(CK_KEY_INFO, bizpay.Core.Utilities.EncryptString(encodeUserInfo, ENC_PASSWORD));
-            //hc.Domain = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-            //hc.Path = "/";
+            hc.Values.Add(CK_KEY_INFO, ESWELCOME.Core.Utilities.EncryptString(encodeUserInfo, ENC_PASSWORD));
+            hc.Domain = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+            hc.Path = "/";
 
             if (IsCookieContains(CK_KEY))
             {
@@ -155,7 +157,6 @@ namespace ESWELCOME.Core
         /// <summary>
         /// 로그아웃
         /// </summary>
-        /// <param name="returnUrl"></param>
         public static void LogOut(string returnUrl)
         {
             SessionOut();
@@ -181,36 +182,23 @@ namespace ESWELCOME.Core
             HttpContext.Current.Response.Cookies[CK_KEY].Domain = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
         }
 
+
         /// <summary>
         /// 로그인 서비스
         /// </summary>
-        /// <param name="ticket"></param>
-        /// <param name="returnUrl"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
         public static string Login(ILoginTicket ticket, string returnUrl)
         {
             string message = string.Empty;
 
             var reUrl = HttpContext.Current.Request.QueryString["reUrl"];
 
-            var grtno = HttpContext.Current.Request.QueryString["grtno"];
-
-            // 트러스트온에서 넘오온 보증번호를 받아서 넘기도록 JAKIM 20211203
-            if (grtno != null)
-                reUrl = reUrl + "&grtno=" + grtno;
-
-            //var reUrl = returnUrl;
             var user = SiteUser.LogIn(ticket);
-
-            //var user = SiteUser.LogIn(ticket) as LoginUser;
 
             if (user != null && user.IsLoginSuccess)
             {
                 string saveID = HttpContext.Current.Request.Form["saveloginid"];
                 HttpCookie ckSaveID = new HttpCookie("ckSaveID");
                 ckSaveID.Domain = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-                //ckSaveID.Expires = DateTime.Now.AddHours(1);
                 ckSaveID.Expires = DateTime.Now.AddYears(1);
 
                 if (saveID == "save")
@@ -224,9 +212,10 @@ namespace ESWELCOME.Core
 
                 HttpContext.Current.Response.Cookies.Add(ckSaveID);
 
-                SaveAdminSession(user);
+                SaveSession(user);
 
-                if (returnUrl != "/members/home.aspx")
+                // *****
+                if (returnUrl != "/schedule/schMain.aspx")
                 {
                     if (!string.IsNullOrEmpty(returnUrl))
                         reUrl = returnUrl;
@@ -272,8 +261,6 @@ namespace ESWELCOME.Core
 
             return ret;
         }
+
     }
-
-
-
 }

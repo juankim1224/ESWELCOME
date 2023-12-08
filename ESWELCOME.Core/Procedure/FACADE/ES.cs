@@ -39,6 +39,16 @@ namespace ESWELCOME.DataBase.Procedure.Facade
             return proc.ES_sr_MEMBER(mem_id);
         }
 
+        ///<summary>
+        ///작성일 : 2023-12-08 오전 11:49:20
+        ///수정일 : 2023-12-08 오후 12:16:35
+        ///</summary>
+        public ESNfx.GenericReturn<ES_sr_MemLoginUser> GetMemLoginUser(string loginid, string password)
+        {
+            return proc.ES_sr_MemLoginUser(loginid, password);
+        }
+
+
         #endregion
 
         #region Multiple Select
