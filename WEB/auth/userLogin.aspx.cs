@@ -105,7 +105,7 @@ namespace WEB.auth
 
             if (message != string.Empty)
             {
-                WebHelper.AjaxOperation(upnlLogin, "jsLogin", "$('input[name=\"txtLoginID\"]').focus();" + message, true);
+                WebHelper.AjaxOperation(Page, "jsLogin", "$('input[name=\"txtLoginID\"]').focus();" + message, true);
             }
 
         }

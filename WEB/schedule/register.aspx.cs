@@ -1,5 +1,4 @@
 ﻿using ESNfx;
-using ESNfx3.Web.Page;
 using ESWELCOME.Core;
 using ESWELCOME.Core.Procedure;
 using ESWELCOME.DataBase.Procedure.BOL.MSG;
