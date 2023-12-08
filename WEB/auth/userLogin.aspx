@@ -1,22 +1,33 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/master/Base.Master" AutoEventWireup="true" CodeBehind="userLogin.aspx.cs" Inherits="WEB.auth.userLogin" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script>
+    <script type="text/javascript">
 
-        function fnCheckLogin() {
-            var msg = es.valid.isRequired($('div.loginBox'));
+        $(function () {
+            var init = function () {
 
-            if (msg != '') {
-                alert('다음은 필수사항입니다.\n' + msg);
-                return false;
-            }
-            else {
-                __doPostBack('<%=lnkLogin.UniqueID%>', '');
-            }
-        }
+                $('#txtPassword').keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        __doPostBack('<%=lnkLogin.UniqueID %>', '');
+                    }
+                });
 
+                //-- 로그인아이디
+                var ckLoginID = es.cookie.get("ckSaveID");
+                if (ckLoginID != '') {
+                    $('input[name="txtLoginID"]').val(ckLoginID);
+                    $('input[name="saveloginid"]').attr('checked', true);
+                }
+                $('#txtLoginID').focus();
+            };
+
+            init();
+
+            __globalFuc.add(init);
+        });
 
     </script>
+
 </asp:Content>
 
 
@@ -40,28 +51,32 @@
                     <div>
                         <p class="vst-title">
                             ID
+                       
                         </p>
                         <div>
-                            <input name="txtLoginID"  id="txtLoginID"  placeholder="아이디를 입력해 주세요.">
+                            <input name="txtLoginID" type="text" placeholder="아이디를 입력해 주세요.">
                         </div>
                     </div>
 
                     <div>
                         <p class="vst-title">
                             PASSWORD
+                       
                         </p>
                         <div>
-                            <input name="txtLoginPwd"  id="txtLoginPwd"   placeholder="비밀번호를 입력해 주세요.">
+                            <input type="password" name="txtPassword" placeholder="비밀번호를 입력해 주세요.">
                         </div>
                     </div>
 
                     <div class="mt10">
-                        <input type="checkbox" name="saveloginid"  id="saveloginid" value="save">
+                        <input name="saveloginid" id="saveloginid" type="checkbox" value="save">
                         <label>아이디 저장</label>
                     </div>
                 </div>
                 <div class="btns-wrap mt40">
-                    <a href="javascript:fnCheckLogin();" class="btns secondary-btn btn-big">로그인</a>
+                    <asp:LinkButton ID="lnkLogin" CssClass="btns secondary-btn btn-big" runat="server" OnClick="lnkLogin_Click">
+                    로그인
+                        </asp:LinkButton>
                 </div>
             </div>
         </article>

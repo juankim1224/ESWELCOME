@@ -214,14 +214,13 @@ namespace ESWELCOME.Core
 
                 SaveSession(user);
 
-                // *****
-                if (returnUrl != "/schedule/schMain.aspx")
+                if (returnUrl != "/schedule/home.aspx")
                 {
                     if (!string.IsNullOrEmpty(returnUrl))
                         reUrl = returnUrl;
                     else if (string.IsNullOrEmpty(reUrl))
                     {
-                        reUrl = "/default.aspx";
+                        reUrl = "/schedule/schMain.aspx";
                     }
 
                     if (!string.IsNullOrEmpty((ticket as ISBILoginTicket).ErrorMessage))
