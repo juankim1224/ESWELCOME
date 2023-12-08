@@ -212,6 +212,7 @@
     <Compile Include="admin\memList.aspx.designer.cs">
       <DependentUpon>memList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\auth\LoginTicket.cs" />
     <Compile Include="App_Code\BaseUC.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

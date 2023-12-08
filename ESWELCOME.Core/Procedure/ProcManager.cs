@@ -27,7 +27,7 @@ namespace ESWELCOME.Core.Procedure
         /// <summary>
         /// 1. ADM Facade
         /// </summary>
-        public ADMFacade EMPFacade
+        public ADMFacade ADMFacade
         {
             get
             {
@@ -67,6 +67,5 @@ namespace ESWELCOME.Core.Procedure
                 return MSGFacade.GetInstance;
             }
         }
-
     }
 }

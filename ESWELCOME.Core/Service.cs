@@ -194,12 +194,6 @@ namespace ESWELCOME.Core
 
             var reUrl = HttpContext.Current.Request.QueryString["reUrl"];
 
-            var grtno = HttpContext.Current.Request.QueryString["grtno"];
-
-            // 트러스트온에서 넘오온 보증번호를 받아서 넘기도록 JAKIM 20211203
-            if (grtno != null)
-                reUrl = reUrl + "&grtno=" + grtno;
-
             //var reUrl = returnUrl;
             var user = SiteUser.LogIn(ticket);
 
@@ -226,13 +220,13 @@ namespace ESWELCOME.Core
 
                 SaveAdminSession(user);
 
-                if (returnUrl != "/members/home.aspx")
+                if (returnUrl != "/schedule/home.aspx")
                 {
                     if (!string.IsNullOrEmpty(returnUrl))
                         reUrl = returnUrl;
                     else if (string.IsNullOrEmpty(reUrl))
                     {
-                        reUrl = "/default.aspx";
+                        reUrl = "/schedule/schMain.aspx";
                     }
 
                     if (!string.IsNullOrEmpty((ticket as ISBILoginTicket).ErrorMessage))

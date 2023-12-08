@@ -27,6 +27,23 @@ namespace ESWELCOME.DataBase.Procedure.DAL
         }
 
         ///<summary>
+		///작성일 : 2023-12-08 오전 11:49:20
+		///수정일 : 2023-12-08 오후 1:34:28
+		///</summary>
+		public ESNfx.GenericReturn<ES_sr_MemLoginUser> ES_sr_MemLoginUser(string loginid, string password)
+        {
+            List<BOL.ES.ES_sr_MemLoginUser> list =
+                base.GetListOfType<ES_sr_MemLoginUser>("dbo.ES_sr_MemLoginUser"             //input parameter 시작
+                , CreateParameter("@LoginID", SqlDbType.VarChar, loginid)
+                , CreateParameter("@PassWord", SqlDbType.VarChar, password)
+
+            );
+            return ESNfx.Generic.GetTopOne<ES_sr_MemLoginUser>(list);
+        }
+
+
+
+        ///<summary>
         ///작성일 : 2023-11-26 오후 5:46:24
         ///수정일 : 2023-11-26 오후 5:50:27
         ///</summary>

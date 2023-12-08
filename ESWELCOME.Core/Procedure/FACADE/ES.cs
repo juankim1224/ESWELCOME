@@ -31,6 +31,16 @@ namespace ESWELCOME.DataBase.Procedure.Facade
         #region Single Select
 
         ///<summary>
+        ///작성일 : 2023-12-08 오전 11:49:20
+        ///수정일 : 2023-12-08 오후 1:34:28
+        ///</summary>
+        public ESNfx.GenericReturn<ES_sr_MemLoginUser> GetMemLoginUser(string loginid, string password)
+        {
+            return proc.ES_sr_MemLoginUser(loginid, password);
+        }
+
+
+        ///<summary>
         ///작성일 : 2023-11-27 오전 10:53:47
         ///수정일 : 2023-11-27 오전 10:54:55
         ///</summary>
